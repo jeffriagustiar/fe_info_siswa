@@ -23,7 +23,8 @@ class SiswaService{
       headers: headers
     );
 
-    print(response.body);
+    // print(response.body);
+    print("bisa");
 
     if (response.statusCode == 200) {
       List  data = jsonDecode(response.body)['data'];
@@ -32,6 +33,32 @@ class SiswaService{
       for (var item in data) {
         siswa.add(SiswaModel.fromJson(item));
       }
+      return siswa;
+    } else {
+      throw Exception("Gagal Ambil data");
+    }
+  }
+
+  Future<SiswaModel> getSiswaByNis(String token,int nis) async{
+    var url = Uri.parse('$baseUrl/dataSiswa/?nis=$nis');
+
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization' : token
+    };
+
+    var response = await http.get(
+      url,
+      headers: headers
+    );
+
+    // print(response.body);
+    print("bisa");
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body)['data'];
+      final siswa = SiswaModel.fromJson(data);
+
       return siswa;
     } else {
       throw Exception("Gagal Ambil data");

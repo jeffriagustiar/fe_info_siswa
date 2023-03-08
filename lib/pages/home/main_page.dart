@@ -1,5 +1,6 @@
 import 'package:fe_info_siswa/models/user_model.dart';
 import 'package:fe_info_siswa/pages/home/home_page.dart';
+import 'package:fe_info_siswa/pages/home/list_siswa_page.dart';
 import 'package:fe_info_siswa/pages/home/profile_page.dart';
 import 'package:fe_info_siswa/provider/auth_provider.dart';
 import 'package:fe_info_siswa/provider/siswa_provider.dart';
@@ -21,19 +22,6 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-
-    Widget cartButtom(){
-      return FloatingActionButton(
-        backgroundColor: secondColor,
-        onPressed: () {
-          Navigator.pushNamed(context, '/cart');
-        },
-        child: Image.asset(
-          'assets/Cart_icon.png',
-          width: 20,
-        ),
-      );
-    }
 
     Widget customBottomNav(){
       return ClipRRect(
@@ -62,7 +50,7 @@ class _MainPageState extends State<MainPage> {
                     bottom: 5
                   ),
                   child: Image.asset(
-                    'assets/Home_icon.png',
+                    'assets/Profile_icon.png',
                     width: 21,
                     color:  currentIndex == 0 ? primaryColor : Color(0xff808191),
                   ),
@@ -129,7 +117,7 @@ class _MainPageState extends State<MainPage> {
           return const HomePage();
           break;
         case 1:
-          return ProfilePage();
+          return ListSiswaPage();
           break;
         case 2:
           return ProfilePage();
@@ -144,7 +132,6 @@ class _MainPageState extends State<MainPage> {
 
     return Scaffold(
       backgroundColor: currentIndex == 0 ? backgroundColor1: backgroundColor3,
-      floatingActionButton: cartButtom(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: customBottomNav(),
       body: body()

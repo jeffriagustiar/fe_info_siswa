@@ -1,11 +1,11 @@
-import 'package:fe_info_siswa/models/user_model.dart';
-import 'package:fe_info_siswa/provider/auth_provider.dart';
+import 'package:fe_info_siswa/provider/siswa2_provider.dart';
 import 'package:fe_info_siswa/provider/siswa_provider.dart';
 import 'package:fe_info_siswa/share/theme.dart';
-import 'package:fe_info_siswa/widgets/loading_buttom.dart';
+import 'package:fe_info_siswa/widgets/loading.dart';
 import 'package:fe_info_siswa/widgets/siswa_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sp_util/sp_util.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -16,23 +16,36 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-  @override
-  void initState() { 
-    getInit();
-    super.initState();
+  String? token = SpUtil.getString('token');
+  int? angka = SpUtil.getInt('a');
+  int? nis = SpUtil.getInt('nis');
+
+  // ignore: unused_field
+  bool _isRefreshing = false;
+
+  Future<void> getInit() async{
+    setState(() {
+      _isRefreshing = true;
+    });
+    data();
+    setState(() {
+      _isRefreshing = false;
+    });
   }
 
-  getInit() async{
-    
+  data() async{
+    await Provider.of<SiswaProvider>(context, listen: false).getsiswa(token!);
+    // ignore: use_build_context_synchronously
+    await Provider.of<Siswa2Provider>(context, listen: false).getSiswaByNis(token!, nis!);
   }
   
   @override
   Widget build(BuildContext context) {
 
-    AuthProvider authProvider = Provider.of<AuthProvider>(context);
-    UserModel user = authProvider.user;
+    // AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    // UserModel user = authProvider.user;
 
-    SiswaProvider siswaProvider = Provider.of<SiswaProvider>(context);
+    // SiswaProvider siswaProvider = Provider.of<SiswaProvider>(context);
 
 
     Widget header(){
@@ -51,31 +64,22 @@ class _HomePageState extends State<HomePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Hello, ${user.nama}',
+                    // 'Hello, ${user.nama}',
+                    SpUtil.getString('nama')!,
                     style: primaryTextStyle.copyWith(
                       fontSize: 24,
                       fontWeight: semibold
                     ),
                   ),
                   Text(
-                    '${user.panggilan}',style: subTextStyle.copyWith(
+                    // '${user.panggilan}  '+
+                    "Nis : "+SpUtil.getInt('nis').toString(),style: subTextStyle.copyWith(
                       fontSize: 16,
                     ),
                   )
                 ],
               ),
             ),
-
-            Spacer(),
-
-            Container(
-              width: 54,
-              height: 54,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(image: AssetImage('assets/profile_image.png'))
-              ),
-            )
 
           ],
         ),
@@ -101,23 +105,28 @@ class _HomePageState extends State<HomePage> {
       );
     }
 
-    Widget newArrivals(){
-      return Container(
-        margin: EdgeInsets.only(
-          top: 14,
-        ),
-        child: Column(
-          children: siswaProvider.siswa.map((siswa) => SiswaTile(siswa)).toList(),
-        ),
+    Widget callData(){
+      return FutureBuilder(
+        future: data(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Loading();
+          } else {
+            return Text("data berhasil di ambil");
+          }
+        },
       );
     }
 
-    return ListView(
-      children: [
-        header(),
-        newArrivalsTitle(),
-        newArrivals()
-      ],
+    return RefreshIndicator(
+      onRefresh: getInit,
+      child: ListView(
+        children: [
+          header(),
+          newArrivalsTitle(),
+          callData()
+        ],
+      ),
     );
   }
 }

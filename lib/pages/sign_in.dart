@@ -8,6 +8,7 @@ import 'package:fe_info_siswa/provider/siswa_provider.dart';
 import 'package:fe_info_siswa/share/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sp_util/sp_util.dart';
 
 // ignore: camel_case_types
 class Sign_In extends StatefulWidget {
@@ -41,9 +42,10 @@ class _Sign_InState extends State<Sign_In> {
           pinsiswa: passwordController.text
         )
         ){
-          UserModel user = authProvider.user;
-          String a = user.api_token!;
-          await Provider.of<SiswaProvider>(context, listen: false).getsiswa(a);
+          // UserModel user = authProvider.user;
+          // String a = user.api_token!;
+          // String? token = SpUtil.getString('token');
+          // await Provider.of<SiswaProvider>(context, listen: false).getsiswa(token!);
           // ignore: use_build_context_synchronously
           Navigator.pushAndRemoveUntil(
             context, 
@@ -52,7 +54,7 @@ class _Sign_InState extends State<Sign_In> {
             ), 
             ModalRoute.withName('/home')
           );
-          print(a);
+          // print(a);
         }else{
           // ignore: use_build_context_synchronously
           ScaffoldMessenger.of(context).showSnackBar(
@@ -165,29 +167,29 @@ class _Sign_InState extends State<Sign_In> {
                 decoration: BoxDecoration(
                     color: backgroundColor2,
                     borderRadius: BorderRadius.circular(12)),
-                child: Center(
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.key,
-                        color: primaryColor,
+                    child: Center(
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.key,
+                            color: primaryColor,
+                          ),
+                          const SizedBox(width: 15,),
+                          Expanded(
+                            child: TextFormField(
+                              obscureText: true,
+                              style: primaryTextStyle,
+                              controller: passwordController,
+                              decoration: InputDecoration.collapsed(
+                                hintText: 'Your Password or PIN',
+                                hintStyle: secondTextStyle,
+                              ),
+                            )
+                          )
+                        ],
                       ),
-                      const SizedBox(
-                        width: 15,
-                      ),
-                      Expanded(
-                          child: TextFormField(
-                        obscureText: true,
-                        style: primaryTextStyle,
-                        controller: passwordController,
-                        decoration: InputDecoration.collapsed(
-                          hintText: 'Your Password or PIN',
-                          hintStyle: secondTextStyle,
-                        ),
-                      ))
-                    ],
-                  ),
-                ))
+                    )
+            )
           ],
         ),
       );

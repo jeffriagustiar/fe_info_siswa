@@ -39,6 +39,7 @@ dependencies:
   carousel_slider: ^4.1.1
   provider: ^6.0.5
   http: ^0.13.5
+  sp_util: ^2.0.3
 
 dev_dependencies:
   flutter_test:

@@ -1,11 +1,37 @@
+import 'package:fe_info_siswa/models/siswa_model.dart';
+import 'package:fe_info_siswa/provider/siswa2_provider.dart';
 import 'package:fe_info_siswa/share/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sp_util/sp_util.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
   @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+
+  String? token = SpUtil.getString('token');
+  int? nis = SpUtil.getInt('nis');
+
+  @override
+  void initState() { 
+    getInit();
+    super.initState();
+  }
+
+  getInit() async{
+    
+  }
+
+  @override
   Widget build(BuildContext context) {
+
+    Siswa2Provider siswaProvider = Provider.of<Siswa2Provider>(context);
+    SiswaModel siswa = siswaProvider.siswa2;
 
     Widget header(){
       return AppBar(
@@ -26,14 +52,14 @@ class ProfilePage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Hallo, Alex',
+                        'Hallo, ${siswa.nama}',
                         style: primaryTextStyle.copyWith(
                           fontSize: 24,
                           fontWeight: semibold
                         ),
                       ),
                       Text(
-                        '@alexkeinn',
+                        'NIS : ${siswa.nis}',
                         style: subTextStyle.copyWith(
                           fontSize: 16
                         ),
