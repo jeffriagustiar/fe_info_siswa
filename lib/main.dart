@@ -5,6 +5,7 @@ import 'package:fe_info_siswa/pages/splash_page.dart';
 import 'package:fe_info_siswa/provider/auth_provider.dart';
 import 'package:fe_info_siswa/provider/siswa2_provider.dart';
 import 'package:fe_info_siswa/provider/siswa_provider.dart';
+import 'package:fe_info_siswa/provider/spp_provider.dart';
 import 'package:fe_info_siswa/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -31,6 +32,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => Siswa2Provider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => SppProvider(),
         )
       ],
       child: MaterialApp(

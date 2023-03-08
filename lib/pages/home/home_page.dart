@@ -1,11 +1,13 @@
+import 'package:fe_info_siswa/models/spp_model.dart';
 import 'package:fe_info_siswa/provider/siswa2_provider.dart';
-import 'package:fe_info_siswa/provider/siswa_provider.dart';
+import 'package:fe_info_siswa/provider/spp_provider.dart';
 import 'package:fe_info_siswa/share/theme.dart';
 import 'package:fe_info_siswa/widgets/loading.dart';
-import 'package:fe_info_siswa/widgets/siswa_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sp_util/sp_util.dart';
+import 'package:percent_indicator/percent_indicator.dart';
+import 'package:intl/intl.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -34,9 +36,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   data() async{
-    await Provider.of<SiswaProvider>(context, listen: false).getsiswa(token!);
-    // ignore: use_build_context_synchronously
     await Provider.of<Siswa2Provider>(context, listen: false).getSiswaByNis(token!, nis!);
+    // ignore: use_build_context_synchronously
+    await Provider.of<SppProvider>(context, listen: false).getSpp(token!);
   }
   
   @override
@@ -46,6 +48,9 @@ class _HomePageState extends State<HomePage> {
     // UserModel user = authProvider.user;
 
     // SiswaProvider siswaProvider = Provider.of<SiswaProvider>(context);
+
+    SppProvider sppProvider = Provider.of<SppProvider>(context);
+    SppModel spp = sppProvider.spp;
 
 
     Widget header(){
@@ -96,7 +101,7 @@ class _HomePageState extends State<HomePage> {
           left: defaultMargin
         ),
         child: Text(
-          'List Students',
+          'Info Students',
           style: primaryTextStyle.copyWith(
             fontSize: 22,
             fontWeight: semibold
@@ -111,8 +116,82 @@ class _HomePageState extends State<HomePage> {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Loading();
-          } else {
-            return Text("data berhasil di ambil");
+          }else if(snapshot.hasError){
+            return Text('Error: ${snapshot.error}');
+          }else {
+            return Container(
+              margin: EdgeInsets.symmetric(horizontal: defaultMargin),
+              padding: EdgeInsets.all(15),
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: backgroundColor3,
+                borderRadius: BorderRadius.circular(15)
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Information SPP",
+                    style: primaryTextStyle.copyWith(
+                      fontSize: 18,
+                      fontWeight: semibold
+                    ),
+                  ),
+                  SizedBox(height: 10,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Paid : ${
+                          NumberFormat.currency(
+                            locale: 'id_ID',
+                            symbol: 'Rp ',
+                            decimalDigits: 0,
+                          ).format(int.parse(spp.dibayar!))
+                        }",
+                        style: primaryTextStyle.copyWith(
+                          fontSize: 14,
+                          fontWeight: medium
+                        ),
+                      ),
+
+                      Text(
+                        "UnPaid : ${
+                          NumberFormat.currency(
+                            locale: 'id_ID',
+                            symbol: 'Rp ',
+                            decimalDigits: 0,
+                          ).format(spp.sisa)
+                        }",
+                        style: primaryTextStyle.copyWith(
+                          fontSize: 14,
+                          fontWeight: medium
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 5,),
+                  Text(
+                        "Persentasion Paid",
+                        style: primaryTextStyle.copyWith(
+                          fontSize: 14,
+                          fontWeight: medium
+                        ),
+                      ),
+                  SizedBox(height: 5,),
+                  new LinearPercentIndicator(
+                      width: MediaQuery.of(context).size.width - 90,
+                      animation: true,
+                      lineHeight: 20.0,
+                      animationDuration: 2000,
+                      percent: double.parse(spp.persen!),
+                      center: Text("${spp.persen2}%"),
+                      linearStrokeCap: LinearStrokeCap.roundAll,
+                      progressColor: primaryColor,
+                    ),
+                ],
+              ),
+            );
           }
         },
       );
@@ -124,7 +203,9 @@ class _HomePageState extends State<HomePage> {
         children: [
           header(),
           newArrivalsTitle(),
-          callData()
+          SizedBox(height: 20,),
+          callData(),
+          // test()
         ],
       ),
     );

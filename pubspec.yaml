@@ -40,6 +40,8 @@ dependencies:
   provider: ^6.0.5
   http: ^0.13.5
   sp_util: ^2.0.3
+  percent_indicator: ^4.2.3
+  intl: ^0.18.0
 
 dev_dependencies:
   flutter_test:
