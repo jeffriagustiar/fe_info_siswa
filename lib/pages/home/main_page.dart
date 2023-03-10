@@ -50,7 +50,7 @@ class _MainPageState extends State<MainPage> {
                     bottom: 5
                   ),
                   child: Image.asset(
-                    'assets/Profile_icon.png',
+                    'assets/Home_icon.png',
                     width: 21,
                     color:  currentIndex == 0 ? primaryColor : Color(0xff808191),
                   ),
@@ -131,7 +131,7 @@ class _MainPageState extends State<MainPage> {
     }
 
     return Scaffold(
-      backgroundColor: currentIndex == 0 ? backgroundColor1: backgroundColor3,
+      backgroundColor: currentIndex == 0 ? backgroundColor1: backgroundColor2,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: customBottomNav(),
       body: body()

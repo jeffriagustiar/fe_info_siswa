@@ -49,6 +49,34 @@ class AuthService{
     }
   }
 
+  Future<UserModel> logout({
+    required String nis,
+    required String token
+  }) async {
+    var url = Uri.parse('$baseUrl/logout');
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization' : token
+    };
+    var body = jsonEncode({
+      'nis': nis,
+    });
+
+    var response = await http.post(
+      url,
+      headers: headers,
+      body: body,
+    );
+
+    // ignore: avoid_print
+    // print(response.body);
+
+    if (response.statusCode == 200) {
+      throw Exception('Berhasil Logout');
+    } else {
+      throw Exception('Gagal Register');
+    }
+  }
 
 
 }

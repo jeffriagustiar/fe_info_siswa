@@ -44,6 +44,7 @@ class MyApp extends StatelessWidget {
           // '/' :(context) => MainPage(),
           // '/' :(context) => SplashPage(),
           '/' :(context) => (SpUtil.getInt('a') == 1 ? MainPage() : SplashPage()),
+          // '/' :(context) => SplashPage(),
           '/sign-in' :(context) => Sign_In(),
           '/home' :(context) => MainPage(),
           // '/siswa': (context) => SiswaPage(),

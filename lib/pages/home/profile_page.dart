@@ -1,7 +1,10 @@
 import 'package:fe_info_siswa/models/siswa_model.dart';
+import 'package:fe_info_siswa/pages/splash_page.dart';
+import 'package:fe_info_siswa/provider/auth_provider.dart';
 import 'package:fe_info_siswa/provider/siswa2_provider.dart';
 import 'package:fe_info_siswa/share/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sp_util/sp_util.dart';
 
@@ -31,7 +34,30 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
 
     Siswa2Provider siswaProvider = Provider.of<Siswa2Provider>(context);
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
     SiswaModel siswa = siswaProvider.siswa2;
+    String gendre;
+
+    handleSingUp() async {
+      await authProvider.logout(
+        nis: nis.toString(),
+        token: token!,
+      );
+      Navigator.pushAndRemoveUntil(
+        context, 
+        MaterialPageRoute(
+          builder: (context) => SplashPage(),
+        ), 
+        ModalRoute.withName('/'));
+    }
+    
+    if (siswa.kelamin.toString() == 'l') {
+      gendre = 'male';
+    } else if(siswa.kelamin.toString() == 'p'){
+      gendre = 'famale';
+    } else{
+      gendre = 'other';
+    }
 
     Widget header(){
       return AppBar(
@@ -46,13 +72,13 @@ class _ProfilePageState extends State<ProfilePage> {
                 ClipOval(
                   child: Image.asset('assets/profile_image.png',width: 64,),
                 ),
-                SizedBox(width: 16,),
+                const SizedBox(width: 16,),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Hallo, ${siswa.nama}',
+                        siswa.nama.toString(),
                         style: primaryTextStyle.copyWith(
                           fontSize: 24,
                           fontWeight: semibold
@@ -68,9 +94,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   )
                 ),
                 GestureDetector(
-                  onTap: () {
-                    // Navigator.pushNamedAndRemoveUntil(context, '/sign-in', (route) => false);
-                  },
+                  onTap: handleSingUp,
                   child: Image.asset('assets/Exit_Button.png',width: 20,)
                 )
               ],
@@ -80,70 +104,347 @@ class _ProfilePageState extends State<ProfilePage> {
       );
     }
 
-    Widget menuItem(String text){
+    Widget menuItem(String text,String text2){
       return Container(
-        margin: EdgeInsets.only(top: 16),
+        margin: const EdgeInsets.only(top: 16),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(text, style: secondTextStyle.copyWith(fontSize: 13),),
-            Icon(Icons.chevron_right, color: primaryTextColor,)
+            Text(text2, style: secondTextStyle.copyWith(fontSize: 13),textAlign: TextAlign.justify,),
           ],
         ),
       );
     }
 
-    Widget content(){
-      return Expanded(
-        child: Container(
+    Widget personalBio(){
+      return Container(
           padding: EdgeInsets.symmetric(horizontal: defaultMargin),
+          margin: const EdgeInsets.all(10),
           width: double.infinity,
           decoration: BoxDecoration(
-            color: backgroundColor3
+            color: backgroundColor3,
+            borderRadius: BorderRadius.circular(15)
           ),
 
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 20,),
+              const SizedBox(height: 20,),
               Text(
-                'Account',
+                'Personal Biodata',
                 style: primaryTextStyle.copyWith(
                   fontSize: 16,
                   fontWeight: semibold
                 ),
               ),
-              GestureDetector(
-                onTap: () {
-                  // Navigator.pushNamed(context, '/edit-profile');
-                },
-                child: menuItem('Edit Profile')
-              ),
-              menuItem('Your Order'),
-              menuItem('Help'),
-
-              SizedBox(height: 30,),
-              Text(
-                'General',
-                style: primaryTextStyle.copyWith(
-                  fontSize: 16,
-                  fontWeight: semibold
-                ),
-              ),
-              menuItem('Privacy & Policy'),
-              menuItem('Term of Service'),
-              menuItem('Rate App'),
+              menuItem('Full Name', siswa.nama.toString()),
+              menuItem('Nickname', siswa.panggilan.toString()),
+              menuItem('Gendre', gendre),
+              menuItem('Place/Date of Birt', '${siswa.tmplahir}/${siswa.tgllahir}'),
+              menuItem('Relegion', siswa.agama.toString()),
+              menuItem('Daily Language', 'INDONESIA'),
+              const SizedBox(height: 20,)
             ],
           ),
 
-        )
-      );
+        );
     }
 
-    return Column(
+    Widget contactInfo(){
+      return Container(
+          padding: EdgeInsets.symmetric(horizontal: defaultMargin),
+          margin: const EdgeInsets.all(10),
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: backgroundColor3,
+            borderRadius: BorderRadius.circular(15)
+          ),
+
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 20,),
+              Text(
+                'Contact Information',
+                style: primaryTextStyle.copyWith(
+                  fontSize: 16,
+                  fontWeight: semibold
+                ),
+              ),
+              menuItem('Address :', ''),
+              Text(
+                siswa.alamatsiswa.toString(),
+                style: secondTextStyle.copyWith(
+                  fontSize: 13
+                ),
+                textAlign: TextAlign.justify,
+              ),
+              menuItem('Phone Number', siswa.hpsiswa.toString()),
+              menuItem('E-mail', siswa.emailsiswa.toString()),
+              const SizedBox(height: 20,)
+            ],
+          ),
+
+        );
+    }
+
+    Widget healthInfo(){
+      return Container(
+          padding: EdgeInsets.symmetric(horizontal: defaultMargin),
+          margin: const EdgeInsets.all(10),
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: backgroundColor3,
+            borderRadius: BorderRadius.circular(15)
+          ),
+
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 20,),
+              Text(
+                'Health Information',
+                style: primaryTextStyle.copyWith(
+                  fontSize: 16,
+                  fontWeight: semibold
+                ),
+              ),
+              menuItem('Weight', siswa.berat.toString()),
+              menuItem('Height', siswa.tinggi.toString()),
+              menuItem('Blood Type', siswa.darah.toString()),
+              const SizedBox(height: 20,)
+            ],
+          ),
+
+        );
+    }
+
+    Widget schoolInfo(){
+      return Container(
+          padding: EdgeInsets.symmetric(horizontal: defaultMargin),
+          margin: const EdgeInsets.all(10),
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: backgroundColor3,
+            borderRadius: BorderRadius.circular(15)
+          ),
+
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 20,),
+              Text(
+                'School Information',
+                style: primaryTextStyle.copyWith(
+                  fontSize: 16,
+                  fontWeight: semibold
+                ),
+              ),
+              menuItem('Junior Height School :', ''),
+              Text(
+                siswa.asalsekolah.toString(),
+                style: secondTextStyle.copyWith(
+                  fontSize: 13
+                ),
+                textAlign: TextAlign.justify,
+              ),
+              const SizedBox(height: 20,)
+            ],
+          ),
+
+        );
+    }
+
+    Widget fatherInfo(){
+      return Container(
+          padding: EdgeInsets.symmetric(horizontal: defaultMargin),
+          margin: const EdgeInsets.all(10),
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: backgroundColor3,
+            borderRadius: BorderRadius.circular(15)
+          ),
+
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 20,),
+              Text(
+                'Father Biodata',
+                style: primaryTextStyle.copyWith(
+                  fontSize: 16,
+                  fontWeight: semibold
+                ),
+              ),
+              menuItem('Name', siswa.namaayah.toString()),
+              menuItem('Education', siswa.pendidikanayah.toString()),
+              menuItem(
+                'Job',
+                NumberFormat.currency(
+                  locale: 'id_ID',
+                  symbol: 'Rp ',
+                  decimalDigits: 0,
+                ).format(int.parse(siswa.penghasilanayah.toString()))
+              
+              ),
+              const SizedBox(height: 20,)
+            ],
+          ),
+
+        );
+    }
+
+    Widget motherInfo(){
+      return Container(
+          padding: EdgeInsets.symmetric(horizontal: defaultMargin),
+          margin: const EdgeInsets.all(10),
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: backgroundColor3,
+            borderRadius: BorderRadius.circular(15)
+          ),
+
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 20,),
+              Text(
+                'Mother Biodata',
+                style: primaryTextStyle.copyWith(
+                  fontSize: 16,
+                  fontWeight: semibold
+                ),
+              ),
+              menuItem('Name', siswa.namaibu.toString()),
+              menuItem('Education', siswa.pendidikanibu.toString()),
+              menuItem(
+                'Job',
+                NumberFormat.currency(
+                  locale: 'id_ID',
+                  symbol: 'Rp ',
+                  decimalDigits: 0,
+                ).format(int.parse(siswa.penghasilanibu.toString()))
+              ),
+              const SizedBox(height: 20,)
+            ],
+          ),
+
+        );
+    }
+
+    Widget contactParentInfo(){
+      return Container(
+          padding: EdgeInsets.symmetric(horizontal: defaultMargin),
+          margin: const EdgeInsets.all(10),
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: backgroundColor3,
+            borderRadius: BorderRadius.circular(15)
+          ),
+
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 20,),
+              Text(
+                'Contact Parent Information',
+                style: primaryTextStyle.copyWith(
+                  fontSize: 16,
+                  fontWeight: semibold
+                ),
+              ),
+              menuItem('Address :', ''),
+              Text(
+                siswa.alamatortu.toString(),
+                style: secondTextStyle.copyWith(
+                  fontSize: 13
+                ),
+                textAlign: TextAlign.justify,
+              ),
+              menuItem('Phone Number', siswa.hportu.toString()),
+              menuItem('E-mail', siswa.emailayah.toString()),
+              const SizedBox(height: 20,)
+            ],
+          ),
+
+        );
+    }
+
+    Widget otherInfo(){
+      return Container(
+          padding: EdgeInsets.symmetric(horizontal: defaultMargin),
+          margin: const EdgeInsets.all(10),
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: backgroundColor3,
+            borderRadius: BorderRadius.circular(15)
+          ),
+
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 20,),
+              Text(
+                'Other Information',
+                style: primaryTextStyle.copyWith(
+                  fontSize: 16,
+                  fontWeight: semibold
+                ),
+              ),
+              menuItem('NIK', siswa.nik.toString()),
+              menuItem('Hobby', siswa.hobi.toString()),
+              const SizedBox(height: 20,)
+            ],
+          ),
+
+        );
+    }
+
+    Widget personalEduBio(){
+      return Container(
+          padding: EdgeInsets.symmetric(horizontal: defaultMargin),
+          margin: const EdgeInsets.all(10),
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: backgroundColor3,
+            borderRadius: BorderRadius.circular(15)
+          ),
+
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 20,),
+              Text(
+                'Personal Education Information',
+                style: primaryTextStyle.copyWith(
+                  fontSize: 16,
+                  fontWeight: semibold
+                ),
+              ),
+              menuItem('NISN', siswa.nisn.toString()),
+              menuItem('Date Certificate SMP', siswa.tglijasah.toString()),
+              menuItem('Number Certificate SMP', siswa.noijasah.toString()),
+              const SizedBox(height: 20,)
+            ],
+          ),
+
+        );
+    }
+    
+
+    return ListView(
       children: [
         header(),
-        content()
+        personalBio(),
+        personalEduBio(),
+        contactInfo(),
+        healthInfo(),
+        schoolInfo(),
+        fatherInfo(),
+        motherInfo(),
+        contactParentInfo(),
+        otherInfo()
       ],
     );
   }

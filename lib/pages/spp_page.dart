@@ -40,23 +40,6 @@ class _SppPageState extends State<SppPage> {
     
     SiswaProvider siswaProvider = Provider.of<SiswaProvider>(context);
 
-    Widget header(){
-      return Container(
-        margin: EdgeInsets.only(
-          top: defaultMargin,
-          right: defaultMargin,
-          left: defaultMargin
-        ),
-        child: Text(
-          'Information Paid',
-          style: primaryTextStyle.copyWith(
-            fontSize: 22,
-            fontWeight: semibold
-          ),
-        ),
-      );
-    }
-
     Widget content(){
       return FutureBuilder(
         future: data(),
@@ -76,12 +59,21 @@ class _SppPageState extends State<SppPage> {
       backgroundColor: backgroundColor1,
       appBar: AppBar(
         backgroundColor: backgroundColor4,
+        title: Text(
+          'Information Paid',
+          style: primaryTextStyle.copyWith(
+            fontSize: 22,
+            fontWeight: semibold
+          )
+        ),
       ),
-      body: ListView(
-        children: [
-          header(),
-          content(),
-        ],
+      body: RefreshIndicator(
+        onRefresh: getInit,
+        child: ListView(
+          children: [
+            content(),
+          ],
+        ),
       ),
     );
   }

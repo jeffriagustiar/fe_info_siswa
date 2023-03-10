@@ -31,4 +31,23 @@ class AuthProvider with ChangeNotifier{
     }
 
   }
+
+  Future<bool> logout({
+    required String nis,
+    required String token,
+  }) async {
+    try {
+      UserModel user = await AuthService().logout(
+        nis: nis, 
+        token: token
+      );
+
+      _user = user;
+      return true;
+    } catch (e) {
+      // ignore: avoid_print
+      print(e);
+      return false;
+    }
+  }
 }

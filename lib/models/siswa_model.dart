@@ -47,6 +47,7 @@ class SiswaModel{
   late String? pinsiswa;
   late String? pinortu;
   late String? pinortuibu;
+  late String? hpsiswa;
 
   SiswaModel({
     this.replid, 
@@ -97,6 +98,7 @@ class SiswaModel{
     this.pinsiswa, 
     this.pinortu, 
     this.pinortuibu,  
+    this.hpsiswa,  
   });
 
   factory SiswaModel.fromJson(Map<String, dynamic> json){
@@ -148,7 +150,8 @@ class SiswaModel{
       api_token:  json['api_token'], 
       pinsiswa:  json['pinsiswa'], 
       pinortu:  json['pinortu'], 
-      pinortuibu:  json['pinortuibu']
+      pinortuibu:  json['pinortuibu'],
+      hpsiswa:  json['hpsiswa'],
     );
   }
 
@@ -201,7 +204,8 @@ class SiswaModel{
       'api_token': api_token,
       'pinsiswa': pinsiswa,
       'pinortu': pinortu,
-      'pinortuibu': pinortuibu
+      'pinortuibu': pinortuibu,
+      'hpsiswa': hpsiswa,
     };
   }
 }
