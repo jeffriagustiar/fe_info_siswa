@@ -1,11 +1,14 @@
 import 'dart:convert';
 
 import 'package:fe_info_siswa/models/user_model.dart';
+import 'package:fe_info_siswa/share/theme.dart';
 import 'package:http/http.dart' as http;
 import 'package:sp_util/sp_util.dart';
 
 class AuthService{
-  final String baseUrl = 'http://127.0.0.1:8000/api';
+  final String baseUrl = url;
+  // final String baseUrl = 'http://127.0.0.1:8000/api';
+  // final String baseUrl = 'http://192.168.46.56:8000/api';
 
   Future<UserModel> login({
     required String nis,
@@ -42,6 +45,7 @@ class AuthService{
       return user;
     }else{
       throw Exception('Gagal Login');
+      // throw Exception(Error());
     }
   }
 

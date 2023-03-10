@@ -8,7 +8,10 @@ class SppProvider with ChangeNotifier{
     dibayar: '0', 
     sisa: 0, 
     persen: '0.0',
-    persen2: 0
+    persen2: 0,
+    tanggal: '',
+    jumlah: '0',
+    keterangan: ''
   );
 
   SppModel get spp => _spp;

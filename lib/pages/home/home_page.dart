@@ -1,4 +1,5 @@
 import 'package:fe_info_siswa/models/spp_model.dart';
+import 'package:fe_info_siswa/pages/spp_page.dart';
 import 'package:fe_info_siswa/provider/siswa2_provider.dart';
 import 'package:fe_info_siswa/provider/spp_provider.dart';
 import 'package:fe_info_siswa/share/theme.dart';
@@ -78,7 +79,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Text(
                     // '${user.panggilan}  '+
-                    "Nis : "+SpUtil.getInt('nis').toString(),style: subTextStyle.copyWith(
+                    "NIS : "+SpUtil.getInt('nis').toString(),style: subTextStyle.copyWith(
                       fontSize: 16,
                     ),
                   )
@@ -119,77 +120,86 @@ class _HomePageState extends State<HomePage> {
           }else if(snapshot.hasError){
             return Text('Error: ${snapshot.error}');
           }else {
-            return Container(
-              margin: EdgeInsets.symmetric(horizontal: defaultMargin),
-              padding: EdgeInsets.all(15),
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: backgroundColor3,
-                borderRadius: BorderRadius.circular(15)
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Information SPP",
-                    style: primaryTextStyle.copyWith(
-                      fontSize: 18,
-                      fontWeight: semibold
+            return GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context, MaterialPageRoute(
+                    builder: (context) => SppPage(),
+                  )
+                );
+              },
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: defaultMargin),
+                padding: EdgeInsets.all(15),
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: backgroundColor3,
+                  borderRadius: BorderRadius.circular(15)
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Information SPP",
+                      style: primaryTextStyle.copyWith(
+                        fontSize: 18,
+                        fontWeight: semibold
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 10,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Paid : ${
-                          NumberFormat.currency(
-                            locale: 'id_ID',
-                            symbol: 'Rp ',
-                            decimalDigits: 0,
-                          ).format(int.parse(spp.dibayar!))
-                        }",
-                        style: primaryTextStyle.copyWith(
-                          fontSize: 14,
-                          fontWeight: medium
+                    SizedBox(height: 10,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Paid : ${
+                            NumberFormat.currency(
+                              locale: 'id_ID',
+                              symbol: 'Rp ',
+                              decimalDigits: 0,
+                            ).format(int.parse(spp.dibayar!))
+                          }",
+                          style: primaryTextStyle.copyWith(
+                            fontSize: 14,
+                            fontWeight: medium
+                          ),
                         ),
-                      ),
-
-                      Text(
-                        "UnPaid : ${
-                          NumberFormat.currency(
-                            locale: 'id_ID',
-                            symbol: 'Rp ',
-                            decimalDigits: 0,
-                          ).format(spp.sisa)
-                        }",
-                        style: primaryTextStyle.copyWith(
-                          fontSize: 14,
-                          fontWeight: medium
+            
+                        Text(
+                          "UnPaid : ${
+                            NumberFormat.currency(
+                              locale: 'id_ID',
+                              symbol: 'Rp ',
+                              decimalDigits: 0,
+                            ).format(spp.sisa)
+                          }",
+                          style: primaryTextStyle.copyWith(
+                            fontSize: 14,
+                            fontWeight: medium
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 5,),
-                  Text(
-                        "Persentasion Paid",
-                        style: primaryTextStyle.copyWith(
-                          fontSize: 14,
-                          fontWeight: medium
-                        ),
-                      ),
-                  SizedBox(height: 5,),
-                  new LinearPercentIndicator(
-                      width: MediaQuery.of(context).size.width - 90,
-                      animation: true,
-                      lineHeight: 20.0,
-                      animationDuration: 2000,
-                      percent: double.parse(spp.persen!),
-                      center: Text("${spp.persen2}%"),
-                      linearStrokeCap: LinearStrokeCap.roundAll,
-                      progressColor: primaryColor,
+                      ],
                     ),
-                ],
+                    SizedBox(height: 5,),
+                    Text(
+                          "Persentasion Paid",
+                          style: primaryTextStyle.copyWith(
+                            fontSize: 14,
+                            fontWeight: medium
+                          ),
+                        ),
+                    SizedBox(height: 5,),
+                    new LinearPercentIndicator(
+                        width: MediaQuery.of(context).size.width - 90,
+                        animation: true,
+                        lineHeight: 20.0,
+                        animationDuration: 2000,
+                        percent: double.parse(spp.persen!),
+                        center: Text("${spp.persen2}%"),
+                        linearStrokeCap: LinearStrokeCap.roundAll,
+                        progressColor: primaryColor,
+                      ),
+                  ],
+                ),
               ),
             );
           }
