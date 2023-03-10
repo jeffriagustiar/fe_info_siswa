@@ -1,3 +1,4 @@
+import 'package:fe_info_siswa/models/kelas_model.dart';
 import 'package:fe_info_siswa/models/siswa_model.dart';
 import 'package:fe_info_siswa/services/siswa_service.dart';
 import 'package:flutter/material.dart';
@@ -51,7 +52,8 @@ class Siswa2Provider with ChangeNotifier{
       api_token:  '', 
       pinsiswa:  '', 
       pinortu:  '', 
-      pinortuibu:  ''
+      pinortuibu:  '',
+      hpsiswa: '',
   );
 
   SiswaModel get siswa2 => _siswa2;

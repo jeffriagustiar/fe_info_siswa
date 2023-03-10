@@ -89,6 +89,12 @@ class _ProfilePageState extends State<ProfilePage> {
                         style: subTextStyle.copyWith(
                           fontSize: 16
                         ),
+                      ),
+                      Text(
+                        'Class : '+siswa.kelas!.kelas.toString(),
+                        style: subTextStyle.copyWith(
+                          fontSize: 16
+                        ),
                       )
                     ],
                   )

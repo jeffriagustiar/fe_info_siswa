@@ -120,7 +120,7 @@ class _MainPageState extends State<MainPage> {
           return ListSiswaPage();
           break;
         case 2:
-          return ProfilePage();
+          return ListSiswaPage();
           break;
         case 3:
           return const ProfilePage();

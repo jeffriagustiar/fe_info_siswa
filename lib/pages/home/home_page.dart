@@ -20,6 +20,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
   String? token = SpUtil.getString('token');
+  String? kelas = SpUtil.getString('kelas');
   int? angka = SpUtil.getInt('a');
   int? nis = SpUtil.getInt('nis');
 
@@ -82,7 +83,13 @@ class _HomePageState extends State<HomePage> {
                     "NIS : "+SpUtil.getInt('nis').toString(),style: subTextStyle.copyWith(
                       fontSize: 16,
                     ),
-                  )
+                  ),
+                  Text(
+                    // '${user.panggilan}  '+
+                    "Class : "+kelas.toString(),style: subTextStyle.copyWith(
+                      fontSize: 16,
+                    ),
+                  ),
                 ],
               ),
             ),

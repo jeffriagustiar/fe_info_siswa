@@ -1,3 +1,5 @@
+import 'package:fe_info_siswa/models/kelas_model.dart';
+
 class SiswaModel{
   late int? replid;
   late int? nis;
@@ -48,6 +50,7 @@ class SiswaModel{
   late String? pinortu;
   late String? pinortuibu;
   late String? hpsiswa;
+  late KelasModel? kelas;
 
   SiswaModel({
     this.replid, 
@@ -99,6 +102,7 @@ class SiswaModel{
     this.pinortu, 
     this.pinortuibu,  
     this.hpsiswa,  
+    this.kelas
   });
 
   factory SiswaModel.fromJson(Map<String, dynamic> json){
@@ -152,6 +156,7 @@ class SiswaModel{
       pinortu:  json['pinortu'], 
       pinortuibu:  json['pinortuibu'],
       hpsiswa:  json['hpsiswa'],
+      kelas: KelasModel.fromJson(json['kelas']),
     );
   }
 
@@ -206,6 +211,7 @@ class SiswaModel{
       'pinortu': pinortu,
       'pinortuibu': pinortuibu,
       'hpsiswa': hpsiswa,
+      'kelas' : kelas?.toJson(),
     };
   }
 }

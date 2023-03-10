@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:fe_info_siswa/models/kelas_model.dart';
 import 'package:fe_info_siswa/models/user_model.dart';
 import 'package:fe_info_siswa/share/theme.dart';
 import 'package:http/http.dart' as http;
@@ -32,6 +33,7 @@ class AuthService{
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       UserModel user = UserModel.fromJson(data['user']);
+      KelasModel kelas = KelasModel.fromJson(data['user']['kelas']);
       user.api_token = 'Bearer ' + data['access_token'];
       SpUtil.putInt('a', 1);
       SpUtil.putString('token', 'Bearer ' + data['access_token']);
@@ -40,7 +42,8 @@ class AuthService{
       SpUtil.putString('nisn', user.nisn!); 
       SpUtil.putString('nik', user.nik!); 
       SpUtil.putString('nama', user.nama!); 
-      SpUtil.putInt('idkelas', user.idkelas!); 
+      SpUtil.putInt('idkelas', user.idkelas!);
+      SpUtil.putString('kelas', kelas.kelas!);
 
       return user;
     }else{
