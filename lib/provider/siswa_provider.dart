@@ -1,3 +1,4 @@
+import 'package:fe_info_siswa/models/presen_siswa_model.dart';
 import 'package:fe_info_siswa/models/rapor_siswa_model.dart';
 import 'package:fe_info_siswa/models/siswa_model.dart';
 import 'package:fe_info_siswa/models/spp_model.dart';
@@ -33,6 +34,15 @@ class SiswaProvider with ChangeNotifier{
     notifyListeners();
   }
 
+  List<PresensionSiswaModel> _presen = [];
+
+  List<PresensionSiswaModel> get presen => _presen;
+
+  set presen(List<PresensionSiswaModel> presen){
+    _presen = presen;
+    notifyListeners();
+  }
+
   //ambil data siswa
   Future<void> getsiswa(String token) async{
     try {
@@ -59,6 +69,17 @@ class SiswaProvider with ChangeNotifier{
     try {
       List<RaporSiswaModel> rapor = await SiswaService().getRaporSiswa(token, semester);
       _rapor = rapor; 
+    } catch (e) {
+      print(e); 
+    }
+  }
+
+  //ambil data presensi siswa
+  Future<void> getpresenSiswa(String token, String year, String month) async{
+    // _rapor = [];
+    try {
+      List<PresensionSiswaModel> presen = await SiswaService().getpresenSiswa(token, year, month);
+      _presen = presen; 
     } catch (e) {
       print(e); 
     }

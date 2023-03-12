@@ -1,5 +1,6 @@
 import 'package:fe_info_siswa/models/user_model.dart';
 import 'package:fe_info_siswa/pages/home/home_page.dart';
+import 'package:fe_info_siswa/pages/home/list_absensi_siswa_page.dart';
 import 'package:fe_info_siswa/pages/home/list_nilai_rapor_page.dart';
 import 'package:fe_info_siswa/pages/home/list_siswa_page.dart';
 import 'package:fe_info_siswa/pages/home/profile_page.dart';
@@ -83,7 +84,7 @@ class _MainPageState extends State<MainPage> {
                     // left: 50
                   ),
                   child: Image.asset(
-                    'assets/Union_icon.png',
+                    'assets/presence-icon.png',
                     width: 20,
                     color:  currentIndex == 2 ? primaryColor : Color(0xff808191),
                   ),
@@ -121,7 +122,7 @@ class _MainPageState extends State<MainPage> {
           return ListNilaiRaporPage();
           break;
         case 2:
-          return ListSiswaPage();
+          return ListPresensionPage();
           break;
         case 3:
           return const ProfilePage();
