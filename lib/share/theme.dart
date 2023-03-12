@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 // String url = 'http://127.0.0.1:8000/api';
-String url = 'http://192.168.46.56:8000/api';
+String url = 'http://192.168.155.56:8000/api';
 
 Color primaryColor = const Color(0xff6C5ECF);
 Color secondColor = const Color(0xff38ABBE);

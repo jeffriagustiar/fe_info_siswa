@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:fe_info_siswa/models/rapor_siswa_model.dart';
 import 'package:fe_info_siswa/models/siswa_model.dart';
 import 'package:fe_info_siswa/provider/auth_provider.dart';
 import 'package:fe_info_siswa/share/theme.dart';
@@ -11,6 +12,7 @@ class SiswaService{
   // final String baseUrl = 'http://127.0.0.1:8000/api';
   // final String baseUrl = 'http://192.168.46.56:8000/api';
 
+  //ambil semua data siswa
   Future<List<SiswaModel>> getSiswa(String token) async{
     var url = Uri.parse('$baseUrl/dataSiswa');
 
@@ -40,6 +42,7 @@ class SiswaService{
     }
   }
 
+  //ambil data siswa berdasarkan nis
   Future<SiswaModel> getSiswaByNis(String token,int nis) async{
     var url = Uri.parse('$baseUrl/dataSiswa/?nis=$nis');
 
@@ -65,4 +68,35 @@ class SiswaService{
       throw Exception("Gagal Ambil data");
     }
   }
+
+  //ambil data rapor siswa dengan sortir semester
+  Future<List<RaporSiswaModel>> getRaporSiswa(String token, String semester) async{
+    var url = Uri.parse('$baseUrl/nilaiRapor/?id=$semester');
+
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization' : token
+    };
+
+    var response = await http.get(
+      url,
+      headers: headers
+    );
+
+    // print((response.body));
+    print("bisa rapor");
+
+    if (response.statusCode == 200) {
+      List  data = jsonDecode(response.body)['data'];
+      List<RaporSiswaModel> rapor = [];
+
+      for (var item in data) {
+        rapor.add(RaporSiswaModel.fromJson(item));
+      }
+      return rapor;
+    } else {
+      throw Exception("Gagal Ambil data");
+    }
+  }
+
 }

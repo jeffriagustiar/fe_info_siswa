@@ -54,6 +54,9 @@ class Siswa2Provider with ChangeNotifier{
       pinortu:  '', 
       pinortuibu:  '',
       hpsiswa: '',
+      kelas: KelasModel(
+        kelas: ''
+      )
   );
 
   SiswaModel get siswa2 => _siswa2;

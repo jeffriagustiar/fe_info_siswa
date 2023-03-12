@@ -1,5 +1,6 @@
 import 'package:fe_info_siswa/models/user_model.dart';
 import 'package:fe_info_siswa/pages/home/home_page.dart';
+import 'package:fe_info_siswa/pages/home/list_nilai_rapor_page.dart';
 import 'package:fe_info_siswa/pages/home/list_siswa_page.dart';
 import 'package:fe_info_siswa/pages/home/profile_page.dart';
 import 'package:fe_info_siswa/provider/auth_provider.dart';
@@ -66,8 +67,8 @@ class _MainPageState extends State<MainPage> {
                     // right: 50
                   ),
                   child: Image.asset(
-                    'assets/Chat_icon.png',
-                    width: 20,
+                    'assets/report-icon.png',
+                    width: 15,
                     color:  currentIndex == 1 ? primaryColor : Color(0xff808191),
                   ),
                 ),
@@ -117,7 +118,7 @@ class _MainPageState extends State<MainPage> {
           return const HomePage();
           break;
         case 1:
-          return ListSiswaPage();
+          return ListNilaiRaporPage();
           break;
         case 2:
           return ListSiswaPage();

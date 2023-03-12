@@ -147,7 +147,8 @@ class _ProfilePageState extends State<ProfilePage> {
               menuItem('Full Name', siswa.nama.toString()),
               menuItem('Nickname', siswa.panggilan.toString()),
               menuItem('Gendre', gendre),
-              menuItem('Place/Date of Birt', '${siswa.tmplahir}/${siswa.tgllahir}'),
+              menuItem('Place of Birt', siswa.tmplahir.toString()),
+              menuItem('Date of Birt', siswa.tgllahir.toString()),
               menuItem('Relegion', siswa.agama.toString()),
               menuItem('Daily Language', 'INDONESIA'),
               const SizedBox(height: 20,)
