@@ -14,7 +14,7 @@ class SppTile extends StatelessWidget {
         width: double.infinity,
         // height: 10,
         decoration: BoxDecoration(
-          color: backgroundColor3,
+          color: background4Color,
           borderRadius: BorderRadius.circular(15)
         ),
         child: Padding(
@@ -26,8 +26,8 @@ class SppTile extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Amount',
-                    style: primaryTextStyle.copyWith(
+                    'Jumlah',
+                    style: blackTextStyle.copyWith(
                       fontSize: 18,
                       fontWeight: medium
                     ),

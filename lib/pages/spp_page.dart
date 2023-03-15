@@ -1,4 +1,5 @@
 import 'package:fe_info_siswa/provider/siswa_provider.dart';
+import 'package:fe_info_siswa/widgets/appBar_buttom.dart';
 import 'package:fe_info_siswa/widgets/loading.dart';
 import 'package:fe_info_siswa/widgets/spp_tile.dart';
 import 'package:flutter/material.dart';
@@ -56,21 +57,12 @@ class _SppPageState extends State<SppPage> {
     }
     
     return Scaffold(
-      backgroundColor: backgroundColor1,
-      appBar: AppBar(
-        backgroundColor: backgroundColor4,
-        title: Text(
-          'Information Paid',
-          style: primaryTextStyle.copyWith(
-            fontSize: 22,
-            fontWeight: semibold
-          )
-        ),
-      ),
+      backgroundColor: backgroundColor,
       body: RefreshIndicator(
         onRefresh: getInit,
         child: ListView(
           children: [
+            AppBarButtom(nama: 'Informasi Pembayaran SPP'),
             content(),
           ],
         ),

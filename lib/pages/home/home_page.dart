@@ -1,8 +1,12 @@
 import 'package:fe_info_siswa/models/spp_model.dart';
+import 'package:fe_info_siswa/pages/home/profile_page.dart';
+import 'package:fe_info_siswa/pages/splash_page.dart';
 import 'package:fe_info_siswa/pages/spp_page.dart';
+import 'package:fe_info_siswa/provider/auth_provider.dart';
 import 'package:fe_info_siswa/provider/siswa2_provider.dart';
 import 'package:fe_info_siswa/provider/spp_provider.dart';
 import 'package:fe_info_siswa/share/theme.dart';
+import 'package:fe_info_siswa/widgets/fitur_buttom.dart';
 import 'package:fe_info_siswa/widgets/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -46,7 +50,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
 
-    // AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
     // UserModel user = authProvider.user;
 
     // SiswaProvider siswaProvider = Provider.of<SiswaProvider>(context);
@@ -54,13 +58,26 @@ class _HomePageState extends State<HomePage> {
     SppProvider sppProvider = Provider.of<SppProvider>(context);
     SppModel spp = sppProvider.spp;
 
+    handleLogOut() async {
+      await authProvider.logout(
+        nis: nis.toString(),
+        token: token!,
+      );
+      Navigator.pushAndRemoveUntil(
+        context, 
+        MaterialPageRoute(
+          builder: (context) => SplashPage(),
+        ), 
+        ModalRoute.withName('/'));
+    }
+
 
     Widget header(){
       return Container(
         margin: EdgeInsets.only(
           top: defaultMargin,
           left: defaultMargin,
-          right: defaultMargin
+          right: defaultMargin,
         ),
 
         child: Row(
@@ -71,28 +88,39 @@ class _HomePageState extends State<HomePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    // 'Hello, ${user.nama}',
                     SpUtil.getString('nama')!,
-                    style: primaryTextStyle.copyWith(
-                      fontSize: 24,
+                    style: blackTextStyle.copyWith(
+                      fontSize: 18,
                       fontWeight: semibold
                     ),
                   ),
                   Text(
-                    // '${user.panggilan}  '+
-                    "NIS : "+SpUtil.getInt('nis').toString(),style: subTextStyle.copyWith(
-                      fontSize: 16,
-                    ),
-                  ),
-                  Text(
-                    // '${user.panggilan}  '+
-                    "Class : "+kelas.toString(),style: subTextStyle.copyWith(
-                      fontSize: 16,
+                    "Welcome",style: greyTextStyle.copyWith(
+                      fontSize: 12,
+                      fontWeight: regular
                     ),
                   ),
                 ],
               ),
             ),
+
+            ClipOval(
+              child: GestureDetector(
+                onTap: (){
+                  Navigator.push(
+                    context, 
+                    MaterialPageRoute(
+                      builder: (context) => const ProfilePage(),
+                    )
+                  );
+                },
+                child: SizedBox(
+                  height: 50,
+                  width: 50,
+                  child: Image.asset('assets/profile_image.png',width: 64,)
+                )
+              ),
+            )
 
           ],
         ),
@@ -100,20 +128,100 @@ class _HomePageState extends State<HomePage> {
       );
     }
 
+    Widget infoSpp(){
+      return Container(
+        margin: EdgeInsets.all(defaultMargin),
+        padding: EdgeInsets.all(defaultMargin),
+        width: double.infinity,
+        // height: 235,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          // color: background2Color,
+          gradient: const LinearGradient(colors: [
+            Color(0xff6E5DE7),Color(0xff7A67FF)
+          ])
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Tunggakan SPP",
+              style: whiteTextStyle.copyWith(
+                fontWeight: regular,
+                fontSize: 14
+              ),
+            ),
+            const SizedBox(height: 15,),
+            Text(
+              NumberFormat.currency(
+                locale: 'id_ID',
+                symbol: 'Rp ',
+                decimalDigits: 0,
+              ).format(spp.sisa),
+              style: whiteTextStyle.copyWith(
+                fontWeight: semibold,
+                fontSize: 30
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
     
-    Widget newArrivalsTitle(){
+    Widget titileMenu(){
       return Container(
         margin: EdgeInsets.only(
           top: defaultMargin,
           right: defaultMargin,
-          left: defaultMargin
+          left: defaultMargin,
+          bottom: 12
         ),
         child: Text(
-          'Info Students',
-          style: primaryTextStyle.copyWith(
-            fontSize: 22,
+          'Fitur',
+          style: blackTextStyle.copyWith(
+            fontSize: 18,
             fontWeight: semibold
           ),
+        ),
+      );
+    }
+
+    Widget fitur(){
+      return Container(
+        padding: EdgeInsets.symmetric(horizontal: 30),
+        child: Column(
+          children: [
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                FiturButtom(nama: 'Profile', onPressed: () {
+                  Navigator.pushNamed(context, '/profile');
+                },),
+                FiturButtom(nama: 'SPP', onPressed: () {
+                  Navigator.pushNamed(context, '/spp');
+                },),
+                FiturButtom(nama: 'Nilai', onPressed: () {
+                  Navigator.pushNamed(context, '/nilai');
+                },),
+                FiturButtom(nama: 'Presensi', onPressed: () {
+                  Navigator.pushNamed(context, '/absen');
+                },),
+              ],
+            ),
+
+            SizedBox(height: 10,),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                FiturButtom(nama: 'Logout', onPressed: handleLogOut),
+              ],
+            ),
+
+          ],
         ),
       );
     }
@@ -213,17 +321,20 @@ class _HomePageState extends State<HomePage> {
         },
       );
     }
+    
 
-    return RefreshIndicator(
-      onRefresh: getInit,
-      child: ListView(
-        children: [
-          header(),
-          newArrivalsTitle(),
-          SizedBox(height: 20,),
-          callData(),
-          // test()
-        ],
+    return Scaffold(
+      backgroundColor: backgroundColor,
+      body: RefreshIndicator(
+        onRefresh: getInit,
+        child: ListView(
+          children: [
+            header(),
+            infoSpp(),
+            titileMenu(),
+            fitur()
+          ],
+        ),
       ),
     );
   }

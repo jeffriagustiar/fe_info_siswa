@@ -147,14 +147,16 @@ class _ListPresensionPageState extends State<ListPresensionPage> {
     }
 
     return 
-    RefreshIndicator(
-      onRefresh: getInit,
-      child: ListView(
-        children: [
-          Title(),
-          listSiswa(),
-          SizedBox(height: 10,)
-        ],
+    Scaffold(
+      body: RefreshIndicator(
+        onRefresh: getInit,
+        child: ListView(
+          children: [
+            Title(),
+            listSiswa(),
+            SizedBox(height: 10,)
+          ],
+        ),
       ),
     );
   }

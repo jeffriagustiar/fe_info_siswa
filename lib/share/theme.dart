@@ -2,10 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 // String url = 'http://127.0.0.1:8000/api';
-String url = 'http://192.168.155.56:8000/api';
+String url = 'http://192.168.121.56:8000/api';
+
+Color blackColor = const Color(0xff404040);
+Color greyColor = const Color(0xffC7C9D9);
+Color secondColor = const Color(0xff404040);
+Color backgroundColor = const Color(0xffFFFFFF);
+Color background2Color = const Color(0xff7A67FF);
+Color background3Color = const Color(0xffC9E7FF);
+Color background4Color = const Color(0xffF6F9FF);
+
+
+TextStyle blackTextStyle =  GoogleFonts.poppins(color: blackColor );
+TextStyle whiteTextStyle =  GoogleFonts.poppins(color: backgroundColor );
+TextStyle greyTextStyle =  GoogleFonts.poppins(color: greyColor );
+TextStyle secondTextStyle = GoogleFonts.poppins(color: secondColor);
+
+
 
 Color primaryColor = const Color(0xff6C5ECF);
-Color secondColor = const Color(0xff38ABBE);
 Color alertColor = const Color(0xffED6363);
 Color priceColor = const Color(0xff2C96F1);
 
@@ -20,14 +35,11 @@ Color primaryTextColor = const Color(0xffF1F0F2);
 Color secondTextColor = const Color(0xff999999);
 Color subtitleColor = const Color(0xff504F5E);
 Color transparantColor = Colors.transparent;
-Color blackColor = const Color(0xff2E2E2E);
 
 TextStyle primaryTextStyle = GoogleFonts.poppins(color: primaryTextColor);
-TextStyle secondTextStyle = GoogleFonts.poppins(color: secondTextColor);
 TextStyle priceTextStyle = GoogleFonts.poppins(color: priceColor);
 TextStyle subTextStyle = GoogleFonts.poppins(color: subtitleColor);
 TextStyle purpleTextStyle = GoogleFonts.poppins(color: primaryColor);
-TextStyle blackTextStyle = GoogleFonts.poppins(color: blackColor);
 TextStyle alertTextStyle = GoogleFonts.poppins(color: alertColor);
 
 FontWeight light = FontWeight.w300;

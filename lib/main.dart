@@ -1,12 +1,14 @@
-import 'package:fe_info_siswa/pages/home/main_page.dart';
+import 'package:fe_info_siswa/pages/home/home_page.dart';
+import 'package:fe_info_siswa/pages/home/list_absensi_siswa_page.dart';
+import 'package:fe_info_siswa/pages/home/list_nilai_rapor_page.dart';
+import 'package:fe_info_siswa/pages/home/profile_page.dart';
 import 'package:fe_info_siswa/pages/sign_in.dart';
-import 'package:fe_info_siswa/pages/siswa_page.dart';
 import 'package:fe_info_siswa/pages/splash_page.dart';
+import 'package:fe_info_siswa/pages/spp_page.dart';
 import 'package:fe_info_siswa/provider/auth_provider.dart';
 import 'package:fe_info_siswa/provider/siswa2_provider.dart';
 import 'package:fe_info_siswa/provider/siswa_provider.dart';
 import 'package:fe_info_siswa/provider/spp_provider.dart';
-import 'package:fe_info_siswa/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sp_util/sp_util.dart';
@@ -43,10 +45,14 @@ class MyApp extends StatelessWidget {
         routes: {
           // '/' :(context) => MainPage(),
           // '/' :(context) => SplashPage(),
-          '/' :(context) => (SpUtil.getInt('a') == 1 ? MainPage() : SplashPage()),
+          '/' :(context) => (SpUtil.getInt('a') == 1 ? HomePage() : SplashPage()),
           // '/' :(context) => SplashPage(),
           '/sign-in' :(context) => Sign_In(),
-          '/home' :(context) => MainPage(),
+          '/home' :(context) => HomePage(),
+          '/profile' :(context) => ProfilePage(),
+          '/nilai' :(context) => ListNilaiRaporPage(),
+          '/absen' :(context) => ListPresensionPage(),
+          '/spp' :(context) => SppPage(),
           // '/siswa': (context) => SiswaPage(),
         },
       ),

@@ -3,6 +3,7 @@ import 'package:fe_info_siswa/pages/splash_page.dart';
 import 'package:fe_info_siswa/provider/auth_provider.dart';
 import 'package:fe_info_siswa/provider/siswa2_provider.dart';
 import 'package:fe_info_siswa/share/theme.dart';
+import 'package:fe_info_siswa/widgets/appBar_buttom.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -21,66 +22,39 @@ class _ProfilePageState extends State<ProfilePage> {
   int? nis = SpUtil.getInt('nis');
 
   @override
-  void initState() { 
-    getInit();
-    super.initState();
-  }
-
-  getInit() async{
-    
-  }
-
-  @override
   Widget build(BuildContext context) {
 
     Siswa2Provider siswaProvider = Provider.of<Siswa2Provider>(context);
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
     SiswaModel siswa = siswaProvider.siswa2;
     String gendre;
-
-    handleSingUp() async {
-      await authProvider.logout(
-        nis: nis.toString(),
-        token: token!,
-      );
-      Navigator.pushAndRemoveUntil(
-        context, 
-        MaterialPageRoute(
-          builder: (context) => SplashPage(),
-        ), 
-        ModalRoute.withName('/'));
-    }
     
     if (siswa.kelamin.toString() == 'l') {
-      gendre = 'male';
+      gendre = 'Laki-laki';
     } else if(siswa.kelamin.toString() == 'p'){
-      gendre = 'famale';
+      gendre = 'Perempuan';
     } else{
       gendre = 'other';
     }
 
     Widget header(){
       return AppBar(
-        backgroundColor: backgroundColor1,
+        backgroundColor: backgroundColor,
         automaticallyImplyLeading: false,
         elevation: 0,
         flexibleSpace: SafeArea(
           child: Container(
-            padding: EdgeInsets.all(defaultMargin),
+            padding: EdgeInsets.only(left: defaultMargin, right: defaultMargin, top: 20, bottom: 20),
             child: Row(
               children: [
-                ClipOval(
-                  child: Image.asset('assets/profile_image.png',width: 64,),
-                ),
-                const SizedBox(width: 16,),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         siswa.nama.toString(),
-                        style: primaryTextStyle.copyWith(
-                          fontSize: 24,
+                        style: blackTextStyle.copyWith(
+                          fontSize: 20,
                           fontWeight: semibold
                         ),
                       ),
@@ -91,7 +65,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       ),
                       Text(
-                        'Class : '+siswa.kelas!.kelas.toString(),
+                        'Kelas : '+siswa.kelas!.kelas.toString(),
                         style: subTextStyle.copyWith(
                           fontSize: 16
                         ),
@@ -99,10 +73,10 @@ class _ProfilePageState extends State<ProfilePage> {
                     ],
                   )
                 ),
-                GestureDetector(
-                  onTap: handleSingUp,
-                  child: Image.asset('assets/Exit_Button.png',width: 20,)
-                )
+                const SizedBox(width: 16,),
+                ClipOval(
+                  child: Image.asset('assets/profile_image.png',width: 64,),
+                ),
               ],
             ),
           )
@@ -129,7 +103,7 @@ class _ProfilePageState extends State<ProfilePage> {
           margin: const EdgeInsets.all(10),
           width: double.infinity,
           decoration: BoxDecoration(
-            color: backgroundColor3,
+            color: backgroundColor,
             borderRadius: BorderRadius.circular(15)
           ),
 
@@ -138,19 +112,19 @@ class _ProfilePageState extends State<ProfilePage> {
             children: [
               const SizedBox(height: 20,),
               Text(
-                'Personal Biodata',
-                style: primaryTextStyle.copyWith(
+                'Biodata Pribadi',
+                style: blackTextStyle.copyWith(
                   fontSize: 16,
                   fontWeight: semibold
                 ),
               ),
-              menuItem('Full Name', siswa.nama.toString()),
-              menuItem('Nickname', siswa.panggilan.toString()),
-              menuItem('Gendre', gendre),
-              menuItem('Place of Birt', siswa.tmplahir.toString()),
-              menuItem('Date of Birt', siswa.tgllahir.toString()),
-              menuItem('Relegion', siswa.agama.toString()),
-              menuItem('Daily Language', 'INDONESIA'),
+              menuItem('Nama Lengkap', siswa.nama.toString()),
+              menuItem('Panggilan', siswa.panggilan.toString()),
+              menuItem('Jenis Kelamin', gendre),
+              menuItem('Tempat Lahir', siswa.tmplahir.toString()),
+              menuItem('Tanggal Lahir', siswa.tgllahir.toString()),
+              menuItem('Agama', siswa.agama.toString()),
+              menuItem('Bahasa', 'INDONESIA'),
               const SizedBox(height: 20,)
             ],
           ),
@@ -164,7 +138,7 @@ class _ProfilePageState extends State<ProfilePage> {
           margin: const EdgeInsets.all(10),
           width: double.infinity,
           decoration: BoxDecoration(
-            color: backgroundColor3,
+            color: backgroundColor,
             borderRadius: BorderRadius.circular(15)
           ),
 
@@ -173,13 +147,13 @@ class _ProfilePageState extends State<ProfilePage> {
             children: [
               const SizedBox(height: 20,),
               Text(
-                'Contact Information',
-                style: primaryTextStyle.copyWith(
+                'Informasi Kontak',
+                style: blackTextStyle.copyWith(
                   fontSize: 16,
                   fontWeight: semibold
                 ),
               ),
-              menuItem('Address :', ''),
+              menuItem('Alamat :', ''),
               Text(
                 siswa.alamatsiswa.toString(),
                 style: secondTextStyle.copyWith(
@@ -187,7 +161,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 textAlign: TextAlign.justify,
               ),
-              menuItem('Phone Number', siswa.hpsiswa.toString()),
+              menuItem('Handphone', siswa.hpsiswa.toString()),
               menuItem('E-mail', siswa.emailsiswa.toString()),
               const SizedBox(height: 20,)
             ],
@@ -202,7 +176,7 @@ class _ProfilePageState extends State<ProfilePage> {
           margin: const EdgeInsets.all(10),
           width: double.infinity,
           decoration: BoxDecoration(
-            color: backgroundColor3,
+            color: backgroundColor,
             borderRadius: BorderRadius.circular(15)
           ),
 
@@ -211,15 +185,15 @@ class _ProfilePageState extends State<ProfilePage> {
             children: [
               const SizedBox(height: 20,),
               Text(
-                'Health Information',
-                style: primaryTextStyle.copyWith(
+                'Informasi Kesehatan',
+                style: blackTextStyle.copyWith(
                   fontSize: 16,
                   fontWeight: semibold
                 ),
               ),
-              menuItem('Weight', siswa.berat.toString()),
-              menuItem('Height', siswa.tinggi.toString()),
-              menuItem('Blood Type', siswa.darah.toString()),
+              menuItem('Berat', siswa.berat.toString()+' Kg'),
+              menuItem('Tinggi', siswa.tinggi.toString()+' Cm'),
+              menuItem('Golongan Darah', siswa.darah.toString()),
               const SizedBox(height: 20,)
             ],
           ),
@@ -233,7 +207,7 @@ class _ProfilePageState extends State<ProfilePage> {
           margin: const EdgeInsets.all(10),
           width: double.infinity,
           decoration: BoxDecoration(
-            color: backgroundColor3,
+            color: backgroundColor,
             borderRadius: BorderRadius.circular(15)
           ),
 
@@ -242,13 +216,13 @@ class _ProfilePageState extends State<ProfilePage> {
             children: [
               const SizedBox(height: 20,),
               Text(
-                'School Information',
-                style: primaryTextStyle.copyWith(
+                'Informasi Sekolah',
+                style: blackTextStyle.copyWith(
                   fontSize: 16,
                   fontWeight: semibold
                 ),
               ),
-              menuItem('Junior Height School :', ''),
+              menuItem('SMP :', ''),
               Text(
                 siswa.asalsekolah.toString(),
                 style: secondTextStyle.copyWith(
@@ -269,7 +243,7 @@ class _ProfilePageState extends State<ProfilePage> {
           margin: const EdgeInsets.all(10),
           width: double.infinity,
           decoration: BoxDecoration(
-            color: backgroundColor3,
+            color: backgroundColor,
             borderRadius: BorderRadius.circular(15)
           ),
 
@@ -278,16 +252,17 @@ class _ProfilePageState extends State<ProfilePage> {
             children: [
               const SizedBox(height: 20,),
               Text(
-                'Father Biodata',
-                style: primaryTextStyle.copyWith(
+                'Biodata Ayah',
+                style: blackTextStyle.copyWith(
                   fontSize: 16,
                   fontWeight: semibold
                 ),
               ),
-              menuItem('Name', siswa.namaayah.toString()),
-              menuItem('Education', siswa.pendidikanayah.toString()),
+              menuItem('Nama', siswa.namaayah.toString()),
+              menuItem('Pendidikan', siswa.pendidikanayah.toString()),
+              menuItem('Pekerjaan', siswa.pekerjaanayah.toString()),
               menuItem(
-                'Job',
+                'Penghasilan',
                 NumberFormat.currency(
                   locale: 'id_ID',
                   symbol: 'Rp ',
@@ -308,7 +283,7 @@ class _ProfilePageState extends State<ProfilePage> {
           margin: const EdgeInsets.all(10),
           width: double.infinity,
           decoration: BoxDecoration(
-            color: backgroundColor3,
+            color: backgroundColor,
             borderRadius: BorderRadius.circular(15)
           ),
 
@@ -317,16 +292,17 @@ class _ProfilePageState extends State<ProfilePage> {
             children: [
               const SizedBox(height: 20,),
               Text(
-                'Mother Biodata',
-                style: primaryTextStyle.copyWith(
+                'Biodata Ibu',
+                style: blackTextStyle.copyWith(
                   fontSize: 16,
                   fontWeight: semibold
                 ),
               ),
-              menuItem('Name', siswa.namaibu.toString()),
-              menuItem('Education', siswa.pendidikanibu.toString()),
+              menuItem('Nama', siswa.namaibu.toString()),
+              menuItem('Pendidikan', siswa.pendidikanibu.toString()),
+              menuItem('Pekerjaan', siswa.pekerjaanibu.toString()),
               menuItem(
-                'Job',
+                'Penghasilan',
                 NumberFormat.currency(
                   locale: 'id_ID',
                   symbol: 'Rp ',
@@ -346,7 +322,7 @@ class _ProfilePageState extends State<ProfilePage> {
           margin: const EdgeInsets.all(10),
           width: double.infinity,
           decoration: BoxDecoration(
-            color: backgroundColor3,
+            color: backgroundColor,
             borderRadius: BorderRadius.circular(15)
           ),
 
@@ -355,13 +331,13 @@ class _ProfilePageState extends State<ProfilePage> {
             children: [
               const SizedBox(height: 20,),
               Text(
-                'Contact Parent Information',
-                style: primaryTextStyle.copyWith(
+                'Kontak Orang Tua',
+                style: blackTextStyle.copyWith(
                   fontSize: 16,
                   fontWeight: semibold
                 ),
               ),
-              menuItem('Address :', ''),
+              menuItem('Alamat :', ''),
               Text(
                 siswa.alamatortu.toString(),
                 style: secondTextStyle.copyWith(
@@ -369,7 +345,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 textAlign: TextAlign.justify,
               ),
-              menuItem('Phone Number', siswa.hportu.toString()),
+              menuItem('Handphone', siswa.hportu.toString()),
               menuItem('E-mail', siswa.emailayah.toString()),
               const SizedBox(height: 20,)
             ],
@@ -384,7 +360,7 @@ class _ProfilePageState extends State<ProfilePage> {
           margin: const EdgeInsets.all(10),
           width: double.infinity,
           decoration: BoxDecoration(
-            color: backgroundColor3,
+            color: backgroundColor,
             borderRadius: BorderRadius.circular(15)
           ),
 
@@ -393,8 +369,8 @@ class _ProfilePageState extends State<ProfilePage> {
             children: [
               const SizedBox(height: 20,),
               Text(
-                'Other Information',
-                style: primaryTextStyle.copyWith(
+                'Informasi Lainnya',
+                style: blackTextStyle.copyWith(
                   fontSize: 16,
                   fontWeight: semibold
                 ),
@@ -414,7 +390,7 @@ class _ProfilePageState extends State<ProfilePage> {
           margin: const EdgeInsets.all(10),
           width: double.infinity,
           decoration: BoxDecoration(
-            color: backgroundColor3,
+            color: backgroundColor,
             borderRadius: BorderRadius.circular(15)
           ),
 
@@ -423,15 +399,15 @@ class _ProfilePageState extends State<ProfilePage> {
             children: [
               const SizedBox(height: 20,),
               Text(
-                'Personal Education Information',
-                style: primaryTextStyle.copyWith(
+                'DAPODIK',
+                style: blackTextStyle.copyWith(
                   fontSize: 16,
                   fontWeight: semibold
                 ),
               ),
               menuItem('NISN', siswa.nisn.toString()),
-              menuItem('Date Certificate SMP', siswa.tglijasah.toString()),
-              menuItem('Number Certificate SMP', siswa.noijasah.toString()),
+              menuItem('Tanggal Ijazah SMP', siswa.tglijasah.toString()),
+              menuItem('Nomor Ijazah SMP', siswa.noijasah.toString()),
               const SizedBox(height: 20,)
             ],
           ),
@@ -440,19 +416,23 @@ class _ProfilePageState extends State<ProfilePage> {
     }
     
 
-    return ListView(
-      children: [
-        header(),
-        personalBio(),
-        personalEduBio(),
-        contactInfo(),
-        healthInfo(),
-        schoolInfo(),
-        fatherInfo(),
-        motherInfo(),
-        contactParentInfo(),
-        otherInfo()
-      ],
+    return Scaffold(
+      backgroundColor: background4Color,
+      body: ListView(
+        children: [
+          AppBarButtom(nama: ''),
+          header(),
+          personalBio(),
+          personalEduBio(),
+          contactInfo(),
+          healthInfo(),
+          schoolInfo(),
+          fatherInfo(),
+          motherInfo(),
+          contactParentInfo(),
+          otherInfo()
+        ],
+      ),
     );
   }
 }

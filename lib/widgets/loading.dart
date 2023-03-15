@@ -7,20 +7,20 @@ class Loading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // ignore: sized_box_for_whitespace
-                Container(width: 16,height: 16, child: CircularProgressIndicator(
-                  strokeWidth: 2,
-                  valueColor: AlwaysStoppedAnimation(
-                    primaryTextColor
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        // ignore: sized_box_for_whitespace
+        Container(width: 16,height: 16, child: CircularProgressIndicator(
+          strokeWidth: 2,
+          valueColor: AlwaysStoppedAnimation(
+                    blackColor
                   ),
                 )),
                 const SizedBox(width: 4,),
                 Text(
                   'Loading',
                   style:
-                      primaryTextStyle.copyWith(fontWeight: medium, fontSize: 16),
+                      blackTextStyle.copyWith(fontWeight: medium, fontSize: 16),
                 ),
               ],
             );

@@ -1,14 +1,10 @@
 // ignore_for_file: use_key_in_widget_constructors
 
-import 'package:fe_info_siswa/models/user_model.dart';
 import 'package:fe_info_siswa/pages/home/home_page.dart';
-import 'package:fe_info_siswa/pages/home/main_page.dart';
 import 'package:fe_info_siswa/provider/auth_provider.dart';
-import 'package:fe_info_siswa/provider/siswa_provider.dart';
 import 'package:fe_info_siswa/share/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sp_util/sp_util.dart';
 
 // ignore: camel_case_types
 class Sign_In extends StatefulWidget {
@@ -50,7 +46,7 @@ class _Sign_InState extends State<Sign_In> {
           Navigator.pushAndRemoveUntil(
             context, 
             MaterialPageRoute(
-              builder: (context) => MainPage(),
+              builder: (context) => HomePage(),
             ), 
             ModalRoute.withName('/home')
           );
