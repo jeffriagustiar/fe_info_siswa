@@ -1,7 +1,6 @@
 import 'package:fe_info_siswa/models/spp_model.dart';
 import 'package:fe_info_siswa/pages/home/profile_page.dart';
 import 'package:fe_info_siswa/pages/splash_page.dart';
-import 'package:fe_info_siswa/pages/spp_page.dart';
 import 'package:fe_info_siswa/provider/auth_provider.dart';
 import 'package:fe_info_siswa/provider/siswa2_provider.dart';
 import 'package:fe_info_siswa/provider/spp_provider.dart';
@@ -11,7 +10,6 @@ import 'package:fe_info_siswa/widgets/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sp_util/sp_util.dart';
-import 'package:percent_indicator/percent_indicator.dart';
 import 'package:intl/intl.dart';
 
 class HomePage extends StatefulWidget {
@@ -63,10 +61,11 @@ class _HomePageState extends State<HomePage> {
         nis: nis.toString(),
         token: token!,
       );
+      // ignore: use_build_context_synchronously
       Navigator.pushAndRemoveUntil(
         context, 
         MaterialPageRoute(
-          builder: (context) => SplashPage(),
+          builder: (context) => const SplashPage(),
         ), 
         ModalRoute.withName('/'));
     }
@@ -133,10 +132,8 @@ class _HomePageState extends State<HomePage> {
         margin: EdgeInsets.all(defaultMargin),
         padding: EdgeInsets.all(defaultMargin),
         width: double.infinity,
-        // height: 235,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          // color: background2Color,
           gradient: const LinearGradient(colors: [
             Color(0xff6E5DE7),Color(0xff7A67FF)
           ])
@@ -153,16 +150,27 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             const SizedBox(height: 15,),
-            Text(
-              NumberFormat.currency(
-                locale: 'id_ID',
-                symbol: 'Rp ',
-                decimalDigits: 0,
-              ).format(spp.sisa),
-              style: whiteTextStyle.copyWith(
-                fontWeight: semibold,
-                fontSize: 30
-              ),
+            FutureBuilder(
+              future: data(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Loading();
+                }else if(snapshot.hasError){
+                  return Text('Error: ${snapshot.error}');
+                }else {
+                  return Text(
+                    NumberFormat.currency(
+                      locale: 'id_ID',
+                      symbol: 'Rp ',
+                      decimalDigits: 0,
+                    ).format(spp.sisa),
+                    style: whiteTextStyle.copyWith(
+                      fontWeight: semibold,
+                      fontSize: 30
+                    ),
+                  );
+                }
+              }
             ),
           ],
         ),
@@ -176,7 +184,6 @@ class _HomePageState extends State<HomePage> {
           top: defaultMargin,
           right: defaultMargin,
           left: defaultMargin,
-          bottom: 12
         ),
         child: Text(
           'Fitur',
@@ -190,7 +197,12 @@ class _HomePageState extends State<HomePage> {
 
     Widget fitur(){
       return Container(
-        padding: EdgeInsets.symmetric(horizontal: 30),
+        padding: const EdgeInsets.all(25),
+        margin: const EdgeInsets.all(15),
+        decoration: BoxDecoration(
+          color: background4Color,
+          borderRadius: BorderRadius.circular(15)
+        ),
         child: Column(
           children: [
 
@@ -204,7 +216,7 @@ class _HomePageState extends State<HomePage> {
                   Navigator.pushNamed(context, '/spp');
                 },),
                 FiturButtom(nama: 'Nilai', onPressed: () {
-                  Navigator.pushNamed(context, '/nilai');
+                  Navigator.pushNamed(context, '/menu-nilai');
                 },),
                 FiturButtom(nama: 'Presensi', onPressed: () {
                   Navigator.pushNamed(context, '/absen');
@@ -212,7 +224,7 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
 
-            SizedBox(height: 10,),
+            const SizedBox(height: 10,),
 
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -224,104 +236,7 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       );
-    }
-
-    Widget callData(){
-      return FutureBuilder(
-        future: data(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Loading();
-          }else if(snapshot.hasError){
-            return Text('Error: ${snapshot.error}');
-          }else {
-            return GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context, MaterialPageRoute(
-                    builder: (context) => SppPage(),
-                  )
-                );
-              },
-              child: Container(
-                margin: EdgeInsets.symmetric(horizontal: defaultMargin),
-                padding: EdgeInsets.all(15),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: backgroundColor3,
-                  borderRadius: BorderRadius.circular(15)
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Information SPP",
-                      style: primaryTextStyle.copyWith(
-                        fontSize: 18,
-                        fontWeight: semibold
-                      ),
-                    ),
-                    SizedBox(height: 10,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Paid : ${
-                            NumberFormat.currency(
-                              locale: 'id_ID',
-                              symbol: 'Rp ',
-                              decimalDigits: 0,
-                            ).format(int.parse(spp.dibayar!))
-                          }",
-                          style: primaryTextStyle.copyWith(
-                            fontSize: 14,
-                            fontWeight: medium
-                          ),
-                        ),
-            
-                        Text(
-                          "UnPaid : ${
-                            NumberFormat.currency(
-                              locale: 'id_ID',
-                              symbol: 'Rp ',
-                              decimalDigits: 0,
-                            ).format(spp.sisa)
-                          }",
-                          style: primaryTextStyle.copyWith(
-                            fontSize: 14,
-                            fontWeight: medium
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 5,),
-                    Text(
-                          "Persentasion Paid",
-                          style: primaryTextStyle.copyWith(
-                            fontSize: 14,
-                            fontWeight: medium
-                          ),
-                        ),
-                    SizedBox(height: 5,),
-                    new LinearPercentIndicator(
-                        width: MediaQuery.of(context).size.width - 90,
-                        animation: true,
-                        lineHeight: 20.0,
-                        animationDuration: 2000,
-                        percent: double.parse(spp.persen!),
-                        center: Text("${spp.persen2}%"),
-                        linearStrokeCap: LinearStrokeCap.roundAll,
-                        progressColor: primaryColor,
-                      ),
-                  ],
-                ),
-              ),
-            );
-          }
-        },
-      );
-    }
-    
+    }    
 
     return Scaffold(
       backgroundColor: backgroundColor,
@@ -331,7 +246,7 @@ class _HomePageState extends State<HomePage> {
           children: [
             header(),
             infoSpp(),
-            titileMenu(),
+            // titileMenu(),
             fitur()
           ],
         ),

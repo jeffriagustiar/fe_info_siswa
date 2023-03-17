@@ -50,7 +50,7 @@ class SppTile extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Date",
+                    "Tanggal",
                     style: secondTextStyle.copyWith(
                       fontWeight: medium,
                       fontSize: 15

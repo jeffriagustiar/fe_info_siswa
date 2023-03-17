@@ -1,6 +1,7 @@
 import 'package:fe_info_siswa/pages/home/home_page.dart';
 import 'package:fe_info_siswa/pages/home/list_absensi_siswa_page.dart';
 import 'package:fe_info_siswa/pages/home/list_nilai_rapor_page.dart';
+import 'package:fe_info_siswa/pages/home/nilai/menu_nilai.dart';
 import 'package:fe_info_siswa/pages/home/profile_page.dart';
 import 'package:fe_info_siswa/pages/sign_in.dart';
 import 'package:fe_info_siswa/pages/splash_page.dart';
@@ -53,6 +54,7 @@ class MyApp extends StatelessWidget {
           '/nilai' :(context) => ListNilaiRaporPage(),
           '/absen' :(context) => ListPresensionPage(),
           '/spp' :(context) => SppPage(),
+          '/menu-nilai' :(context) => MenuNilaiPage(),
           // '/siswa': (context) => SiswaPage(),
         },
       ),
