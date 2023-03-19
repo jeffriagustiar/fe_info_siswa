@@ -24,6 +24,7 @@ class _ListPresensionPageState extends State<ListPresensionPage> {
   List<String> year = ['2021','2022','2023','2024','2025','2026'];
   String? _itemyear='2023';
   List<String> month = ['1','2','3','4','5','6','7','8','9','10','11','12'];
+  String? _itemmonth2;
   String? _itemmonth='1';
 
   // ignore: unused_field
@@ -41,6 +42,8 @@ class _ListPresensionPageState extends State<ListPresensionPage> {
 
   data() async{
     await Provider.of<SiswaProvider>(context, listen: false).getpresenSiswa(token!, _itemyear!, _itemmonth!);
+    // ignore: use_build_context_synchronously
+    await Provider.of<SiswaProvider>(context, listen: false).getsiswa(token!);
   }
   
   @override
@@ -105,7 +108,7 @@ class _ListPresensionPageState extends State<ListPresensionPage> {
                   height: 2,
                   color: backgroundColor6,
                 ),
-                value: _itemmonth, 
+                value: _itemmonth,
                 onChanged: (newValue) {
                     setState(() {
                       _itemmonth = newValue;
@@ -113,10 +116,42 @@ class _ListPresensionPageState extends State<ListPresensionPage> {
                   },
                 items: month.map((location) {
                     return DropdownMenuItem(
-                      child: new Text(location),
+                      child: new Text(location,),
                       value: location,
                     );
                   }).toList()
+              )
+            ),
+
+            ButtonTheme(
+              alignedDropdown: true,
+              child: FutureBuilder(
+                future: data(),
+                builder: (context, snapshot) {
+                  return DropdownButton(
+                    style: TextStyle(
+                      color: Colors.amber
+                    ),
+                    borderRadius: BorderRadius.circular(15),
+                    focusColor: Colors.amber,
+                    underline: Container(
+                      height: 2,
+                      color: backgroundColor6,
+                    ),
+                    value: _itemmonth2, 
+                    onChanged: (newValue) {
+                        setState(() {
+                          _itemmonth2 = newValue;
+                        });
+                      },
+                    items: siswaProvider.siswa.map((location) {
+                        return DropdownMenuItem(
+                          child: new Text(location.nis.toString()),
+                          value: location.nis.toString(),
+                        );
+                      }).toList()
+                  );
+                }
               )
             ),
 
@@ -152,9 +187,37 @@ class _ListPresensionPageState extends State<ListPresensionPage> {
         onRefresh: getInit,
         child: ListView(
           children: [
+            Text(_itemyear.toString()),
+            Text(_itemmonth2.toString()),
             Title(),
             listSiswa(),
-            SizedBox(height: 10,)
+            SizedBox(height: 10,),
+
+      //       Container(
+      //   margin: EdgeInsets.only(
+      //     top: 14,
+      //   ),
+      //   child: FutureBuilder(
+      //     future: data(),
+      //     builder: (context, snapshot) {
+      //       if (snapshot.connectionState == ConnectionState.waiting) {
+      //         return Loading();
+      //       } else {
+      //         return Column(
+      //       children: siswaProvider.siswa.map((siswa) {
+      //         return Column(
+      //           children: [
+      //             Text(siswa.nama.toString()),
+      //           ],
+      //         );
+      //       }).toList(),
+      //       );
+      //       }
+      //     },
+          
+      //   ),
+      // )
+            
           ],
         ),
       ),

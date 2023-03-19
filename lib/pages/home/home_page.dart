@@ -1,4 +1,5 @@
 import 'package:fe_info_siswa/models/spp_model.dart';
+import 'package:fe_info_siswa/pages/home/list_siswa_page.dart';
 import 'package:fe_info_siswa/pages/home/profile_page.dart';
 import 'package:fe_info_siswa/pages/splash_page.dart';
 import 'package:fe_info_siswa/provider/auth_provider.dart';
@@ -230,6 +231,9 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 FiturButtom(nama: 'Logout', onPressed: handleLogOut),
+                FiturButtom(nama: 'coba', onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => ListSiswaPage(),));
+                },),
               ],
             ),
 

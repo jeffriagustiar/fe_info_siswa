@@ -13,7 +13,7 @@ class AnakFiturButtom extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(15),
         height: 250,
         width: 150,
         decoration: BoxDecoration(
@@ -25,8 +25,8 @@ class AnakFiturButtom extends StatelessWidget {
             Text(
               nama,
               style: blackTextStyle.copyWith(
-                fontSize: 18,
-                fontWeight: bold
+                fontSize: 16,
+                fontWeight: semibold
               ),
             ),
             const SizedBox(height: 10,),

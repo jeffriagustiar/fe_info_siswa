@@ -58,7 +58,7 @@ class SiswaService{
     );
 
     // print(response.body);
-    print("bisa");
+    print("bisa siswa");
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body)['data'];

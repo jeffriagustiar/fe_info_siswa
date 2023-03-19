@@ -49,7 +49,7 @@ class MenuNilaiPage extends StatelessWidget {
                   nama: 'Nilai Rapor', 
                   desc: "Nilai rapor merupakan hasil nilai akhir yang dicapai oleh peserta didik",
                   onPressed: () {
-                    Navigator.pushNamed(context, '/nilai');
+                    Navigator.pushNamed(context, '/menu-nilai-rapor');
                   },
                 ),
                 AnakFiturButtom(
