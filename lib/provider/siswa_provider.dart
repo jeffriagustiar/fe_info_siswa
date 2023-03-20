@@ -1,7 +1,9 @@
 import 'package:fe_info_siswa/models/presen_siswa_model.dart';
 import 'package:fe_info_siswa/models/rapor_siswa_model.dart';
+import 'package:fe_info_siswa/models/semester_model.dart';
 import 'package:fe_info_siswa/models/siswa_model.dart';
 import 'package:fe_info_siswa/models/spp_model.dart';
+import 'package:fe_info_siswa/models/tahun_model.dart';
 import 'package:fe_info_siswa/services/siswa_service.dart';
 import 'package:fe_info_siswa/services/spp_service.dart';
 import 'package:flutter/material.dart';
@@ -43,6 +45,29 @@ class SiswaProvider with ChangeNotifier{
     notifyListeners();
   }
 
+  List<TahunModel> _tahun = [];
+
+  List<TahunModel> get tahun => _tahun;
+
+  set tahun(List<TahunModel> tahun){
+    _tahun = tahun;
+    notifyListeners();
+  }
+
+  List<SemesterModel> _semester = [];
+
+  List<SemesterModel> get semester => _semester;
+
+  set semester(List<SemesterModel> semester){
+    _semester = semester;
+    notifyListeners();
+  }
+
+
+
+
+
+
   //ambil data siswa
   Future<void> getsiswa(String token) async{
     try {
@@ -80,6 +105,37 @@ class SiswaProvider with ChangeNotifier{
     try {
       List<PresensionSiswaModel> presen = await SiswaService().getpresenSiswa(token, year, month);
       _presen = presen; 
+    } catch (e) {
+      print(e); 
+    }
+  }
+
+  //ambil data tahun ajaran
+  Future<void> gettahun() async{
+    try {
+      List<TahunModel> tahun = await SiswaService().gettahun();
+      _tahun = tahun; 
+    } catch (e) {
+      print(e); 
+    }
+  }
+
+  //ambil data semester
+  Future<void> getsemester() async{
+    try {
+      List<SemesterModel> semester = await SiswaService().getsemester();
+      _semester = semester; 
+    } catch (e) {
+      print(e); 
+    }
+  }
+
+  //ambil data rapor siswa berdasarkan kelompok,tahun ajaran, dan semester
+  Future<void> getRaporSiswaD(String token, String sem, String jenis, String tipe, String tahun) async{
+    // _rapor = [];
+    try {
+      List<RaporSiswaModel> rapor = await SiswaService().getRaporSiswaD(token, sem, jenis, tipe, tahun);
+      _rapor = rapor; 
     } catch (e) {
       print(e); 
     }

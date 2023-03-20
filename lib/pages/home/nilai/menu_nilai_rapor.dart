@@ -52,7 +52,13 @@ class MenuNilaiRaporPage extends StatelessWidget {
                       nama: 'Nilai Umum', 
                       desc: "Nilai Mata Pelajaran Umum merupakan matapelajaran yang secara umum dipelajari",
                       onPressed: () {
-                        Navigator.pushNamed(context, '/nilai-rapor-umum');
+                        Navigator.pushNamed(
+                          context, 
+                          '/nilai-rapor-umum',
+                          arguments: {
+                            'nama' : 'Pelajaran Umum'
+                          }
+                        );
                       },
                     ),
                     AnakFiturButtom(
