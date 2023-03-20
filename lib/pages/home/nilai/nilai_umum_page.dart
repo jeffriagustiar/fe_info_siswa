@@ -1,6 +1,7 @@
 import 'package:fe_info_siswa/provider/siswa_provider.dart';
 import 'package:fe_info_siswa/share/theme.dart';
 import 'package:fe_info_siswa/widgets/appBar_buttom.dart';
+import 'package:fe_info_siswa/widgets/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sp_util/sp_util.dart';
@@ -37,14 +38,17 @@ class _NilaiUmumPageState extends State<NilaiUmumPage> {
     await Provider.of<SiswaProvider>(context, listen: false).gettahun();
     // ignore: use_build_context_synchronously
     await Provider.of<SiswaProvider>(context, listen: false).getsemester();
-    // ignore: use_build_context_synchronously
-    await Provider.of<SiswaProvider>(context, listen: false).getRaporSiswaD(token!, _semester2!, 'KMK', 'ASSOF', _tahunAjaran2!);
+  }
+  data2(String jenis, String tipe) async{
+    await Provider.of<SiswaProvider>(context, listen: false).getRaporSiswaD(token!, _semester2!, jenis, tipe, _tahunAjaran2!);
   }
 
   @override
   Widget build(BuildContext context) {
     final arg = ModalRoute.of(context)!.settings.arguments as Map;
     String nama = arg['nama'];
+    String jenis = arg['jenis'];
+    String tipe = arg['tipe'];
 
     SiswaProvider siswaProvider = Provider.of<SiswaProvider>(context);
 
@@ -165,7 +169,7 @@ class _NilaiUmumPageState extends State<NilaiUmumPage> {
     );
   }
 
-  Widget content2(String tes){
+  Widget content2(String tipe, String jenis){
     return Container(
       margin: EdgeInsets.only(top: 20,left: 10, right: 10),
       padding: EdgeInsetsDirectional.all(15),
@@ -193,8 +197,17 @@ class _NilaiUmumPageState extends State<NilaiUmumPage> {
             height: 1,
             color: blackColor,
           ),
-          Column(
-            children: siswaProvider.rapor.map((rapor) => dataNilai(rapor.nama.toString(), rapor.nilaiangka.toString(), rapor.nilaihuruf.toString())).toList(),
+          FutureBuilder(
+            future: data2(jenis,tipe),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Loading();
+              } else {
+                return Column(
+                  children: siswaProvider.rapor.map((rapor) => dataNilai(rapor.nama.toString(), rapor.nilaiangka.toString(), rapor.nilaihuruf.toString())).toList(),
+                );
+              }
+            }
           ),
         ],
       ),
@@ -204,24 +217,15 @@ class _NilaiUmumPageState extends State<NilaiUmumPage> {
     return Scaffold(
       backgroundColor: backgroundColor,
       body: SafeArea(
-        child: Column(
-          children: [
-            AppBarButtom(nama: nama),
-            Text(_semester.toString()),
-            Text(_tahunAjaran.toString()),
-            Text(token.toString()),
-            comboBox(),
-            content2(nama)
-            // RefreshIndicator(
-            //   onRefresh: getInit,
-            //   child: ListView(
-            //     children: [
-            //       comboBox(),
-            //       content2(nama)
-            //     ],
-            //   ), 
-            // ),
-          ],
+        child: RefreshIndicator(
+          onRefresh: getInit,
+          child: Column(
+            children: [
+              AppBarButtom(nama: nama),
+              comboBox(),
+              content2(tipe, jenis)
+            ],
+          ),
         ),
       ),
     );

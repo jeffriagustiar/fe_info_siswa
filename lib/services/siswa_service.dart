@@ -41,7 +41,7 @@ class SiswaService{
       }
       return siswa;
     } else {
-      throw Exception("Gagal Ambil data");
+      throw Exception("Gagal Ambil data siswa");
     }
   }
 
@@ -68,7 +68,7 @@ class SiswaService{
 
       return siswa;
     } else {
-      throw Exception("Gagal Ambil data");
+      throw Exception("Gagal Ambil data siswa nis");
     }
   }
 
@@ -98,7 +98,7 @@ class SiswaService{
       }
       return rapor;
     } else {
-      throw Exception("Gagal Ambil data");
+      throw Exception("Gagal Ambil data rapor");
     }
   }
 
@@ -128,7 +128,7 @@ class SiswaService{
       }
       return presen;
     } else {
-      throw Exception("Gagal Ambil data");
+      throw Exception("Gagal Ambil data presensi");
     }
   }
 
@@ -157,7 +157,7 @@ class SiswaService{
       }
       return tahun;
     } else {
-      throw Exception("Gagal Ambil data");
+      throw Exception("Gagal Ambil data tahun");
     }
   }
 
@@ -186,7 +186,7 @@ class SiswaService{
       }
       return semester;
     } else {
-      throw Exception("Gagal Ambil data");
+      throw Exception("Gagal Ambil data semester");
     }
   }
 
@@ -216,7 +216,7 @@ class SiswaService{
       }
       return rapor;
     } else {
-      throw Exception("Gagal Ambil data");
+      throw Exception("Gagal Ambil data rapor detail");
     }
   }
 

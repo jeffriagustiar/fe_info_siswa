@@ -56,7 +56,9 @@ class MenuNilaiRaporPage extends StatelessWidget {
                           context, 
                           '/nilai-rapor-umum',
                           arguments: {
-                            'nama' : 'Pelajaran Umum'
+                            'nama' : 'Pelajaran Umum',
+                            'jenis' : 'KMU',
+                            'tipe' : 'ASSOF'
                           }
                         );
                       },
@@ -65,7 +67,15 @@ class MenuNilaiRaporPage extends StatelessWidget {
                       nama: 'Nilai Kejuruan',
                       desc: "Nilai Mata Pelajaran Kejuruan merupakan konsentasi berdasarkan jurusan",
                       onPressed: () {
-                        Navigator.pushNamed(context, '/nilai-rapor-umum');
+                        Navigator.pushNamed(
+                          context, 
+                          '/nilai-rapor-umum',
+                          arguments: {
+                            'nama' : 'Pelajaran Kejuruan',
+                            'jenis' : 'KMK',
+                            'tipe' : 'ASSOF'
+                          }
+                        );
                       },
                     ),
                   ],
@@ -78,14 +88,30 @@ class MenuNilaiRaporPage extends StatelessWidget {
                       nama: 'Nilai Pancasila', 
                       desc: "Nilai Penguatan Profil Pelajar Pancasila",
                       onPressed: () {
-                        Navigator.pushNamed(context, '/nilai-rapor-umum');
+                        Navigator.pushNamed(
+                          context, 
+                          '/nilai-rapor-umum',
+                          arguments: {
+                            'nama' : 'Pelajaran Pancasila',
+                            'jenis' : 'P5',
+                            'tipe' : 'D'
+                          }
+                        );
                       },
                     ),
                     AnakFiturButtom(
                       nama: 'Nilai Ex School ', 
                       desc: "Nilai Ex School atau Ekstrakurikuler merupakan pelajaran extra",
                       onPressed: () {
-                        Navigator.pushNamed(context, '/nilai');
+                        Navigator.pushNamed(
+                          context, 
+                          '/nilai-rapor-umum',
+                          arguments: {
+                            'nama' : 'Pelajaran Ex School ',
+                            'jenis' : 'KURIK',
+                            'tipe' : 'KURIK'
+                          }
+                        );
                       },
                     ),
                   ],
