@@ -58,7 +58,8 @@ class MenuNilaiRaporPage extends StatelessWidget {
                           arguments: {
                             'nama' : 'Pelajaran Umum',
                             'jenis' : 'KMU',
-                            'tipe' : 'ASSOF'
+                            'tipe' : 'ASSOF',
+                            'pancasila' : 0
                           }
                         );
                       },
@@ -73,7 +74,8 @@ class MenuNilaiRaporPage extends StatelessWidget {
                           arguments: {
                             'nama' : 'Pelajaran Kejuruan',
                             'jenis' : 'KMK',
-                            'tipe' : 'ASSOF'
+                            'tipe' : 'ASSOF',
+                            'pancasila' : 0
                           }
                         );
                       },
@@ -94,7 +96,8 @@ class MenuNilaiRaporPage extends StatelessWidget {
                           arguments: {
                             'nama' : 'Pelajaran Pancasila',
                             'jenis' : 'P5',
-                            'tipe' : 'D'
+                            'tipe' : 'D',
+                            'pancasila' : 1
                           }
                         );
                       },
@@ -109,7 +112,8 @@ class MenuNilaiRaporPage extends StatelessWidget {
                           arguments: {
                             'nama' : 'Pelajaran Ex School ',
                             'jenis' : 'KURIK',
-                            'tipe' : 'KURIK'
+                            'tipe' : 'KURIK',
+                            'pancasila' : 0
                           }
                         );
                       },

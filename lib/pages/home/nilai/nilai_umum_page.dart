@@ -49,6 +49,7 @@ class _NilaiUmumPageState extends State<NilaiUmumPage> {
     String nama = arg['nama'];
     String jenis = arg['jenis'];
     String tipe = arg['tipe'];
+    int pancasila = arg['pancasila'];
 
     SiswaProvider siswaProvider = Provider.of<SiswaProvider>(context);
 
@@ -93,6 +94,7 @@ class _NilaiUmumPageState extends State<NilaiUmumPage> {
                         },
                       items: siswaProvider.tahun.map((location) {
                           return DropdownMenuItem(
+                            // ignore: unnecessary_new, sort_child_properties_last
                             child: new Text(location.tahun.toString(),),
                             value: location.tahun.toString(),
                           );
@@ -130,6 +132,7 @@ class _NilaiUmumPageState extends State<NilaiUmumPage> {
                         },
                       items: siswaProvider.semester.map((location) {
                           return DropdownMenuItem(
+                            // ignore: sort_child_properties_last, unnecessary_new
                             child: new Text(location.semester.toString(),),
                             value: location.replid.toString(),
                           );
@@ -145,6 +148,7 @@ class _NilaiUmumPageState extends State<NilaiUmumPage> {
 
   Widget cell2(double lebar, String nama){
     return Container(
+      padding: const EdgeInsets.only(top: 15),
       width: lebar, 
       child: Text(
         nama,
@@ -155,15 +159,50 @@ class _NilaiUmumPageState extends State<NilaiUmumPage> {
     );
   }
 
-  Widget dataNilai(String mapel, String nilai, String angka){
+  Widget icon(double lebar, String komen){
+    return Container(
+      padding: const EdgeInsets.only(top: 15),
+      width: lebar, 
+      child: GestureDetector(
+        onTap: (){
+          showDialog(
+            context: context, 
+            builder: (BuildContext context){
+              return AlertDialog(
+                title: Text('Komentar terkait pencapaian',style: blackTextStyle.copyWith(fontWeight: bold),),
+          content: Text(komen, textAlign: TextAlign.justify,),
+          actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Tutup'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+            }
+          );
+        },
+        child: const Icon(
+          Icons.search
+        ),
+      )
+    );
+  }
+
+  Widget dataNilai(String mapel, String nilai, String angka, String komen){
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         
         cell2(180, mapel),
         cell2(40, nilai),
         cell2(40, angka),
-        cell2(40, "icon"),
+        icon(20, komen),
 
       ],
     );
@@ -171,8 +210,8 @@ class _NilaiUmumPageState extends State<NilaiUmumPage> {
 
   Widget content2(String tipe, String jenis){
     return Container(
-      margin: EdgeInsets.only(top: 20,left: 10, right: 10),
-      padding: EdgeInsetsDirectional.all(15),
+      margin: const EdgeInsets.only(top: 20,left: 10, right: 10),
+      padding: const EdgeInsetsDirectional.all(15),
       width: double.infinity,
       decoration: BoxDecoration(
         color: background4Color,
@@ -184,15 +223,19 @@ class _NilaiUmumPageState extends State<NilaiUmumPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
 
+              // ignore: sized_box_for_whitespace
               Container(width: 180, child: Text("Mata Pelajaran",style: blackTextStyle.copyWith(fontSize: 12, fontWeight: bold),)),
+              // ignore: sized_box_for_whitespace
               Container(width: 40, child: Text("Angka",style: blackTextStyle.copyWith(fontSize: 12, fontWeight: bold),)),
+              // ignore: sized_box_for_whitespace
               Container(width: 40, child: Text("Huruf",style: blackTextStyle.copyWith(fontSize: 12, fontWeight: bold),)),
+              // ignore: sized_box_for_whitespace
               Container(width: 40, child: Text("Action",style: blackTextStyle.copyWith(fontSize: 12, fontWeight: bold),)),
 
             ],
           ),
           Container(
-            margin: EdgeInsets.only(bottom: 5),
+            margin: const EdgeInsets.only(bottom: 5),
             width: double.infinity,
             height: 1,
             color: blackColor,
@@ -201,13 +244,104 @@ class _NilaiUmumPageState extends State<NilaiUmumPage> {
             future: data2(jenis,tipe),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Loading();
+                return const Loading();
               } else {
-                return Column(
-                  children: siswaProvider.rapor.map((rapor) => dataNilai(rapor.nama.toString(), rapor.nilaiangka.toString(), rapor.nilaihuruf.toString())).toList(),
-                );
+                if (pancasila==1) {
+                  return Column(
+                    children: siswaProvider.rapor.map((rapor) => dataNilai(
+                      // ignore: prefer_interpolation_to_compose_strings
+                      rapor.nama.toString()+" "+rapor.dasarpenilaian.toString(), 
+                      rapor.nilaiangka.toString(), 
+                      rapor.nilaihuruf.toString(), 
+                      rapor.komentar2.toString()
+                    )).toList(),
+                  );
+                } else {
+                  return Column(
+                    children: siswaProvider.rapor.map((rapor) => dataNilai(
+                      rapor.nama.toString(), 
+                      rapor.nilaiangka.toString(), 
+                      rapor.nilaihuruf.toString(), 
+                      rapor.komentar2.toString()
+                    )).toList(),
+                  );
+                }
+                
               }
             }
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget keterangan(){
+    return Container(
+      margin: const EdgeInsets.only(top: 20,left: 10, right: 10),
+      padding: const EdgeInsetsDirectional.all(15),
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: background4Color,
+        borderRadius: BorderRadius.circular(15)
+      ),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+
+              // ignore: sized_box_for_whitespace
+              Container(width: 200, child: Text("Keterangan Pelajaran Pancasila",style: blackTextStyle.copyWith(fontSize: 12, fontWeight: bold),)),
+
+            ],
+          ),
+          Container(
+            margin: const EdgeInsets.only(bottom: 5),
+            width: double.infinity,
+            height: 1,
+            color: blackColor,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              cell2(150, "D1 : Beriaman, bertaqwa kepadaTuhan YME dan berakhlak mulia"),
+              cell2(150, "SB : Sangat Berkembang"),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              cell2(150, "D2 : Bernalar kritis"),
+              cell2(150, "BSH : Berkembang Sesuai Harapan"),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              cell2(150, "D3 : Mandiri"),
+              cell2(150, "MB : Mulai Berkembang"),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              cell2(150, "D4 : Kebhinekaan Global"),
+              cell2(150, "BB : Belum Berkembang"),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              cell2(150, "D5 : Kreatif"),
+              cell2(150, ""),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              cell2(150, "D6 : Bergotongroyong"),
+              cell2(150, ""),
+            ],
           ),
         ],
       ),
@@ -219,11 +353,13 @@ class _NilaiUmumPageState extends State<NilaiUmumPage> {
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: getInit,
-          child: Column(
+          child: ListView(
             children: [
               AppBarButtom(nama: nama),
               comboBox(),
-              content2(tipe, jenis)
+              content2(tipe, jenis),
+              pancasila == 1 ? keterangan() : const SizedBox(height: 20,),
+              const SizedBox(height: 20,),
             ],
           ),
         ),
