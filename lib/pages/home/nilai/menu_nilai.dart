@@ -56,7 +56,7 @@ class MenuNilaiPage extends StatelessWidget {
                   nama: 'Nilai Harian',
                   desc: "Nilai harian merupakan nilai yang diambil oleh guru perhari pengambilan",
                   onPressed: () {
-                    //
+                    Navigator.pushNamed(context, '/menu-nilai-harian');
                   },
                 ),
               ],

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:fe_info_siswa/models/mapel_model.dart';
 import 'package:fe_info_siswa/models/presen_siswa_model.dart';
 import 'package:fe_info_siswa/models/rapor_siswa_model.dart';
 import 'package:fe_info_siswa/models/semester_model.dart';
@@ -217,6 +218,35 @@ class SiswaService{
       return rapor;
     } else {
       throw Exception("Gagal Ambil data rapor detail");
+    }
+  }
+
+  //ambil data Mapel berdasarkan kelompok
+  Future<List<MapelModel>> getMapel(String jenis) async{
+    var url = Uri.parse('$baseUrl/mapel?jenis=$jenis');
+
+    var headers = {
+      'Content-Type': 'application/json',
+    };
+
+    var response = await http.get(
+      url,
+      headers: headers
+    );
+
+    // print((response.body));
+    print("bisa mapel");
+
+    if (response.statusCode == 200) {
+      List  data = jsonDecode(response.body)['data'];
+      List<MapelModel> mapel = [];
+
+      for (var item in data) {
+        mapel.add(MapelModel.fromJson(item));
+      }
+      return mapel;
+    } else {
+      throw Exception("Gagal Ambil data matapelajaran");
     }
   }
 

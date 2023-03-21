@@ -1,3 +1,4 @@
+import 'package:fe_info_siswa/models/mapel_model.dart';
 import 'package:fe_info_siswa/models/presen_siswa_model.dart';
 import 'package:fe_info_siswa/models/rapor_siswa_model.dart';
 import 'package:fe_info_siswa/models/semester_model.dart';
@@ -60,6 +61,15 @@ class SiswaProvider with ChangeNotifier{
 
   set semester(List<SemesterModel> semester){
     _semester = semester;
+    notifyListeners();
+  }
+
+  List<MapelModel> _mapel = [];
+
+  List<MapelModel> get mapel => _mapel;
+
+  set mapel(List<MapelModel> mapel){
+    _mapel = mapel;
     notifyListeners();
   }
 
@@ -136,6 +146,16 @@ class SiswaProvider with ChangeNotifier{
     try {
       List<RaporSiswaModel> rapor = await SiswaService().getRaporSiswaD(token, sem, jenis, tipe, tahun);
       _rapor = rapor; 
+    } catch (e) {
+      print(e); 
+    }
+  }
+
+  //ambil data Mapel berdasarkan kelompok
+  Future<void> getMapel(String jenis) async{
+    try {
+      List<MapelModel> mapel = await SiswaService().getMapel(jenis);
+      _mapel = mapel; 
     } catch (e) {
       print(e); 
     }

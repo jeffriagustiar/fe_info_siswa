@@ -2,7 +2,9 @@ import 'package:fe_info_siswa/pages/home/home_page.dart';
 import 'package:fe_info_siswa/pages/home/list_absensi_siswa_page.dart';
 import 'package:fe_info_siswa/pages/home/nilai/list_nilai_rapor_page.dart';
 import 'package:fe_info_siswa/pages/home/nilai/menu_nilai.dart';
+import 'package:fe_info_siswa/pages/home/nilai/menu_nilai_harian.dart';
 import 'package:fe_info_siswa/pages/home/nilai/menu_nilai_rapor.dart';
+import 'package:fe_info_siswa/pages/home/nilai/nilai_harian_page.dart';
 import 'package:fe_info_siswa/pages/home/nilai/nilai_umum_page.dart';
 import 'package:fe_info_siswa/pages/home/profile_page.dart';
 import 'package:fe_info_siswa/pages/sign_in.dart';
@@ -59,6 +61,8 @@ class MyApp extends StatelessWidget {
           '/menu-nilai' :(context) => MenuNilaiPage(),
           '/menu-nilai-rapor' :(context) => MenuNilaiRaporPage(),
           '/nilai-rapor-umum' :(context) => NilaiUmumPage(),
+          '/menu-nilai-harian' :(context) => MenuNilaiHarianPage(),
+          '/nilai-harian' :(context) => NilaiHarianPage()
           // '/siswa': (context) => SiswaPage(),
         },
       ),
