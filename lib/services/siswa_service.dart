@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:fe_info_siswa/models/mapel_model.dart';
+import 'package:fe_info_siswa/models/nilai_harian_model.dart';
 import 'package:fe_info_siswa/models/presen_siswa_model.dart';
 import 'package:fe_info_siswa/models/rapor_siswa_model.dart';
 import 'package:fe_info_siswa/models/semester_model.dart';
@@ -235,7 +236,7 @@ class SiswaService{
     );
 
     // print((response.body));
-    print("bisa mapel");
+    // print("bisa mapel");
 
     if (response.statusCode == 200) {
       List  data = jsonDecode(response.body)['data'];
@@ -247,6 +248,36 @@ class SiswaService{
       return mapel;
     } else {
       throw Exception("Gagal Ambil data matapelajaran");
+    }
+  }
+
+  //ambil data Nilai Harian Siswa Berdasarkan mapel
+  Future<List<NilaiHarianModel>> getNilaiHarin(String token, String mapel, String kelas) async{
+    var url = Uri.parse('$baseUrl/nilaiHarian?mapel=$mapel&kelas=$kelas');
+
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization' : token
+    };
+
+    var response = await http.get(
+      url,
+      headers: headers
+    );
+
+    // print((response.body));
+    print("bisa nilai harian");
+
+    if (response.statusCode == 200) {
+      List  data = jsonDecode(response.body)['data'];
+      List<NilaiHarianModel> nilaiHarian = [];
+
+      for (var item in data) {
+        nilaiHarian.add(NilaiHarianModel.fromJson(item));
+      }
+      return nilaiHarian;
+    } else {
+      throw Exception("Gagal Ambil data nilai harian");
     }
   }
 

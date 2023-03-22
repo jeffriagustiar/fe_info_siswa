@@ -1,4 +1,5 @@
 import 'package:fe_info_siswa/models/mapel_model.dart';
+import 'package:fe_info_siswa/models/nilai_harian_model.dart';
 import 'package:fe_info_siswa/models/presen_siswa_model.dart';
 import 'package:fe_info_siswa/models/rapor_siswa_model.dart';
 import 'package:fe_info_siswa/models/semester_model.dart';
@@ -70,6 +71,15 @@ class SiswaProvider with ChangeNotifier{
 
   set mapel(List<MapelModel> mapel){
     _mapel = mapel;
+    notifyListeners();
+  }
+
+  List<NilaiHarianModel> _nilaiHarian = [];
+
+  List<NilaiHarianModel> get nilaiHarian => _nilaiHarian;
+
+  set nilaiHarian(List<NilaiHarianModel> nilaiHarian){
+    _nilaiHarian = nilaiHarian;
     notifyListeners();
   }
 
@@ -156,6 +166,16 @@ class SiswaProvider with ChangeNotifier{
     try {
       List<MapelModel> mapel = await SiswaService().getMapel(jenis);
       _mapel = mapel; 
+    } catch (e) {
+      print(e); 
+    }
+  }
+
+  //ambil data nilai harian berdasarkan mapel
+  Future<void> getNilaiHarin(String token, String mapel, String kelas) async{
+    try {
+      List<NilaiHarianModel> nilaiHarian = await SiswaService().getNilaiHarin(token, mapel, kelas);
+      _nilaiHarian = nilaiHarian; 
     } catch (e) {
       print(e); 
     }
