@@ -172,9 +172,9 @@ class SiswaProvider with ChangeNotifier{
   }
 
   //ambil data nilai harian berdasarkan mapel
-  Future<void> getNilaiHarin(String token, String mapel, String kelas) async{
+  Future<void> getNilaiHarin(String token, String mapel, String kelas, String sem) async{
     try {
-      List<NilaiHarianModel> nilaiHarian = await SiswaService().getNilaiHarin(token, mapel, kelas);
+      List<NilaiHarianModel> nilaiHarian = await SiswaService().getNilaiHarin(token, mapel, kelas, sem);
       _nilaiHarian = nilaiHarian; 
     } catch (e) {
       print(e); 

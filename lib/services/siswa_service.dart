@@ -252,8 +252,8 @@ class SiswaService{
   }
 
   //ambil data Nilai Harian Siswa Berdasarkan mapel
-  Future<List<NilaiHarianModel>> getNilaiHarin(String token, String mapel, String kelas) async{
-    var url = Uri.parse('$baseUrl/nilaiHarian?mapel=$mapel&kelas=$kelas');
+  Future<List<NilaiHarianModel>> getNilaiHarin(String token, String mapel, String kelas, String sem) async{
+    var url = Uri.parse('$baseUrl/nilaiHarian?mapel=$mapel&kelas=$kelas&sem=$sem');
 
     var headers = {
       'Content-Type': 'application/json',
