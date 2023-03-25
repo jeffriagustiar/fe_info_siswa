@@ -18,6 +18,8 @@ class _NilaiHarianPageState extends State<NilaiHarianPage> {
   String? _mapel2 = '1';
   String? _sem;
   String? _sem2 = '21';
+  String? _tahunAjaran;
+  String? _tahunAjaran2 = '2022/2023';
   String? token = SpUtil.getString('token');
   String? kelas = SpUtil.getInt('idkelas').toString();
 
@@ -38,12 +40,14 @@ class _NilaiHarianPageState extends State<NilaiHarianPage> {
     await Provider.of<SiswaProvider>(context, listen: false).getMapel(jenis);
   }
 
-  dataSemester() async{
-    await Provider.of<SiswaProvider>(context, listen: false).getsemester();
+  dataSemeTahun() async{
+    await Provider.of<SiswaProvider>(context, listen: false).gettahun(token!);
+    // ignore: use_build_context_synchronously
+    await Provider.of<SiswaProvider>(context, listen: false).getsemester(/*token!*/);
   }
 
   data2() async{
-    await Provider.of<SiswaProvider>(context, listen: false).getNilaiHarin(token!, _mapel2!, kelas!, _sem2!);
+    await Provider.of<SiswaProvider>(context, listen: false).getNilaiHarin(token!, _mapel2!, _tahunAjaran2!, _sem2!);
   }
 
   @override
@@ -106,7 +110,45 @@ class _NilaiHarianPageState extends State<NilaiHarianPage> {
               ),
 
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  Text(
+              "Tahun Ajaran",
+              style: blackTextStyle,
+            ),
+            ButtonTheme(
+                alignedDropdown: true,
+                child: FutureBuilder(
+                  future: dataSemeTahun(),
+                  builder: (context, snapshot) {
+                    return DropdownButton(
+                      style: TextStyle(
+                        color: blackColor
+                      ),
+                      borderRadius: BorderRadius.circular(15),
+                      focusColor: blackColor,
+                      underline: Container(
+                        height: 2,
+                        color: backgroundColor6,
+                      ),
+                      value: _tahunAjaran,
+                      onChanged: (newValue) {
+                          setState(() {
+                            _tahunAjaran = newValue;
+                            _tahunAjaran2 = newValue;
+                          });
+                        },
+                      items: siswaProvider.tahun.map((location) {
+                          return DropdownMenuItem(
+                            // ignore: unnecessary_new, sort_child_properties_last
+                            child: new Text(location.tahun.toString(),),
+                            value: location.tahun.toString(),
+                          );
+                        }).toList()
+                    );
+                  }
+                )
+              ),
                   Text(
                     "Semester",
                     style: blackTextStyle,
@@ -115,7 +157,7 @@ class _NilaiHarianPageState extends State<NilaiHarianPage> {
                   ButtonTheme(
                     alignedDropdown: true,
                     child: FutureBuilder(
-                      future: dataSemester(),
+                      future: dataSemeTahun(),
                       builder: (context, snapshot) {
                         return DropdownButton(
                           style: TextStyle(

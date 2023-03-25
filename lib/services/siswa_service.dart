@@ -135,11 +135,14 @@ class SiswaService{
   }
 
   //ambil data tahun ajaran
-  Future<List<TahunModel>> gettahun() async{
+  Future<List<TahunModel>> gettahun(
+    String token
+  ) async{
     var url = Uri.parse('$baseUrl/tahun');
 
     var headers = {
       'Content-Type': 'application/json',
+      'Authorization' : token
     };
 
     var response = await http.get(
@@ -164,11 +167,14 @@ class SiswaService{
   }
 
   //ambil data semester
-  Future<List<SemesterModel>> getsemester() async{
+  Future<List<SemesterModel>> getsemester(
+    // String token
+  ) async{
     var url = Uri.parse('$baseUrl/semester');
 
     var headers = {
       'Content-Type': 'application/json',
+      // 'Authorization' : token
     };
 
     var response = await http.get(
@@ -219,6 +225,7 @@ class SiswaService{
       return rapor;
     } else {
       throw Exception("Gagal Ambil data rapor detail");
+      // throw Exception(response.statusCode);
     }
   }
 
@@ -252,8 +259,8 @@ class SiswaService{
   }
 
   //ambil data Nilai Harian Siswa Berdasarkan mapel
-  Future<List<NilaiHarianModel>> getNilaiHarin(String token, String mapel, String kelas, String sem) async{
-    var url = Uri.parse('$baseUrl/nilaiHarian?mapel=$mapel&kelas=$kelas&sem=$sem');
+  Future<List<NilaiHarianModel>> getNilaiHarin(String token, String mapel, String tahun, String sem) async{
+    var url = Uri.parse('$baseUrl/nilaiHarian?mapel=$mapel&tahun=$tahun&sem=$sem');
 
     var headers = {
       'Content-Type': 'application/json',

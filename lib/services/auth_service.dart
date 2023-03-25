@@ -75,6 +75,15 @@ class AuthService{
     // print(response.body);
 
     if (response.statusCode == 200) {
+      SpUtil.putInt('a', 0);
+      SpUtil.putString('token', 'Bearer ');
+      SpUtil.putInt('replid', 0);
+      SpUtil.putInt('nis', 0);
+      SpUtil.putString('nisn', ''); 
+      SpUtil.putString('nik', ''); 
+      SpUtil.putString('nama', ''); 
+      SpUtil.putInt('idkelas', 0);
+      SpUtil.putString('kelas', '');
       throw Exception('Berhasil Logout');
     } else {
       throw Exception('Gagal Register');

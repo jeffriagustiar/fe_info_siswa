@@ -131,9 +131,9 @@ class SiswaProvider with ChangeNotifier{
   }
 
   //ambil data tahun ajaran
-  Future<void> gettahun() async{
+  Future<void> gettahun(String token) async{
     try {
-      List<TahunModel> tahun = await SiswaService().gettahun();
+      List<TahunModel> tahun = await SiswaService().gettahun(token);
       _tahun = tahun; 
     } catch (e) {
       print(e); 
@@ -141,9 +141,9 @@ class SiswaProvider with ChangeNotifier{
   }
 
   //ambil data semester
-  Future<void> getsemester() async{
+  Future<void> getsemester(/*String token*/) async{
     try {
-      List<SemesterModel> semester = await SiswaService().getsemester();
+      List<SemesterModel> semester = await SiswaService().getsemester(/*token*/);
       _semester = semester; 
     } catch (e) {
       print(e); 
@@ -152,7 +152,7 @@ class SiswaProvider with ChangeNotifier{
 
   //ambil data rapor siswa berdasarkan kelompok,tahun ajaran, dan semester
   Future<void> getRaporSiswaD(String token, String sem, String jenis, String tipe, String tahun) async{
-    // _rapor = [];
+    _rapor = [];
     try {
       List<RaporSiswaModel> rapor = await SiswaService().getRaporSiswaD(token, sem, jenis, tipe, tahun);
       _rapor = rapor; 
@@ -172,9 +172,9 @@ class SiswaProvider with ChangeNotifier{
   }
 
   //ambil data nilai harian berdasarkan mapel
-  Future<void> getNilaiHarin(String token, String mapel, String kelas, String sem) async{
+  Future<void> getNilaiHarin(String token, String mapel, String tahun, String sem) async{
     try {
-      List<NilaiHarianModel> nilaiHarian = await SiswaService().getNilaiHarin(token, mapel, kelas, sem);
+      List<NilaiHarianModel> nilaiHarian = await SiswaService().getNilaiHarin(token, mapel, tahun, sem);
       _nilaiHarian = nilaiHarian; 
     } catch (e) {
       print(e); 

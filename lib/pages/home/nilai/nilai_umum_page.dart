@@ -35,10 +35,11 @@ class _NilaiUmumPageState extends State<NilaiUmumPage> {
   }
 
   data() async{
-    await Provider.of<SiswaProvider>(context, listen: false).gettahun();
+    await Provider.of<SiswaProvider>(context, listen: false).gettahun(token!);
     // ignore: use_build_context_synchronously
-    await Provider.of<SiswaProvider>(context, listen: false).getsemester();
+    await Provider.of<SiswaProvider>(context, listen: false).getsemester(/*token!*/);
   }
+  
   data2(String jenis, String tipe) async{
     await Provider.of<SiswaProvider>(context, listen: false).getRaporSiswaD(token!, _semester2!, jenis, tipe, _tahunAjaran2!);
   }
@@ -146,7 +147,7 @@ class _NilaiUmumPageState extends State<NilaiUmumPage> {
       );
   }
 
-  Widget cell2(double lebar, String nama){
+  Widget cell(double lebar, String nama){
     return Container(
       padding: const EdgeInsets.only(top: 15),
       width: lebar, 
@@ -159,7 +160,18 @@ class _NilaiUmumPageState extends State<NilaiUmumPage> {
     );
   }
 
-  Widget icon(double lebar, String komen){
+  Widget cell2(String nama, String info){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        cell(105, nama),
+        cell(120, info),
+      ],
+    );
+  }
+
+  Widget icon(double lebar, String komen, String komen2){
     return Container(
       padding: const EdgeInsets.only(top: 15),
       width: lebar, 
@@ -170,7 +182,15 @@ class _NilaiUmumPageState extends State<NilaiUmumPage> {
             builder: (BuildContext context){
               return AlertDialog(
                 title: Text('Komentar terkait pencapaian',style: blackTextStyle.copyWith(fontWeight: bold),),
-          content: Text(komen, textAlign: TextAlign.justify,),
+          content: Container(
+            height: 300,
+            child: Column(
+              children: [
+                cell2("Komentar Guru :", komen),
+                cell2("Komentar Rapor :", komen2),
+              ],
+            ),
+          ),
           actions: <Widget>[
             TextButton(
               style: TextButton.styleFrom(
@@ -193,16 +213,16 @@ class _NilaiUmumPageState extends State<NilaiUmumPage> {
     );
   }
 
-  Widget dataNilai(String mapel, String nilai, String angka, String komen){
+  Widget dataNilai(String mapel, String nilai, String angka, String komen, String komen2){
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         
-        cell2(180, mapel),
-        cell2(40, nilai),
-        cell2(40, angka),
-        icon(20, komen),
+        cell(180, mapel),
+        cell(40, nilai),
+        cell(40, angka),
+        icon(20, komen, komen2),
 
       ],
     );
@@ -253,7 +273,8 @@ class _NilaiUmumPageState extends State<NilaiUmumPage> {
                       rapor.nama.toString()+" "+rapor.dasarpenilaian.toString(), 
                       rapor.nilaiangka.toString(), 
                       rapor.nilaihuruf.toString(), 
-                      rapor.komentar2.toString()
+                      rapor.komentar2.toString(),
+                      rapor.komentar.toString(),
                     )).toList(),
                   );
                 } else {
@@ -262,7 +283,8 @@ class _NilaiUmumPageState extends State<NilaiUmumPage> {
                       rapor.nama.toString(), 
                       rapor.nilaiangka.toString(), 
                       rapor.nilaihuruf.toString(), 
-                      rapor.komentar2.toString()
+                      rapor.komentar2.toString(),
+                      rapor.komentar.toString(),
                     )).toList(),
                   );
                 }
@@ -304,43 +326,43 @@ class _NilaiUmumPageState extends State<NilaiUmumPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              cell2(150, "D1 : Beriaman, bertaqwa kepadaTuhan YME dan berakhlak mulia"),
-              cell2(150, "SB : Sangat Berkembang"),
+              cell(150, "D1 : Beriaman, bertaqwa kepadaTuhan YME dan berakhlak mulia"),
+              cell(150, "SB : Sangat Berkembang"),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              cell2(150, "D2 : Bernalar kritis"),
-              cell2(150, "BSH : Berkembang Sesuai Harapan"),
+              cell(150, "D2 : Bernalar kritis"),
+              cell(150, "BSH : Berkembang Sesuai Harapan"),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              cell2(150, "D3 : Mandiri"),
-              cell2(150, "MB : Mulai Berkembang"),
+              cell(150, "D3 : Mandiri"),
+              cell(150, "MB : Mulai Berkembang"),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              cell2(150, "D4 : Kebhinekaan Global"),
-              cell2(150, "BB : Belum Berkembang"),
+              cell(150, "D4 : Kebhinekaan Global"),
+              cell(150, "BB : Belum Berkembang"),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              cell2(150, "D5 : Kreatif"),
-              cell2(150, ""),
+              cell(150, "D5 : Kreatif"),
+              cell(150, ""),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              cell2(150, "D6 : Bergotongroyong"),
-              cell2(150, ""),
+              cell(150, "D6 : Bergotongroyong"),
+              cell(150, ""),
             ],
           ),
         ],
