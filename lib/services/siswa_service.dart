@@ -273,6 +273,7 @@ class SiswaService{
     );
 
     // print((response.body));
+    // ignore: avoid_print
     print("bisa nilai harian");
 
     if (response.statusCode == 200) {
@@ -285,6 +286,36 @@ class SiswaService{
       return nilaiHarian;
     } else {
       throw Exception("Gagal Ambil data nilai harian");
+    }
+  }
+
+  //ambil data tahun, 5 tahun kebelakang
+  Future<List<TahunModel>> getDataTahun() async{
+    var url = Uri.parse('$baseUrl/tahunAbsen');
+
+    var headers = {
+      'Content-Type': 'application/json',
+    };
+
+    var response = await http.get(
+      url,
+      headers: headers
+    );
+
+    // print((response.body));
+    // ignore: avoid_print
+    // print("bisa tahun mundur");
+
+    if (response.statusCode == 200) {
+      List  data = jsonDecode(response.body)['data'];
+      List<TahunModel> tahun = [];
+
+      for (var item in data) {
+        tahun.add(TahunModel.fromJson(item));
+      }
+      return tahun;
+    } else {
+      throw Exception("Gagal Ambil data tahun");
     }
   }
 

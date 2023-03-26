@@ -33,7 +33,7 @@ class AnakFiturButtom extends StatelessWidget {
             Text(
               desc,
               style: blackTextStyle.copyWith(
-                fontSize: 14,
+                fontSize: 13,
                 fontWeight: regular
               ),
               textAlign: TextAlign.justify,

@@ -94,6 +94,7 @@ class SiswaProvider with ChangeNotifier{
       List<SiswaModel> siswa = await SiswaService().getSiswa(token);
       _siswa = siswa; 
     } catch (e) {
+      // ignore: avoid_print
       print(e); 
     }
   }
@@ -104,6 +105,7 @@ class SiswaProvider with ChangeNotifier{
       List<SppModel> spp = await SppService().getSppDetail(token);
       _spp = spp; 
     } catch (e) {
+      // ignore: avoid_print
       print(e); 
     }
   }
@@ -115,6 +117,7 @@ class SiswaProvider with ChangeNotifier{
       List<RaporSiswaModel> rapor = await SiswaService().getRaporSiswa(token, semester);
       _rapor = rapor; 
     } catch (e) {
+      // ignore: avoid_print
       print(e); 
     }
   }
@@ -126,6 +129,7 @@ class SiswaProvider with ChangeNotifier{
       List<PresensionSiswaModel> presen = await SiswaService().getpresenSiswa(token, year, month);
       _presen = presen; 
     } catch (e) {
+      // ignore: avoid_print
       print(e); 
     }
   }
@@ -136,6 +140,7 @@ class SiswaProvider with ChangeNotifier{
       List<TahunModel> tahun = await SiswaService().gettahun(token);
       _tahun = tahun; 
     } catch (e) {
+      // ignore: avoid_print
       print(e); 
     }
   }
@@ -146,6 +151,7 @@ class SiswaProvider with ChangeNotifier{
       List<SemesterModel> semester = await SiswaService().getsemester(/*token*/);
       _semester = semester; 
     } catch (e) {
+      // ignore: avoid_print
       print(e); 
     }
   }
@@ -157,6 +163,7 @@ class SiswaProvider with ChangeNotifier{
       List<RaporSiswaModel> rapor = await SiswaService().getRaporSiswaD(token, sem, jenis, tipe, tahun);
       _rapor = rapor; 
     } catch (e) {
+      // ignore: avoid_print
       print(e); 
     }
   }
@@ -167,6 +174,7 @@ class SiswaProvider with ChangeNotifier{
       List<MapelModel> mapel = await SiswaService().getMapel(jenis);
       _mapel = mapel; 
     } catch (e) {
+      // ignore: avoid_print
       print(e); 
     }
   }
@@ -177,6 +185,18 @@ class SiswaProvider with ChangeNotifier{
       List<NilaiHarianModel> nilaiHarian = await SiswaService().getNilaiHarin(token, mapel, tahun, sem);
       _nilaiHarian = nilaiHarian; 
     } catch (e) {
+      // ignore: avoid_print
+      print(e); 
+    }
+  }
+
+  // ambil data tahun, 5 tahun kebelakang
+  Future<void> getDataTahun() async{
+    try {
+      List<TahunModel> tahun = await SiswaService().getDataTahun();
+      _tahun = tahun; 
+    } catch (e) {
+      // ignore: avoid_print
       print(e); 
     }
   }

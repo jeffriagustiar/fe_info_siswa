@@ -9,7 +9,7 @@ class TahunModel{
 
   factory TahunModel.fromJson(Map<String, dynamic> json){
     return TahunModel(
-      tahun: json['tahunajaran'], 
+      tahun: json['tahunajaran'].toString(), 
       departement: json['departemen']
     );
   }
