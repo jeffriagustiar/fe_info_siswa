@@ -15,7 +15,7 @@ class AbsenHarianSiswaPage extends StatefulWidget {
 class _AbsenHarianSiswaPageState extends State<AbsenHarianSiswaPage> {
 
   List<String> month = ['1','2','3','4','5','6','7','8','9','10','11','12'];
-  String? _itemmonth;
+  String? _itemmonth='1';
   String? _tahun;
   String? _tahun2 = 'Pilih';
   String? kepala;
@@ -37,7 +37,7 @@ class _AbsenHarianSiswaPageState extends State<AbsenHarianSiswaPage> {
   data() async{
     await Provider.of<SiswaProvider>(context, listen: false).getDataTahun();
     // ignore: use_build_context_synchronously
-    await Provider.of<SiswaProvider>(context, listen: false).getpresenSiswa(token!, _tahun2!, _itemmonth!);
+    await Provider.of<SiswaProvider>(context, listen: false).getpresenSiswa(token!, _tahun2!, '1');
   }
 
   @override
@@ -284,6 +284,7 @@ class _AbsenHarianSiswaPageState extends State<AbsenHarianSiswaPage> {
           child: ListView(
             children: [
               AppBarButtom(nama: 'Absen Harian'),
+              Text(token!),
               comboBox(),
               contentDetail(),
             ],

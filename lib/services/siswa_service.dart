@@ -228,6 +228,37 @@ class SiswaService{
       // throw Exception(response.statusCode);
     }
   }
+  //ambil data rapor siswa berdasarkan kelompok,tahun ajaran, dan semester
+  //khusus nilai rapor pancasila
+  Future<List<RaporSiswaModel>> getRaporSiswaP(String token, String sem, String tahun,String mapel) async{
+      var url = Uri.parse('$baseUrl/nilaiRaporPancasila?sem=$sem&tahun=$tahun&mapel=$mapel');
+
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization' : token
+    };
+
+    var response = await http.get(
+      url,
+      headers: headers
+    );
+
+    // print((response.body));
+    print("bisa rapor detail pancasila");
+
+    if (response.statusCode == 200) {
+      List  data = jsonDecode(response.body)['data'];
+      List<RaporSiswaModel> rapor = [];
+
+      for (var item in data) {
+        rapor.add(RaporSiswaModel.fromJson(item));
+      }
+      return rapor;
+    } else {
+      throw Exception("Gagal Ambil data rapor detail pancasila");
+      // throw Exception(response.statusCode);
+    }
+  }
 
   //ambil data Mapel berdasarkan kelompok
   Future<List<MapelModel>> getMapel(String jenis) async{

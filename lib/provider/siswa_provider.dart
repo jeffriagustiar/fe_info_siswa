@@ -38,6 +38,15 @@ class SiswaProvider with ChangeNotifier{
     notifyListeners();
   }
 
+  List<RaporSiswaModel> _raporP = [];
+
+  List<RaporSiswaModel> get raporP => _raporP;
+
+  set raporP(List<RaporSiswaModel> raporP){
+    _raporP = raporP;
+    notifyListeners();
+  }
+
   List<PresensionSiswaModel> _presen = [];
 
   List<PresensionSiswaModel> get presen => _presen;
@@ -162,6 +171,19 @@ class SiswaProvider with ChangeNotifier{
     try {
       List<RaporSiswaModel> rapor = await SiswaService().getRaporSiswaD(token, sem, jenis, tipe, tahun);
       _rapor = rapor; 
+    } catch (e) {
+      // ignore: avoid_print
+      print(e); 
+    }
+  }
+
+  //ambil data rapor siswa berdasarkan kelompok,tahun ajaran, dan semester
+  // khusus rapor pancasila
+  Future<void> getRaporSiswaP(String token, String sem, String tahun,String mapel) async{
+    _raporP = [];
+    try {
+      List<RaporSiswaModel> raporP = await SiswaService().getRaporSiswaP(token, sem, tahun, mapel);
+      _raporP = raporP; 
     } catch (e) {
       // ignore: avoid_print
       print(e); 

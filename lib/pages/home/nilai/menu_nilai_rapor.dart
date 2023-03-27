@@ -92,7 +92,7 @@ class MenuNilaiRaporPage extends StatelessWidget {
                       onPressed: () {
                         Navigator.pushNamed(
                           context, 
-                          '/nilai-rapor-umum',
+                          '/nilai-rapor-pancasila',
                           arguments: {
                             'nama' : 'Pelajaran Pancasila',
                             'jenis' : 'P5',

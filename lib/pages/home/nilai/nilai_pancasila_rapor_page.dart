@@ -6,14 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sp_util/sp_util.dart';
 
-class NilaiUmumPage extends StatefulWidget {
-  const NilaiUmumPage({super.key});
+class NilaiPancasilaRaporPage extends StatefulWidget {
+  const NilaiPancasilaRaporPage({super.key});
 
   @override
-  State<NilaiUmumPage> createState() => _NilaiUmumPageState();
+  State<NilaiPancasilaRaporPage> createState() => _NilaiPancasilaRaporPageState();
 }
 
-class _NilaiUmumPageState extends State<NilaiUmumPage> {
+class _NilaiPancasilaRaporPageState extends State<NilaiPancasilaRaporPage> {
 
   String? _tahunAjaran;
   String? _tahunAjaran2 = '2022/2023';
@@ -34,14 +34,18 @@ class _NilaiUmumPageState extends State<NilaiUmumPage> {
     });
   }
 
+  dataMapel(jenis) async{
+    await Provider.of<SiswaProvider>(context, listen: false).getMapel(jenis);
+  }
+
   data() async{
     await Provider.of<SiswaProvider>(context, listen: false).gettahun(token!);
     // ignore: use_build_context_synchronously
     await Provider.of<SiswaProvider>(context, listen: false).getsemester(/*token!*/);
   }
   
-  data2(String jenis, String tipe) async{
-    await Provider.of<SiswaProvider>(context, listen: false).getRaporSiswaD(token!, _semester2!, jenis, tipe, _tahunAjaran2!);
+  data2(String mapel) async{
+    await Provider.of<SiswaProvider>(context, listen: false).getRaporSiswaP(token!, _semester2!, _tahunAjaran2!, '136');
   }
 
   @override
@@ -165,13 +169,13 @@ class _NilaiUmumPageState extends State<NilaiUmumPage> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        cell(105, nama),
-        cell(120, info),
+        cell(115, nama),
+        cell(115, info),
       ],
     );
   }
 
-  Widget icon(double lebar, String komen, String komen2){
+  Widget icon(double lebar,String mapel, String idmapel){
     return Container(
       padding: const EdgeInsets.only(top: 15),
       width: lebar, 
@@ -181,14 +185,24 @@ class _NilaiUmumPageState extends State<NilaiUmumPage> {
             context: context, 
             builder: (BuildContext context){
               return AlertDialog(
-                title: Text('Komentar terkait pencapaian',style: blackTextStyle.copyWith(fontWeight: bold),),
+                title: Text('Detail Penilaian Pancasila',style: blackTextStyle.copyWith(fontSize: 18,fontWeight: bold),),
           content: Container(
             height: 300,
-            child: Column(
-              children: [
-                cell2("Komentar Guru :", komen),
-                cell2("Komentar Rapor :", komen2),
-              ],
+            child: FutureBuilder(
+              future: data2(mapel),
+              builder: (context, snapshot) {
+                return ListView(
+                  children:[
+                    Text(mapel,style: blackTextStyle.copyWith(fontWeight: semibold),),
+                    Column(
+                      children: siswaProvider.raporP.map((rapor) => cell2(
+                          rapor.dasarpenilaian.toString(), 
+                          rapor.nilaihuruf.toString()+' '+rapor.nilaiangka.toString(), 
+                        )).toList(),
+                    )
+                  ]
+                );
+              }
             ),
           ),
           actions: <Widget>[
@@ -213,16 +227,14 @@ class _NilaiUmumPageState extends State<NilaiUmumPage> {
     );
   }
 
-  Widget dataNilai(String mapel, String nilai, String angka, String komen, String komen2){
+  Widget dataNilai(String mapel,String idmapel){
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         
         cell(180, mapel),
-        cell(40, nilai),
-        cell(40, angka),
-        icon(20, komen, komen2),
+        icon(20, mapel,idmapel),
 
       ],
     );
@@ -246,11 +258,7 @@ class _NilaiUmumPageState extends State<NilaiUmumPage> {
               // ignore: sized_box_for_whitespace
               Container(width: 180, child: Text("Mata Pelajaran",style: blackTextStyle.copyWith(fontSize: 12, fontWeight: bold),)),
               // ignore: sized_box_for_whitespace
-              Container(width: 40, child: Text("Angka",style: blackTextStyle.copyWith(fontSize: 12, fontWeight: bold),)),
-              // ignore: sized_box_for_whitespace
-              Container(width: 40, child: Text("Huruf",style: blackTextStyle.copyWith(fontSize: 12, fontWeight: bold),)),
-              // ignore: sized_box_for_whitespace
-              Container(width: 40, child: Text("Action",style: blackTextStyle.copyWith(fontSize: 12, fontWeight: bold),)),
+              Container(width: 40, child: Text("Detail",style: blackTextStyle.copyWith(fontSize: 12, fontWeight: bold),)),
 
             ],
           ),
@@ -261,18 +269,15 @@ class _NilaiUmumPageState extends State<NilaiUmumPage> {
             color: blackColor,
           ),
           FutureBuilder(
-            future: data2(jenis,tipe),
+            future: dataMapel(jenis),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Loading();
               } else {
                   return Column(
-                    children: siswaProvider.rapor.map((rapor) => dataNilai(
+                    children: siswaProvider.mapel.map((rapor) => dataNilai(
                       rapor.nama.toString(), 
-                      rapor.nilaiangka.toString(), 
-                      rapor.nilaihuruf.toString(), 
-                      rapor.komentar2.toString(),
-                      rapor.komentar.toString(),
+                      rapor.replid.toString(),
                     )).toList(),
                   );
                 
@@ -313,7 +318,7 @@ class _NilaiUmumPageState extends State<NilaiUmumPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              cell(150, "D1 : Beriaman, bertaqwa kepadaTuhan YME dan berakhlak mulia"),
+              cell(150, "D1 : Beriaman, bertaqwa kepada Tuhan YME dan berakhlak mulia"),
               cell(150, "SB : Sangat Berkembang"),
             ],
           ),
@@ -367,7 +372,7 @@ class _NilaiUmumPageState extends State<NilaiUmumPage> {
               AppBarButtom(nama: nama),
               comboBox(),
               content2(tipe, jenis),
-              pancasila == 1 ? keterangan() : const SizedBox(height: 20,),
+              // pancasila == 1 ? keterangan() : const SizedBox(height: 20,),
               const SizedBox(height: 20,),
             ],
           ),
