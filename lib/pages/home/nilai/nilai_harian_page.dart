@@ -47,7 +47,11 @@ class _NilaiHarianPageState extends State<NilaiHarianPage> {
   }
 
   data2() async{
-    await Provider.of<SiswaProvider>(context, listen: false).getNilaiHarin(token!, _mapel2!, _tahunAjaran2!, _sem2!);
+    await Provider.of<SiswaProvider>(context, listen: false).getJenisNilaiHarin(token!, _mapel2!, _tahunAjaran2!, _sem2!);
+  }
+
+  dataNilaiHarian(String jjenis) async{
+    await Provider.of<SiswaProvider>(context, listen: false).getNilaiHarin(token!, jjenis);
   }
 
   @override
@@ -305,49 +309,57 @@ class _NilaiHarianPageState extends State<NilaiHarianPage> {
     );
   }
 
-  Widget content(){
+  Widget ContainerJenis(String kategori, String jjenis){
     return Container(
-      margin: const EdgeInsets.only(top: 20,left: 10, right: 10),
-      padding: const EdgeInsetsDirectional.all(15),
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: background4Color,
-        borderRadius: BorderRadius.circular(15)
-      ),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          margin: const EdgeInsets.only(top: 15,left: 10, right: 10),
+          padding: const EdgeInsetsDirectional.all(15),
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: background4Color,
+            borderRadius: BorderRadius.circular(15)
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Text('Kategori : $kategori', style: blackTextStyle.copyWith(fontSize: 12, fontWeight: bold),),
+              Container(
+                margin: const EdgeInsets.symmetric(vertical: 10),
+                width: double.infinity,
+                height: 1,
+                color: blackColor,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
 
-              // ignore: sized_box_for_whitespace
-              Container(width: 110, child: Text("Kategori",style: blackTextStyle.copyWith(fontSize: 12, fontWeight: bold),)),
-              const SizedBox(width: 5,),
-              // ignore: sized_box_for_whitespace
-              Container(width: 40, child: Text("Nilai",style: blackTextStyle.copyWith(fontSize: 12, fontWeight: bold),textAlign: TextAlign.center,)),
-              const SizedBox(width: 5,),
-              // ignore: sized_box_for_whitespace
-              Container(width: 110, child: Text("Keterangan",style: blackTextStyle.copyWith(fontSize: 12, fontWeight: bold),)),
-              // ignore: sized_box_for_whitespace
-              Container(width: 40, child: Text("Detail",style: blackTextStyle.copyWith(fontSize: 12, fontWeight: bold),textAlign: TextAlign.center,)),
+                  // ignore: sized_box_for_whitespace
+                  Container(width: 110, child: Text("Tanggal",style: blackTextStyle.copyWith(fontSize: 12, fontWeight: bold),)),
+                  const SizedBox(width: 5,),
+                  // ignore: sized_box_for_whitespace
+                  Container(width: 40, child: Text("Nilai",style: blackTextStyle.copyWith(fontSize: 12, fontWeight: bold),textAlign: TextAlign.center,)),
+                  const SizedBox(width: 5,),
+                  // ignore: sized_box_for_whitespace
+                  Container(width: 110, child: Text("Keterangan",style: blackTextStyle.copyWith(fontSize: 12, fontWeight: bold),)),
+                  // ignore: sized_box_for_whitespace
+                  Container(width: 40, child: Text("Detail",style: blackTextStyle.copyWith(fontSize: 12, fontWeight: bold),textAlign: TextAlign.center,)),
 
-            ],
-          ),
-          Container(
-            margin: const EdgeInsets.symmetric(vertical: 10),
-            width: double.infinity,
-            height: 1,
-            color: blackColor,
-          ),
-          FutureBuilder(
-            future: data2(),
+                ],
+              ),
+              Container(
+                margin: const EdgeInsets.symmetric(vertical: 10),
+                width: double.infinity,
+                height: 1,
+                color: blackColor,
+              ),
+              FutureBuilder(
+            future: dataNilaiHarian(jjenis),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Loading();
               } else {
                 return Column(
                   children: siswaProvider.nilaiHarian.map((nilai) => dataNilai(
-                    nilai.jenisujian.toString(), 
+                    nilai.tanggal.toString(), 
                     nilai.nilaiujian.toString(), 
                     nilai.keterangan.toString(), 
                     nilai.nama.toString(),
@@ -362,8 +374,27 @@ class _NilaiHarianPageState extends State<NilaiHarianPage> {
             }
           )
 
-        ]
-      )
+            ]
+          )
+        );
+  }
+
+  Widget content(){
+    return FutureBuilder(
+      future: data2(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          // ignore: prefer_const_constructors
+          return Loading();
+        } else {
+          return Column(
+            children: siswaProvider.jenisNilaiHarian.map((jenis) => ContainerJenis(
+              jenis.jenisujian.toString(),
+              jenis.replid.toString()
+            )).toList(),
+          );
+        }
+      }
     );
   }
 

@@ -1,3 +1,4 @@
+import 'package:fe_info_siswa/models/jenis_nilai_harian_model.dart';
 import 'package:fe_info_siswa/models/mapel_model.dart';
 import 'package:fe_info_siswa/models/nilai_harian_model.dart';
 import 'package:fe_info_siswa/models/presen_siswa_model.dart';
@@ -89,6 +90,15 @@ class SiswaProvider with ChangeNotifier{
 
   set nilaiHarian(List<NilaiHarianModel> nilaiHarian){
     _nilaiHarian = nilaiHarian;
+    notifyListeners();
+  }
+
+  List<JenisNilaiHarianModel> _jenisNilaiHarian = [];
+
+  List<JenisNilaiHarianModel> get jenisNilaiHarian => _jenisNilaiHarian;
+
+  set jenisNilaiHarian(List<JenisNilaiHarianModel> jenisNilaiHarian){
+    _jenisNilaiHarian = jenisNilaiHarian;
     notifyListeners();
   }
 
@@ -202,10 +212,22 @@ class SiswaProvider with ChangeNotifier{
   }
 
   //ambil data nilai harian berdasarkan mapel
-  Future<void> getNilaiHarin(String token, String mapel, String tahun, String sem) async{
+  Future<void> getNilaiHarin(String token, String jenis) async{
+    _nilaiHarian = [];
     try {
-      List<NilaiHarianModel> nilaiHarian = await SiswaService().getNilaiHarin(token, mapel, tahun, sem);
+      List<NilaiHarianModel> nilaiHarian = await SiswaService().getNilaiHarin(token, jenis);
       _nilaiHarian = nilaiHarian; 
+    } catch (e) {
+      // ignore: avoid_print
+      print(e); 
+    }
+  }
+
+  //ambil data Jenis nilai harian berdasarkan mapel
+  Future<void> getJenisNilaiHarin(String token, String mapel, String tahun, String sem) async{
+    try {
+      List<JenisNilaiHarianModel> jenisNilaiHarian = await SiswaService().getJenisNilaiHarin(token, mapel, tahun, sem);
+      _jenisNilaiHarian = jenisNilaiHarian; 
     } catch (e) {
       // ignore: avoid_print
       print(e); 

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:fe_info_siswa/models/jenis_nilai_harian_model.dart';
 import 'package:fe_info_siswa/models/mapel_model.dart';
 import 'package:fe_info_siswa/models/nilai_harian_model.dart';
 import 'package:fe_info_siswa/models/presen_siswa_model.dart';
@@ -290,8 +291,8 @@ class SiswaService{
   }
 
   //ambil data Nilai Harian Siswa Berdasarkan mapel
-  Future<List<NilaiHarianModel>> getNilaiHarin(String token, String mapel, String tahun, String sem) async{
-    var url = Uri.parse('$baseUrl/nilaiHarian?mapel=$mapel&tahun=$tahun&sem=$sem');
+  Future<List<NilaiHarianModel>> getNilaiHarin(String token, String jenis) async{
+    var url = Uri.parse('$baseUrl/nilaiHarian?jenis=$jenis');
 
     var headers = {
       'Content-Type': 'application/json',
@@ -317,6 +318,37 @@ class SiswaService{
       return nilaiHarian;
     } else {
       throw Exception("Gagal Ambil data nilai harian");
+    }
+  }
+
+  //ambil data Jenis Nilai Harian Siswa Berdasarkan mapel
+  Future<List<JenisNilaiHarianModel>> getJenisNilaiHarin(String token, String mapel, String tahun, String sem) async{
+    var url = Uri.parse('$baseUrl/nilaiHarianJenis?mapel=$mapel&tahun=$tahun&sem=$sem');
+
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization' : token
+    };
+
+    var response = await http.get(
+      url,
+      headers: headers
+    );
+
+    // print((response.body));
+    // ignore: avoid_print
+    print("bisa jenis nilai harian");
+
+    if (response.statusCode == 200) {
+      List  data = jsonDecode(response.body)['data'];
+      List<JenisNilaiHarianModel> JenisNilaiHarian = [];
+
+      for (var item in data) {
+        JenisNilaiHarian.add(JenisNilaiHarianModel.fromJson(item));
+      }
+      return JenisNilaiHarian;
+    } else {
+      throw Exception("Gagal Ambil data jenis nilai harian");
     }
   }
 
