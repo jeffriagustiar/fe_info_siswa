@@ -1,3 +1,4 @@
+import 'package:fe_info_siswa/pages/home/absen/absen_pelajaran_siswa_page.dart';
 import 'package:fe_info_siswa/pages/home/absen/menu_absen_page.dart';
 import 'package:fe_info_siswa/pages/home/home_page.dart';
 import 'package:fe_info_siswa/pages/home/absen/absensi_harian_siswa_page.dart';
@@ -66,7 +67,8 @@ class MyApp extends StatelessWidget {
           '/nilai-rapor-umum' :(context) => NilaiUmumPage(),
           '/nilai-rapor-pancasila' :(context) => NilaiPancasilaRaporPage(),
           '/menu-nilai-harian' :(context) => MenuNilaiHarianPage(),
-          '/nilai-harian' :(context) => NilaiHarianPage()
+          '/nilai-harian' :(context) => NilaiHarianPage(),
+          '/absen-pelajaran' :(context) => AbsenPelajaranSiswaPage(),
           // '/siswa': (context) => SiswaPage(),
         },
       ),

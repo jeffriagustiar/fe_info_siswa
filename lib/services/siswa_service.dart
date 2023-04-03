@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:fe_info_siswa/models/absen_pelajaran_hitung_model.dart';
 import 'package:fe_info_siswa/models/jenis_nilai_harian_model.dart';
 import 'package:fe_info_siswa/models/mapel_model.dart';
 import 'package:fe_info_siswa/models/nilai_harian_model.dart';
@@ -132,6 +133,36 @@ class SiswaService{
       return presen;
     } else {
       throw Exception("Gagal Ambil data presensi");
+    }
+  }
+
+  //ambil data kehadiran siswa dengan sortir tahun untuk matapelajaran
+  Future<List<AbsenPelajaranHitungModel>> getAbsenPelajaranSiswa(String token, String year) async{
+    var url = Uri.parse('$baseUrl/absenPelajaran?year=$year');
+
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization' : token
+    };
+
+    var response = await http.get(
+      url,
+      headers: headers
+    );
+
+    // print((response.body));
+    print("bisa absen pelajaran siswa");
+
+    if (response.statusCode == 200) {
+      List  data = jsonDecode(response.body)['data'];
+      List<AbsenPelajaranHitungModel> AbsenPelajaranSiswa = [];
+
+      for (var item in data) {
+        AbsenPelajaranSiswa.add(AbsenPelajaranHitungModel.fromJson(item));
+      }
+      return AbsenPelajaranSiswa;
+    } else {
+      throw Exception("Gagal Ambil data absen pelajaran siswa");
     }
   }
 

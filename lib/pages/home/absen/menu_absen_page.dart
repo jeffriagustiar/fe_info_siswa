@@ -59,24 +59,24 @@ class MenuAbsenPage extends StatelessWidget {
                       nama: 'Pelajaran',
                       desc: "Merupakan kehadiran yang diambil saat siswa mengikuti proser pemblajaran",
                       onPressed: () {
-                        // Navigator.pushNamed(context, '/menu-nilai-harian');
+                        Navigator.pushNamed(context, '/absen-pelajaran');
                       },
                     ),
                   ],
                 ),
-                const SizedBox(height: 10,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    AnakFiturButtom(
-                      nama: 'Ex School', 
-                      desc: "Merupakan kehadiran siswa mengikuti extra kurikuler sekolah",
-                      onPressed: () {
-                        // Navigator.pushNamed(context, '/menu-nilai-rapor');
-                      },
-                    ),
-                  ],
-                ),
+                // const SizedBox(height: 10,),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   children: [
+                //     AnakFiturButtom(
+                //       nama: 'Ex School', 
+                //       desc: "Merupakan kehadiran siswa mengikuti extra kurikuler sekolah",
+                //       onPressed: () {
+                //         // Navigator.pushNamed(context, '/menu-nilai-rapor');
+                //       },
+                //     ),
+                //   ],
+                // ),
               ],
             ),
             

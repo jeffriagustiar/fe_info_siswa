@@ -1,6 +1,7 @@
 import 'package:fe_info_siswa/provider/siswa_provider.dart';
 import 'package:fe_info_siswa/share/theme.dart';
 import 'package:fe_info_siswa/widgets/appBar_buttom.dart';
+import 'package:fe_info_siswa/widgets/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sp_util/sp_util.dart';
@@ -37,7 +38,7 @@ class _AbsenHarianSiswaPageState extends State<AbsenHarianSiswaPage> {
   data() async{
     await Provider.of<SiswaProvider>(context, listen: false).getDataTahun();
     // ignore: use_build_context_synchronously
-    await Provider.of<SiswaProvider>(context, listen: false).getpresenSiswa(token!, _tahun2!, '1');
+    await Provider.of<SiswaProvider>(context, listen: false).getpresenSiswa(token!, _tahun2!, _itemmonth!);
   }
 
   @override
@@ -209,7 +210,7 @@ class _AbsenHarianSiswaPageState extends State<AbsenHarianSiswaPage> {
         cell(40, izin),
         cell(40, sakit),
         cell(40, alpa),
-        icon(40,),
+        // icon(40,),
 
       ],
     );
@@ -251,7 +252,7 @@ class _AbsenHarianSiswaPageState extends State<AbsenHarianSiswaPage> {
                 // ignore: sized_box_for_whitespace
                 Container(width: 40, child: Text("Alpa",style: blackTextStyle.copyWith(fontSize: 12, fontWeight: bold),)),
                 // ignore: sized_box_for_whitespace
-                Container(width: 40, child: Text("Detail",style: blackTextStyle.copyWith(fontSize: 12, fontWeight: bold),textAlign: TextAlign.center,)),
+                // Container(width: 40, child: Text("Detail",style: blackTextStyle.copyWith(fontSize: 12, fontWeight: bold),textAlign: TextAlign.center,)),
 
               ],
             ),
@@ -262,15 +263,66 @@ class _AbsenHarianSiswaPageState extends State<AbsenHarianSiswaPage> {
               color: blackColor,
             ),
 
-            Column(
-              children: [
-                dataAbsen('2022-12-12 07:30', '1', '0', '0', '0', '0'),
-                dataAbsen('2022-12-13 07:30', '0', '1', '0', '0', '0'),
-                dataAbsen('2022-12-14 07:30', '0', '0', '1', '0', '0'),
-                dataAbsen('2022-12-15 07:30', '0', '0', '0', '1', '0'),
-              ],
-            )
+            FutureBuilder(
+              future: data(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Loading();
+                } else {
+                    return Column(
+                      children: siswaProvider.presen.map((absen) => dataAbsen(
+                        absen.ts.toString(), 
+                        absen.hadir.toString(), 
+                        absen.ijin.toString(), 
+                        absen.sakit.toString(), 
+                        absen.alpa.toString(), 
+                        absen.keterangan.toString()
+                      )).toList(),
+                    );
+                }
+              }
+            ),
 
+          ],
+        ),
+      );
+    }
+
+    Widget hitung(){
+      return Container(
+        margin: const EdgeInsets.only(top: 20,left: 10, right: 10),
+        padding: const EdgeInsetsDirectional.all(15),
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: background4Color,
+          borderRadius: BorderRadius.circular(15)
+        ),
+        child: GridView(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 5
+        ),
+        shrinkWrap: true,
+          children: [
+            Container(
+              height: 50,
+              width: 50,
+              child: Text("data")
+            ),
+            Container(
+              height: 50,
+              width: 50,
+              child: Text("data")
+            ),
+            Container(
+              height: 50,
+              width: 50,
+              child: Text("data")
+            ),
+            Container(
+              height: 50,
+              width: 50,
+              child: Text("data")
+            ),
           ],
         ),
       );
@@ -284,9 +336,9 @@ class _AbsenHarianSiswaPageState extends State<AbsenHarianSiswaPage> {
           child: ListView(
             children: [
               AppBarButtom(nama: 'Absen Harian'),
-              Text(token!),
               comboBox(),
               contentDetail(),
+              // hitung(), // untuk hitung jumlah absensi
             ],
           ),
         )

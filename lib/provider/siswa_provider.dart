@@ -1,3 +1,4 @@
+import 'package:fe_info_siswa/models/absen_pelajaran_hitung_model.dart';
 import 'package:fe_info_siswa/models/jenis_nilai_harian_model.dart';
 import 'package:fe_info_siswa/models/mapel_model.dart';
 import 'package:fe_info_siswa/models/nilai_harian_model.dart';
@@ -54,6 +55,15 @@ class SiswaProvider with ChangeNotifier{
 
   set presen(List<PresensionSiswaModel> presen){
     _presen = presen;
+    notifyListeners();
+  }
+
+  List<AbsenPelajaranHitungModel> _absenPelajaran = [];
+
+  List<AbsenPelajaranHitungModel> get absenPelajaran => _absenPelajaran;
+
+  set absenPelajaran(List<AbsenPelajaranHitungModel> absenPelajaran){
+    _absenPelajaran = absenPelajaran;
     notifyListeners();
   }
 
@@ -147,6 +157,18 @@ class SiswaProvider with ChangeNotifier{
     try {
       List<PresensionSiswaModel> presen = await SiswaService().getpresenSiswa(token, year, month);
       _presen = presen; 
+    } catch (e) {
+      // ignore: avoid_print
+      print(e); 
+    }
+  }
+
+  //ambil data presensi pelajaran siswa 
+  Future<void> getAbsenPelajaranSiswa(String token, String year) async{
+    // _rapor = [];
+    try {
+      List<AbsenPelajaranHitungModel> absenPelajaran = await SiswaService().getAbsenPelajaranSiswa(token, year);
+      _absenPelajaran = absenPelajaran; 
     } catch (e) {
       // ignore: avoid_print
       print(e); 
