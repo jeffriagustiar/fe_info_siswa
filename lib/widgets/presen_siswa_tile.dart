@@ -1,4 +1,4 @@
-import 'package:fe_info_siswa/models/presen_siswa_model.dart';
+import 'package:fe_info_siswa/models/absen/presen_siswa_model.dart';
 import 'package:fe_info_siswa/models/siswa_model.dart';
 import 'package:fe_info_siswa/pages/siswa_page.dart';
 import 'package:fe_info_siswa/share/theme.dart';

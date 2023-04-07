@@ -10,8 +10,11 @@ class AnakFiturButtom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onPressed,
+    return TextButton(
+      onPressed: onPressed,
+      style: ButtonStyle(
+        overlayColor: MaterialStateColor.resolveWith((states) => Colors.blue.shade200),
+      ),
       child: Container(
         padding: const EdgeInsets.all(15),
         height: 250,

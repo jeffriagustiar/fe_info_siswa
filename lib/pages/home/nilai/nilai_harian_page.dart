@@ -234,10 +234,11 @@ class _NilaiHarianPageState extends State<NilaiHarianPage> {
     String tujuan,
   ){
     return Container(
-      padding: const EdgeInsets.only(top: 15),
+      // padding: const EdgeInsets.only(top: 15),
       width: lebar, 
-      child: GestureDetector(
-        onTap: (){
+      height: 30,
+      child: TextButton(
+        onPressed: (){
           showDialog(
             context: context, 
             builder: (BuildContext context){
@@ -276,7 +277,8 @@ class _NilaiHarianPageState extends State<NilaiHarianPage> {
           );
         },
         child: const Icon(
-          Icons.search
+          Icons.search,
+          // size: 20,
         ),
       )
     );
@@ -401,8 +403,8 @@ class _NilaiHarianPageState extends State<NilaiHarianPage> {
     return Scaffold(
       backgroundColor: backgroundColor,
       body: SafeArea(
-        child: RefreshIndicator(
-          onRefresh: getInit,
+        // child: RefreshIndicator(
+        //   onRefresh: getInit,
           child: ListView(
             children: [
               AppBarButtom(nama: nama),
@@ -410,7 +412,7 @@ class _NilaiHarianPageState extends State<NilaiHarianPage> {
               // Text(_mapel.toString()),
               content()
             ],
-          ),
+          // ),
         ),
       ),
     );

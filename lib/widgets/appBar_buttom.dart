@@ -9,44 +9,54 @@ class AppBarButtom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 80,
       width: double.infinity,
+      // margin: EdgeInsets.symmetric(horizontal: 15),
       padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
-      color: backgroundColor,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            // ignore: sized_box_for_whitespace
-            child: Container(
-              height: 40,
-              width: 40,
-              child: const Icon(
+      // color: backgroundColor,
+      decoration: BoxDecoration(
+        color: backgroundColor,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 2,
+            blurRadius: 10,
+            offset: const Offset(0, 1),
+          ),
+        ]
+      ),
+      child: Material(
+        color: backgroundColor,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              }, 
+              icon: const Icon(
                 Icons.chevron_left
               ),
-            )
-          ),
-          Text(
-            nama,
-            style: blackTextStyle.copyWith(
-              fontWeight: bold,
-              fontSize: 18
+              splashRadius: 30,
+              splashColor: Colors.blue,
             ),
-          ),
-          GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(context, '/home');
-            },
-            // ignore: sized_box_for_whitespace
-            child: Container(
-              width: 40,
-              height: 40,
-              child: Icon(Icons.home,color: backgroundColor1,)
+            Text(
+              nama,
+              style: blackTextStyle.copyWith(
+                fontWeight: bold,
+                fontSize: 17
+              ),
             ),
-          )
-        ],
+            IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/home');
+              }, 
+              icon: const Icon(Icons.home),
+              splashRadius: 30,
+              splashColor: Colors.blue,
+            ),
+          ],
+        ),
       ),
     );
   }

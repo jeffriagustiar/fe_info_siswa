@@ -40,6 +40,10 @@ class _AbsenPelajaranSiswaPageState extends State<AbsenPelajaranSiswaPage> {
     await Provider.of<SiswaProvider>(context, listen: false).getAbsenPelajaranSiswa(token!, _tahun2!);
   }
 
+  dataAbsenDetail(String bulan, String status) async{
+    await Provider.of<SiswaProvider>(context, listen: false).getAbsenPelajaranSiswaDetail(token!, _tahun2!, bulan, status);
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -145,9 +149,92 @@ class _AbsenPelajaranSiswaPageState extends State<AbsenPelajaranSiswaPage> {
       );
     }
 
-    Widget textContent(String text, String isi){
+    Widget textDetail(String tanggal, String mapel){
+      return Padding(
+        padding: const EdgeInsets.only(bottom: 5),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            
+            // ignore: sized_box_for_whitespace
+            Container(width: 110, child: Text(tanggal,style: blackTextStyle.copyWith(fontSize: 12, fontWeight: bold),)),
+            // ignore: sized_box_for_whitespace
+            Container(width: 110, child: Text(mapel,style: blackTextStyle.copyWith(fontSize: 12, fontWeight: bold))),
+      
+          ],
+        ),
+      );
+    }
+
+    Widget textContent(String text, String isi, String status, String bulan2, String bulan){
       return TextButton(
-        onPressed: (){},
+        onPressed: (){
+          showDialog(
+            context: context, 
+            builder: (BuildContext context){
+              return AlertDialog(
+                title: Text('Rekap Data $text Siswa, Bulan $bulan',style: blackTextStyle.copyWith(fontWeight: bold, fontSize: 16),),
+                content: Container(
+                  width: double.infinity,
+                  height: 350,
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          
+                          // ignore: sized_box_for_whitespace
+                          Container(width: 110, child: Text("Tanggal",style: blackTextStyle.copyWith(fontSize: 12, fontWeight: bold),)),
+                          // ignore: sized_box_for_whitespace
+                          Container(width: 110, child: Text("Mata Pelajaran",style: blackTextStyle.copyWith(fontSize: 12, fontWeight: bold))),
+                          
+                        ],
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(vertical: 10),
+                        width: double.infinity,
+                        height: 1,
+                        color: blackColor,
+                      ),
+                      Expanded(
+                        child: ListView(
+                          children: [
+                            
+                            FutureBuilder(
+                              future: dataAbsenDetail(bulan2, status),
+                              builder: (context, snapshot) {
+                                return Column(
+                                  children: siswaProvider.absenPelajaranDetail.map((absenDetail) => textDetail(
+                                    absenDetail.tanggal.toString(), 
+                                    absenDetail.nama.toString()
+                                  )).toList(),
+                                );
+                              }
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                backgroundColor: background4Color,
+                actions: [
+                  TextButton(
+                    style: TextButton.styleFrom(
+                      textStyle: Theme.of(context).textTheme.labelLarge,
+                    ),
+                    child: const Text('Tutup'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              );
+            }
+          );
+        },
         style: TextButton.styleFrom(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15)
@@ -169,6 +256,7 @@ class _AbsenPelajaranSiswaPageState extends State<AbsenPelajaranSiswaPage> {
       String ijin,
       String sakit,
       String alpa,
+      String bulan2
     ){
       return Container(
         margin: const EdgeInsets.only(top: 15,left: 10, right: 10),
@@ -187,10 +275,10 @@ class _AbsenPelajaranSiswaPageState extends State<AbsenPelajaranSiswaPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                textContent("Hadir", hadir),
-                textContent("Ijin", ijin),
-                textContent("Sakit", sakit),
-                textContent("Alpa", alpa),
+                textContent("Hadir", hadir,'0',bulan2, bulan),
+                textContent("Ijin", ijin,'2',bulan2, bulan),
+                textContent("Sakit", sakit,'1',bulan2, bulan),
+                textContent("Alpa", alpa,'3',bulan2, bulan),
               ],
             ),
                   ],
@@ -220,7 +308,8 @@ class _AbsenPelajaranSiswaPageState extends State<AbsenPelajaranSiswaPage> {
                         absen.hadir.toString(), 
                         absen.ijin.toString(), 
                         absen.sakit.toString(), 
-                        absen.alpa.toString()
+                        absen.alpa.toString(),
+                        absen.bulan.toString()
                       )).toList()
                     );
                   }

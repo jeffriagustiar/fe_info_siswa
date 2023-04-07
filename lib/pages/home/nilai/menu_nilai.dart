@@ -26,7 +26,7 @@ class MenuNilaiPage extends StatelessWidget {
           ),
 
           Container(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(10),
             margin: const EdgeInsets.only(top: 20),
             // height: 400,
             width: double.infinity,

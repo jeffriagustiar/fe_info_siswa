@@ -1,8 +1,9 @@
-import 'package:fe_info_siswa/models/absen_pelajaran_hitung_model.dart';
+import 'package:fe_info_siswa/models/absen/absen_pelajaran_hitung_model.dart';
+import 'package:fe_info_siswa/models/absen/detail_absen_pelajaran_model.dart';
 import 'package:fe_info_siswa/models/jenis_nilai_harian_model.dart';
 import 'package:fe_info_siswa/models/mapel_model.dart';
 import 'package:fe_info_siswa/models/nilai_harian_model.dart';
-import 'package:fe_info_siswa/models/presen_siswa_model.dart';
+import 'package:fe_info_siswa/models/absen/presen_siswa_model.dart';
 import 'package:fe_info_siswa/models/rapor_siswa_model.dart';
 import 'package:fe_info_siswa/models/semester_model.dart';
 import 'package:fe_info_siswa/models/siswa_model.dart';
@@ -64,6 +65,15 @@ class SiswaProvider with ChangeNotifier{
 
   set absenPelajaran(List<AbsenPelajaranHitungModel> absenPelajaran){
     _absenPelajaran = absenPelajaran;
+    notifyListeners();
+  }
+
+  List<DetailAbsenPelajaranModel> _absenPelajaranDetail = [];
+
+  List<DetailAbsenPelajaranModel> get absenPelajaranDetail => _absenPelajaranDetail;
+
+  set absenPelajaranDetail(List<DetailAbsenPelajaranModel> absenPelajaranDetail){
+    _absenPelajaranDetail = absenPelajaranDetail;
     notifyListeners();
   }
 
@@ -169,6 +179,18 @@ class SiswaProvider with ChangeNotifier{
     try {
       List<AbsenPelajaranHitungModel> absenPelajaran = await SiswaService().getAbsenPelajaranSiswa(token, year);
       _absenPelajaran = absenPelajaran; 
+    } catch (e) {
+      // ignore: avoid_print
+      print(e); 
+    }
+  }
+
+  //ambil data presensi pelajaran siswa detail
+  Future<void> getAbsenPelajaranSiswaDetail(String token, String year, String month, String status) async{
+    _absenPelajaranDetail = [];
+    try {
+      List<DetailAbsenPelajaranModel> absenPelajaranDetail = await SiswaService().getAbsenPelajaranSiswaDetail(token, year, month, status);
+      _absenPelajaranDetail = absenPelajaranDetail; 
     } catch (e) {
       // ignore: avoid_print
       print(e); 

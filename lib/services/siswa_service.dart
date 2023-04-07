@@ -1,10 +1,11 @@
 import 'dart:convert';
 
-import 'package:fe_info_siswa/models/absen_pelajaran_hitung_model.dart';
+import 'package:fe_info_siswa/models/absen/absen_pelajaran_hitung_model.dart';
+import 'package:fe_info_siswa/models/absen/detail_absen_pelajaran_model.dart';
 import 'package:fe_info_siswa/models/jenis_nilai_harian_model.dart';
 import 'package:fe_info_siswa/models/mapel_model.dart';
 import 'package:fe_info_siswa/models/nilai_harian_model.dart';
-import 'package:fe_info_siswa/models/presen_siswa_model.dart';
+import 'package:fe_info_siswa/models/absen/presen_siswa_model.dart';
 import 'package:fe_info_siswa/models/rapor_siswa_model.dart';
 import 'package:fe_info_siswa/models/semester_model.dart';
 import 'package:fe_info_siswa/models/siswa_model.dart';
@@ -151,7 +152,7 @@ class SiswaService{
     );
 
     // print((response.body));
-    print("bisa absen pelajaran siswa");
+    // print("bisa absen pelajaran siswa");
 
     if (response.statusCode == 200) {
       List  data = jsonDecode(response.body)['data'];
@@ -163,6 +164,36 @@ class SiswaService{
       return AbsenPelajaranSiswa;
     } else {
       throw Exception("Gagal Ambil data absen pelajaran siswa");
+    }
+  }
+
+  //ambil data kehadiran siswa dengan sortir tahun untuk matapelajaran detail
+  Future<List<DetailAbsenPelajaranModel>> getAbsenPelajaranSiswaDetail(String token, String year, String month, String status) async{
+    var url = Uri.parse('$baseUrl/absenPelajaranDetail?year=$year&month=$month&status=$status');
+
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization' : token
+    };
+
+    var response = await http.get(
+      url,
+      headers: headers
+    );
+
+    // print((response.body));
+    print("bisa absen pelajaran siswa detail");
+
+    if (response.statusCode == 200) {
+      List  data = jsonDecode(response.body)['data'];
+      List<DetailAbsenPelajaranModel> AbsenPelajaranSiswaDetail = [];
+
+      for (var item in data) {
+        AbsenPelajaranSiswaDetail.add(DetailAbsenPelajaranModel.fromJson(item));
+      }
+      return AbsenPelajaranSiswaDetail;
+    } else {
+      throw Exception("Gagal Ambil data absen pelajaran siswa detail");
     }
   }
 
