@@ -26,6 +26,7 @@ class _HomePageState extends State<HomePage> {
   String? kelas = SpUtil.getString('kelas');
   int? angka = SpUtil.getInt('a');
   int? nis = SpUtil.getInt('nis');
+  String? kelamin = SpUtil.getString('kelamin');
 
   // ignore: unused_field
   bool _isRefreshing = false;
@@ -117,7 +118,7 @@ class _HomePageState extends State<HomePage> {
                 child: SizedBox(
                   height: 50,
                   width: 50,
-                  child: Image.asset('assets/profile_image.png',width: 64,)
+                  child: kelamin == 'p' ? Image.asset('assets/ic_profile_cewek.gif',width: 64,) : Image.asset('assets/ic_profile_cowok.gif',width: 64,)
                 )
               ),
             )

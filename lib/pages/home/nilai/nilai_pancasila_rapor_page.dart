@@ -2,6 +2,7 @@ import 'package:fe_info_siswa/provider/siswa_provider.dart';
 import 'package:fe_info_siswa/share/theme.dart';
 import 'package:fe_info_siswa/widgets/appBar_buttom.dart';
 import 'package:fe_info_siswa/widgets/loading.dart';
+import 'package:fe_info_siswa/widgets/no_result_info_gif.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sp_util/sp_util.dart';
@@ -186,25 +187,31 @@ class _NilaiPancasilaRaporPageState extends State<NilaiPancasilaRaporPage> {
             builder: (BuildContext context){
               return AlertDialog(
                 title: Text('Detail Penilaian Pancasila',style: blackTextStyle.copyWith(fontSize: 18,fontWeight: bold),),
-          content: Container(
-            height: 300,
-            child: FutureBuilder(
-              future: data2(mapel),
-              builder: (context, snapshot) {
-                return ListView(
-                  children:[
-                    Text(mapel,style: blackTextStyle.copyWith(fontWeight: semibold),),
-                    Column(
-                      children: siswaProvider.raporP.map((rapor) => cell2(
-                          rapor.dasarpenilaian.toString(), 
-                          rapor.nilaihuruf.toString()+' '+rapor.nilaiangka.toString(), 
-                        )).toList(),
-                    )
-                  ]
-                );
-              }
+                content: Container(
+                height: 300,
+                child: FutureBuilder(
+                  future: data2(mapel),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Loading();
+                    } else if(siswaProvider.raporP.isEmpty){
+                      return NoResultInfoGif(lebar: double.infinity);
+                    }  else {
+                      return ListView(
+                        children:[
+                          Text(mapel,style: blackTextStyle.copyWith(fontWeight: semibold),),
+                          Column(
+                            children: siswaProvider.raporP.map((rapor) => cell2(
+                                rapor.dasarpenilaian.toString(), 
+                                rapor.nilaihuruf.toString()+' '+rapor.nilaiangka.toString(), 
+                              )).toList(),
+                          )
+                        ]
+                      );
+                    }
+                  }
+              ),
             ),
-          ),
           actions: <Widget>[
             TextButton(
               style: TextButton.styleFrom(
@@ -273,7 +280,9 @@ class _NilaiPancasilaRaporPageState extends State<NilaiPancasilaRaporPage> {
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Loading();
-              } else {
+              } else if(siswaProvider.mapel.isEmpty){
+                return NoResultInfoGif(lebar: double.infinity);
+              }  else {
                   return Column(
                     children: siswaProvider.mapel.map((rapor) => dataNilai(
                       rapor.nama.toString(), 

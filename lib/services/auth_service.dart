@@ -44,6 +44,7 @@ class AuthService{
       SpUtil.putString('nama', user.nama!); 
       SpUtil.putInt('idkelas', user.idkelas!);
       SpUtil.putString('kelas', kelas.kelas!);
+      SpUtil.putString('kelamin', user.kelamin!);
 
       return user;
     }else{
@@ -84,6 +85,7 @@ class AuthService{
       SpUtil.putString('nama', ''); 
       SpUtil.putInt('idkelas', 0);
       SpUtil.putString('kelas', '');
+      SpUtil.putString('kelamin', '');
       throw Exception('Berhasil Logout');
     } else {
       throw Exception('Gagal Register');
