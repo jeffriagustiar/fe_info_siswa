@@ -77,7 +77,7 @@ class _Sign_InState extends State<Sign_In> {
           children: [
             Text(
               'Login',
-              style: primaryTextStyle.copyWith(
+              style: blackTextStyle.copyWith(
                 fontWeight: semibold,
                 fontSize: 24,
               ),
@@ -86,7 +86,7 @@ class _Sign_InState extends State<Sign_In> {
               height: 2,
             ),
             Text(
-              'Sign In to Countinue',
+              'Login untuk menlanjutkan',
               style: subTextStyle.copyWith(fontWeight: regular, fontSize: 14),
             )
           ],
@@ -96,14 +96,14 @@ class _Sign_InState extends State<Sign_In> {
 
     Widget emailInput() {
       return Container(
-        margin: const EdgeInsets.only(top: 70),
+        margin: const EdgeInsets.only(top: 50),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               'NISN',
               style:
-                  primaryTextStyle.copyWith(fontWeight: medium, fontSize: 16),
+                  blackTextStyle.copyWith(fontWeight: medium, fontSize: 16),
             ),
             const SizedBox(
               height: 10,
@@ -113,30 +113,32 @@ class _Sign_InState extends State<Sign_In> {
                 width: double.infinity,
                 height: 50,
                 decoration: BoxDecoration(
-                    color: backgroundColor2,
+                    color: background4Color,
                     borderRadius: BorderRadius.circular(12)),
                 child: Center(
                   child: Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.person,
-                        color: primaryColor,
+                        color: Colors.blue,
                       ),
                       const SizedBox(
                         width: 15,
                       ),
                       Expanded(
-                          child: TextFormField(
-                        style: primaryTextStyle,
-                        controller: nisController,
-                        decoration: InputDecoration.collapsed(
-                          hintText: 'Your NISN',
-                          hintStyle: secondTextStyle,
-                        ),
-                      ))
+                        child: TextFormField(
+                          style: blackTextStyle,
+                          controller: nisController,
+                          decoration: InputDecoration.collapsed(
+                            hintText: 'NISN Kamu',
+                            hintStyle: secondTextStyle,
+                          ),
+                        )
+                      )
                     ],
                   ),
-                ))
+                )
+              )
           ],
         ),
       );
@@ -151,7 +153,7 @@ class _Sign_InState extends State<Sign_In> {
             Text(
               'Password or PIN',
               style:
-                  primaryTextStyle.copyWith(fontWeight: medium, fontSize: 16),
+                  blackTextStyle.copyWith(fontWeight: medium, fontSize: 16),
             ),
             const SizedBox(
               height: 10,
@@ -161,23 +163,23 @@ class _Sign_InState extends State<Sign_In> {
                 width: double.infinity,
                 height: 50,
                 decoration: BoxDecoration(
-                    color: backgroundColor2,
+                    color: background4Color,
                     borderRadius: BorderRadius.circular(12)),
                     child: Center(
                       child: Row(
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.key,
-                            color: primaryColor,
+                            color: Colors.blue,
                           ),
                           const SizedBox(width: 15,),
                           Expanded(
                             child: TextFormField(
                               obscureText: true,
-                              style: primaryTextStyle,
+                              style: blackTextStyle,
                               controller: passwordController,
                               decoration: InputDecoration.collapsed(
-                                hintText: 'Your Password or PIN',
+                                hintText: 'Password atau PIN kamu',
                                 hintStyle: secondTextStyle,
                               ),
                             )
@@ -198,7 +200,7 @@ class _Sign_InState extends State<Sign_In> {
         margin: const EdgeInsets.only(top: 30),
         child: TextButton(
             style: TextButton.styleFrom(
-                backgroundColor: primaryColor,
+                backgroundColor: Colors.blue,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12))),
             onPressed: handleSignIn,
@@ -210,22 +212,42 @@ class _Sign_InState extends State<Sign_In> {
       );
     }
 
+    Widget logo(){
+      return Center(
+        child: Container(
+          margin: EdgeInsets.only(top: 40),
+          width: 100,
+          height: 100,
+          decoration: BoxDecoration(
+            image: DecorationImage(image: AssetImage('assets/logo.png'))
+          ),
+        ),
+      );
+    }
+
     return Scaffold(
-      backgroundColor: const Color(0xff1F1D2B),
+      backgroundColor: backgroundColor,
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Container(
           margin: EdgeInsets.symmetric(
-            horizontal: defaultMargin,
+            horizontal: 20,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              header(),
-              emailInput(),
-              passwordInput(),
-              buttom(),
-              const Spacer(),
+              Expanded(
+                child: ListView(
+                  children: [
+                    // header(),
+                    logo(),
+                    emailInput(),
+                    passwordInput(),
+                    buttom(),
+                  ],
+                )
+              ),
+              // const Spacer(),
             ],
           ),
         ),

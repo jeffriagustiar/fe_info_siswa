@@ -2,11 +2,13 @@
 
 import 'dart:async';
 
+import 'package:fe_info_siswa/pages/home/home_page.dart';
 import 'package:fe_info_siswa/pages/sign_in.dart';
 import 'package:fe_info_siswa/provider/siswa_provider.dart';
 import 'package:fe_info_siswa/share/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sp_util/sp_util.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -24,9 +26,10 @@ class _SplashPageState extends State<SplashPage> {
       Navigator.pushAndRemoveUntil(
         context, 
         MaterialPageRoute(
-          builder: (context) => Sign_In(),
+          builder: (context) => (SpUtil.getInt('a') == 1 ? HomePage() : Sign_In()),
         ), 
-        ModalRoute.withName('/sign-in'));
+        (SpUtil.getInt('a') == 1 ? ModalRoute.withName('/home') :ModalRoute.withName('/sign-in'))
+      );
     });
     getInit();
     super.initState();
@@ -39,14 +42,14 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor1,
+      backgroundColor: backgroundColor,
       body: Center(
           child: Container(
         width: 130,
         height: 150,
         decoration: const BoxDecoration(
             image: DecorationImage(
-          image: AssetImage('assets/logo.png'),
+            image: AssetImage('assets/logo.png'),
         )),
       )),
     );

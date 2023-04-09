@@ -211,18 +211,34 @@ class _HomePageState extends State<HomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                FiturButtom(nama: 'Profile', onPressed: () {
-                  Navigator.pushNamed(context, '/profile');
-                },),
-                FiturButtom(nama: 'SPP', onPressed: () {
-                  Navigator.pushNamed(context, '/spp');
-                },),
-                FiturButtom(nama: 'Nilai', onPressed: () {
-                  Navigator.pushNamed(context, '/menu-nilai');
-                },),
-                FiturButtom(nama: 'Presensi', onPressed: () {
-                  Navigator.pushNamed(context, '/absen');
-                },),
+                FiturButtom(
+                  nama: 'Profile', 
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/profile');
+                  },
+                  img: kelamin == 'p' ? 'assets/ic_profile_cewek.gif' : 'assets/ic_profile_cowok.gif',
+                ),
+                FiturButtom(
+                  nama: 'SPP', 
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/spp');
+                  },
+                  img: 'assets/ic_uang.png',
+                ),
+                FiturButtom(
+                  nama: 'Nilai', 
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/menu-nilai');
+                  },
+                  img: 'assets/ic_rapor.png',
+                ),
+                FiturButtom(
+                  nama: 'Presensi', 
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/absen');
+                  },
+                  img: 'assets/ic_absen.gif',
+                ),
               ],
             ),
 
@@ -231,7 +247,11 @@ class _HomePageState extends State<HomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                FiturButtom(nama: 'Logout', onPressed: handleLogOut),
+                FiturButtom(
+                  nama: 'Logout', 
+                  onPressed: handleLogOut, 
+                  img: 'assets/ic_logout.png',
+                ),
                 // FiturButtom(nama: 'coba', onPressed: () {
                 //   Navigator.push(context, MaterialPageRoute(builder: (context) => ListSiswaPage(),));
                 // },),

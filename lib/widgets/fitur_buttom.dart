@@ -4,13 +4,14 @@ import 'package:flutter/material.dart';
 class FiturButtom extends StatelessWidget {
   final String nama;
   final Function() onPressed;
+  final String img;
   
-  FiturButtom({required this.nama, required this.onPressed});
+  FiturButtom({required this.nama, required this.onPressed, required this.img});
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onPressed,
+    return TextButton(
+      onPressed: onPressed,
       child: Container(
         child: Column(
           children: [
@@ -20,7 +21,8 @@ class FiturButtom extends StatelessWidget {
               margin: EdgeInsets.only(bottom: 12,),
               decoration: BoxDecoration(
                 color: background3Color,
-                borderRadius: BorderRadius.circular(10)
+                borderRadius: BorderRadius.circular(10),
+                image: DecorationImage(image: AssetImage(img))
               ),
             ),
             Text(

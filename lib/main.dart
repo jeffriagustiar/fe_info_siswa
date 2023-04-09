@@ -54,8 +54,8 @@ class MyApp extends StatelessWidget {
         routes: {
           // '/' :(context) => MainPage(),
           // '/' :(context) => SplashPage(),
-          '/' :(context) => (SpUtil.getInt('a') == 1 ? HomePage() : SplashPage()),
-          // '/' :(context) => SplashPage(),
+          // '/' :(context) => (SpUtil.getInt('a') == 1 ? HomePage() : SplashPage()),
+          '/' :(context) => SplashPage(),
           '/sign-in' :(context) => Sign_In(),
           '/home' :(context) => HomePage(),
 
