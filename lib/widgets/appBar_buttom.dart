@@ -40,11 +40,14 @@ class AppBarButtom extends StatelessWidget {
               splashRadius: 30,
               splashColor: Colors.blue,
             ),
-            Text(
-              nama,
-              style: blackTextStyle.copyWith(
-                fontWeight: bold,
-                fontSize: 17
+            Expanded(
+              child: Text(
+                nama,
+                style: blackTextStyle.copyWith(
+                  fontWeight: bold,
+                  fontSize: 17
+                ),
+                textAlign: TextAlign.center,
               ),
             ),
             IconButton(

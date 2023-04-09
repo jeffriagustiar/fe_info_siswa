@@ -46,7 +46,12 @@ class _SppPageState extends State<SppPage> {
         future: data(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-              return Loading();
+              return Column(
+                children: [
+                  SizedBox(height: 10,),
+                  Loading(),
+                ],
+              );
             } else {
               return Column(
             children: siswaProvider.spp.map((spp) => SppTile(spp)).toList(),
@@ -58,13 +63,21 @@ class _SppPageState extends State<SppPage> {
     
     return Scaffold(
       backgroundColor: backgroundColor,
-      body: RefreshIndicator(
-        onRefresh: getInit,
-        child: ListView(
-          children: [
-            AppBarButtom(nama: 'Informasi Pembayaran SPP'),
-            content(),
-          ],
+      body: SafeArea(
+        child: RefreshIndicator(
+          onRefresh: getInit,
+          child: Column(
+            children: [
+              AppBarButtom(nama: 'Informasi Pembayaran SPP'),
+              Expanded(
+                child: ListView(
+                  children: [
+                    content(),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

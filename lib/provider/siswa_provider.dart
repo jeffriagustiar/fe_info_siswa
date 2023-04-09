@@ -2,6 +2,7 @@ import 'package:fe_info_siswa/models/absen/absen_pelajaran_hitung_model.dart';
 import 'package:fe_info_siswa/models/absen/detail_absen_pelajaran_model.dart';
 import 'package:fe_info_siswa/models/nilai/jenis_nilai_harian_model.dart';
 import 'package:fe_info_siswa/models/mapel_model.dart';
+import 'package:fe_info_siswa/models/nilai/mapel_nilai_harian_model.dart';
 import 'package:fe_info_siswa/models/nilai/nilai_harian_model.dart';
 import 'package:fe_info_siswa/models/absen/presen_siswa_model.dart';
 import 'package:fe_info_siswa/models/nilai/rapor_siswa_model.dart';
@@ -119,6 +120,15 @@ class SiswaProvider with ChangeNotifier{
 
   set jenisNilaiHarian(List<JenisNilaiHarianModel> jenisNilaiHarian){
     _jenisNilaiHarian = jenisNilaiHarian;
+    notifyListeners();
+  }
+
+  List<MapelNilaiHarianModel> _mapelNilaiHarian = [];
+
+  List<MapelNilaiHarianModel> get mapelNilaiHarian => _mapelNilaiHarian;
+
+  set mapelNilaiHarian(List<MapelNilaiHarianModel> mapelNilaiHarian){
+    _mapelNilaiHarian = mapelNilaiHarian;
     notifyListeners();
   }
 
@@ -272,6 +282,17 @@ class SiswaProvider with ChangeNotifier{
     try {
       List<JenisNilaiHarianModel> jenisNilaiHarian = await SiswaService().getJenisNilaiHarin(token, mapel, tahun, sem);
       _jenisNilaiHarian = jenisNilaiHarian; 
+    } catch (e) {
+      // ignore: avoid_print
+      print(e); 
+    }
+  }
+
+  //ambil data mapel Nilai Harian Siswa Berdasarkan jenis tahun semester
+  Future<void> getMapelNilaiHarin(String token,  String tahun, String sem, String jenis) async{
+    try {
+      List<MapelNilaiHarianModel> mapelNilaiHarian = await SiswaService().getMapelNilaiHarin(token, tahun, sem, jenis);
+      _mapelNilaiHarian = mapelNilaiHarian; 
     } catch (e) {
       // ignore: avoid_print
       print(e); 

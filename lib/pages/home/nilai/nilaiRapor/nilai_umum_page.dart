@@ -1,6 +1,7 @@
 import 'package:fe_info_siswa/provider/siswa_provider.dart';
 import 'package:fe_info_siswa/share/theme.dart';
 import 'package:fe_info_siswa/widgets/appBar_buttom.dart';
+import 'package:fe_info_siswa/widgets/info_pilih.dart';
 import 'package:fe_info_siswa/widgets/loading.dart';
 import 'package:fe_info_siswa/widgets/no_result_info_gif.dart';
 import 'package:flutter/material.dart';
@@ -17,9 +18,9 @@ class NilaiUmumPage extends StatefulWidget {
 class _NilaiUmumPageState extends State<NilaiUmumPage> {
 
   String? _tahunAjaran;
-  String? _tahunAjaran2 = '2022/2023';
+  String? _tahunAjaran2 = '';
   String? _semester;
-  String? _semester2= '21';
+  String? _semester2= '';
   String? token = SpUtil.getString('token');
 
   // ignore: unused_field
@@ -174,10 +175,11 @@ class _NilaiUmumPageState extends State<NilaiUmumPage> {
 
   Widget icon(double lebar, String komen, String komen2){
     return Container(
-      padding: const EdgeInsets.only(top: 15),
-      width: lebar, 
-      child: GestureDetector(
-        onTap: (){
+      // padding: const EdgeInsets.only(top: 15),
+      width: 40, 
+      height: 30,
+      child: TextButton(
+        onPressed: (){
           showDialog(
             context: context, 
             builder: (BuildContext context){
@@ -287,91 +289,27 @@ class _NilaiUmumPageState extends State<NilaiUmumPage> {
     );
   }
 
-  Widget keterangan(){
-    return Container(
-      margin: const EdgeInsets.only(top: 20,left: 10, right: 10),
-      padding: const EdgeInsetsDirectional.all(15),
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: background4Color,
-        borderRadius: BorderRadius.circular(15)
-      ),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-
-              // ignore: sized_box_for_whitespace
-              Container(width: 200, child: Text("Keterangan Pelajaran Pancasila",style: blackTextStyle.copyWith(fontSize: 12, fontWeight: bold),)),
-
-            ],
-          ),
-          Container(
-            margin: const EdgeInsets.only(bottom: 5),
-            width: double.infinity,
-            height: 1,
-            color: blackColor,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              cell(150, "D1 : Beriaman, bertaqwa kepadaTuhan YME dan berakhlak mulia"),
-              cell(150, "SB : Sangat Berkembang"),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              cell(150, "D2 : Bernalar kritis"),
-              cell(150, "BSH : Berkembang Sesuai Harapan"),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              cell(150, "D3 : Mandiri"),
-              cell(150, "MB : Mulai Berkembang"),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              cell(150, "D4 : Kebhinekaan Global"),
-              cell(150, "BB : Belum Berkembang"),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              cell(150, "D5 : Kreatif"),
-              cell(150, ""),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              cell(150, "D6 : Bergotongroyong"),
-              cell(150, ""),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
 
     return Scaffold(
       backgroundColor: backgroundColor,
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: getInit,
-          child: ListView(
+          child: Column(
             children: [
               AppBarButtom(nama: nama),
               comboBox(),
-              content2(tipe, jenis),
-              pancasila == 1 ? keterangan() : const SizedBox(height: 20,),
-              const SizedBox(height: 20,),
+              Expanded(
+                child: ListView(
+                  children: [
+                    _tahunAjaran2=='' || _semester2=='' ? 
+                    InfoPilih(textInfo: 'Silahkan pilih terlebih dahulu tahuan ajaran dan semester untuk melanjutkan')
+                      : 
+                    content2(tipe, jenis),
+                    const SizedBox(height: 20,),
+                  ],
+                ),
+              ),
             ],
           ),
         ),

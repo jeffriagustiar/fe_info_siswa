@@ -232,9 +232,9 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 FiturButtom(nama: 'Logout', onPressed: handleLogOut),
-                FiturButtom(nama: 'coba', onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => ListSiswaPage(),));
-                },),
+                // FiturButtom(nama: 'coba', onPressed: () {
+                //   Navigator.push(context, MaterialPageRoute(builder: (context) => ListSiswaPage(),));
+                // },),
               ],
             ),
 

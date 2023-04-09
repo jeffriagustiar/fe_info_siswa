@@ -1,6 +1,7 @@
 import 'package:fe_info_siswa/provider/siswa_provider.dart';
 import 'package:fe_info_siswa/share/theme.dart';
 import 'package:fe_info_siswa/widgets/appBar_buttom.dart';
+import 'package:fe_info_siswa/widgets/info_pilih.dart';
 import 'package:fe_info_siswa/widgets/loading.dart';
 import 'package:fe_info_siswa/widgets/no_result_info_gif.dart';
 import 'package:flutter/material.dart';
@@ -17,9 +18,9 @@ class NilaiPancasilaRaporPage extends StatefulWidget {
 class _NilaiPancasilaRaporPageState extends State<NilaiPancasilaRaporPage> {
 
   String? _tahunAjaran;
-  String? _tahunAjaran2 = '2022/2023';
+  String? _tahunAjaran2 = '';
   String? _semester;
-  String? _semester2= '21';
+  String? _semester2= '';
   String? token = SpUtil.getString('token');
 
   // ignore: unused_field
@@ -376,13 +377,22 @@ class _NilaiPancasilaRaporPageState extends State<NilaiPancasilaRaporPage> {
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: getInit,
-          child: ListView(
+          child: Column(
             children: [
               AppBarButtom(nama: nama),
               comboBox(),
-              content2(tipe, jenis),
-              // pancasila == 1 ? keterangan() : const SizedBox(height: 20,),
-              const SizedBox(height: 20,),
+              Expanded(
+                child: ListView(
+                  children: [
+                    _tahunAjaran2=='' || _semester2=='' ? 
+                    InfoPilih(textInfo: 'Silahkan pilih terlebih dahulu tahuan ajaran dan semester untuk melanjutkan')
+                      : 
+                    content2(tipe, jenis),
+                    // pancasila == 1 ? keterangan() : const SizedBox(height: 20,),
+                    const SizedBox(height: 20,),
+                  ],
+                ),
+              ),
             ],
           ),
         ),

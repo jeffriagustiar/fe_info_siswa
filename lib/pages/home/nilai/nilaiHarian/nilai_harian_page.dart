@@ -1,3 +1,4 @@
+import 'package:fe_info_siswa/models/nilai/mapel_nilai_harian_model.dart';
 import 'package:fe_info_siswa/provider/siswa_provider.dart';
 import 'package:fe_info_siswa/share/theme.dart';
 import 'package:fe_info_siswa/widgets/appBar_buttom.dart';
@@ -7,19 +8,17 @@ import 'package:provider/provider.dart';
 import 'package:sp_util/sp_util.dart';
 
 class NilaiHarianPage extends StatefulWidget {
-  const NilaiHarianPage({super.key});
+  final MapelNilaiHarianModel mapelNilai;
+  final String abc;
+  final String tahunAjaranNilai;
+  final String semesterNilai;
+  NilaiHarianPage(this.mapelNilai,{required this.abc, required this.tahunAjaranNilai, required this.semesterNilai });
 
   @override
   State<NilaiHarianPage> createState() => _NilaiHarianPageState();
 }
 
 class _NilaiHarianPageState extends State<NilaiHarianPage> {
-  String? _mapel;
-  String? _mapel2 = '1';
-  String? _sem;
-  String? _sem2 = '21';
-  String? _tahunAjaran;
-  String? _tahunAjaran2 = '2022/2023';
   String? token = SpUtil.getString('token');
   String? kelas = SpUtil.getInt('idkelas').toString();
 
@@ -36,18 +35,8 @@ class _NilaiHarianPageState extends State<NilaiHarianPage> {
     });
   }
 
-  data(jenis) async{
-    await Provider.of<SiswaProvider>(context, listen: false).getMapel(jenis);
-  }
-
-  dataSemeTahun() async{
-    await Provider.of<SiswaProvider>(context, listen: false).gettahun(token!);
-    // ignore: use_build_context_synchronously
-    await Provider.of<SiswaProvider>(context, listen: false).getsemester(/*token!*/);
-  }
-
   data2() async{
-    await Provider.of<SiswaProvider>(context, listen: false).getJenisNilaiHarin(token!, _mapel2!, _tahunAjaran2!, _sem2!);
+    await Provider.of<SiswaProvider>(context, listen: false).getJenisNilaiHarin(token!, widget.mapelNilai.idpelajaran!, widget.tahunAjaranNilai, widget.semesterNilai);
   }
 
   dataNilaiHarian(String jjenis) async{
@@ -56,147 +45,12 @@ class _NilaiHarianPageState extends State<NilaiHarianPage> {
 
   @override
   Widget build(BuildContext context) {
-    final arg = ModalRoute.of(context)!.settings.arguments as Map;
-    String nama = arg['nama'];
-    String jenis = arg['jenis'];
+    // final arg = ModalRoute.of(context)!.settings.arguments as Map;
+    // String nama = arg['nama'];
+    // String jenis = arg['jenis'];
 
     SiswaProvider siswaProvider = Provider.of<SiswaProvider>(context);
 
-    Widget comboBox(){
-      return Container(
-        margin: const EdgeInsets.only(top: 20),
-        padding: const EdgeInsets.only(left: 10, right: 10, top: 15, bottom: 15),
-        width: double.infinity,
-        // height: 100,
-        decoration: BoxDecoration(
-          color: background4Color,
-          borderRadius: BorderRadius.circular(15)
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Mata Pelajaran",
-              style: blackTextStyle,
-            ),
-            ButtonTheme(
-                alignedDropdown: true,
-                child: FutureBuilder(
-                  future: data(jenis),
-                  builder: (context, snapshot) {
-                    return DropdownButton(
-                      style: TextStyle(
-                        color: blackColor
-                      ),
-                      borderRadius: BorderRadius.circular(15),
-                      focusColor: blackColor,
-                      underline: Container(
-                        height: 2,
-                        color: backgroundColor6,
-                      ),
-                      value: _mapel,
-                      onChanged: (newValue) {
-                          setState(() {
-                            _mapel = newValue;
-                            _mapel2 = newValue;
-                          });
-                        },
-                      items: siswaProvider.mapel.map((location) {
-                          return DropdownMenuItem(
-                            // ignore: unnecessary_new, sort_child_properties_last
-                            child: new Text(location.nama.toString(),),
-                            value: location.replid.toString(),
-                          );
-                        }).toList()
-                    );
-                  }
-                )
-              ),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-              "Tahun Ajaran",
-              style: blackTextStyle,
-            ),
-            ButtonTheme(
-                alignedDropdown: true,
-                child: FutureBuilder(
-                  future: dataSemeTahun(),
-                  builder: (context, snapshot) {
-                    return DropdownButton(
-                      style: TextStyle(
-                        color: blackColor
-                      ),
-                      borderRadius: BorderRadius.circular(15),
-                      focusColor: blackColor,
-                      underline: Container(
-                        height: 2,
-                        color: backgroundColor6,
-                      ),
-                      value: _tahunAjaran,
-                      onChanged: (newValue) {
-                          setState(() {
-                            _tahunAjaran = newValue;
-                            _tahunAjaran2 = newValue;
-                          });
-                        },
-                      items: siswaProvider.tahun.map((location) {
-                          return DropdownMenuItem(
-                            // ignore: unnecessary_new, sort_child_properties_last
-                            child: new Text(location.tahun.toString(),),
-                            value: location.tahun.toString(),
-                          );
-                        }).toList()
-                    );
-                  }
-                )
-              ),
-                  Text(
-                    "Semester",
-                    style: blackTextStyle,
-                  ),
-                  SizedBox(width: 10,),
-                  ButtonTheme(
-                    alignedDropdown: true,
-                    child: FutureBuilder(
-                      future: dataSemeTahun(),
-                      builder: (context, snapshot) {
-                        return DropdownButton(
-                          style: TextStyle(
-                            color: blackColor
-                          ),
-                          borderRadius: BorderRadius.circular(15),
-                          focusColor: blackColor,
-                          underline: Container(
-                            height: 2,
-                            color: backgroundColor6,
-                          ),
-                          value: _sem,
-                          onChanged: (newValue) {
-                              setState(() {
-                                _sem = newValue;
-                                _sem2 = newValue;
-                              });
-                            },
-                          items: siswaProvider.semester.map((location) {
-                              return DropdownMenuItem(
-                                // ignore: unnecessary_new, sort_child_properties_last
-                                child: new Text(location.semester.toString(),),
-                                value: location.replid.toString(),
-                              );
-                            }).toList()
-                        );
-                      }
-                    )
-                  ),
-                ],
-              ),
-          ],
-        ),
-      );
-  }
 
   Widget cell(double lebar, String nama){
     return Container(
@@ -405,15 +259,19 @@ class _NilaiHarianPageState extends State<NilaiHarianPage> {
       body: SafeArea(
         // child: RefreshIndicator(
         //   onRefresh: getInit,
-          child: ListView(
+          child: Column(
             children: [
-              AppBarButtom(nama: nama),
-              comboBox(),
-              // Text(_mapel.toString()),
-              content()
+              AppBarButtom(nama: widget.mapelNilai.nama.toString()),
+              Expanded(
+                child: ListView(
+                  children: [
+                    content()
+                  ],
+                // ),
+                      ),
+              ),
             ],
-          // ),
-        ),
+          ),
       ),
     );
   }

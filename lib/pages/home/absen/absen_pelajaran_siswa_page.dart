@@ -1,6 +1,7 @@
 import 'package:fe_info_siswa/provider/siswa_provider.dart';
 import 'package:fe_info_siswa/share/theme.dart';
 import 'package:fe_info_siswa/widgets/appBar_buttom.dart';
+import 'package:fe_info_siswa/widgets/info_pilih.dart';
 import 'package:fe_info_siswa/widgets/loading.dart';
 import 'package:fe_info_siswa/widgets/no_result_info_gif.dart';
 import 'package:flutter/material.dart';
@@ -293,36 +294,53 @@ class _AbsenPelajaranSiswaPageState extends State<AbsenPelajaranSiswaPage> {
               );
     }
 
+    Widget dataContent(){
+      return Column(
+        children: [
+          judul(),
+          FutureBuilder(
+            future: dataAbsen(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Loading();
+              } else if(siswaProvider.absenPelajaran.isEmpty){
+                return NoResultInfoGif(lebar: double.infinity);
+              }else {
+                return Column(
+                  children: siswaProvider.absenPelajaran.map((absen) => content(
+                    absen.namaBulan.toString(), 
+                    absen.hadir.toString(), 
+                    absen.ijin.toString(), 
+                    absen.sakit.toString(), 
+                    absen.alpa.toString(),
+                    absen.bulan.toString()
+                  )).toList()
+                );
+              }
+            }
+          )
+        ],
+      );
+    }
+
     return Scaffold(
       backgroundColor: backgroundColor,
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: getInit,
-          child: ListView(
+          child: Column(
             children: [
               AppBarButtom(nama: "Absen Pelajaran"),
               comboBox(),
-              judul(),
-              FutureBuilder(
-                future: dataAbsen(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Loading();
-                  } else if(siswaProvider.absenPelajaran.isEmpty){
-                    return NoResultInfoGif(lebar: double.infinity);
-                  }else {
-                    return Column(
-                      children: siswaProvider.absenPelajaran.map((absen) => content(
-                        absen.namaBulan.toString(), 
-                        absen.hadir.toString(), 
-                        absen.ijin.toString(), 
-                        absen.sakit.toString(), 
-                        absen.alpa.toString(),
-                        absen.bulan.toString()
-                      )).toList()
-                    );
-                  }
-                }
+              Expanded(
+                child: ListView(
+                  children: [
+                    _tahun2=='' ? 
+                    InfoPilih(textInfo: 'Silahkan pilih tahun terlebih dahulu untuk melanjutkan')
+                      :
+                    dataContent(),
+                  ],
+                ),
               ),
             ],
           ),

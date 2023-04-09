@@ -1,6 +1,7 @@
 import 'package:fe_info_siswa/provider/siswa_provider.dart';
 import 'package:fe_info_siswa/share/theme.dart';
 import 'package:fe_info_siswa/widgets/appBar_buttom.dart';
+import 'package:fe_info_siswa/widgets/info_pilih.dart';
 import 'package:fe_info_siswa/widgets/loading.dart';
 import 'package:fe_info_siswa/widgets/no_result_info_gif.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,7 @@ class _AbsenHarianSiswaPageState extends State<AbsenHarianSiswaPage> {
   List<String> month = ['1','2','3','4','5','6','7','8','9','10','11','12'];
   String? _itemmonth='1';
   String? _tahun;
-  String? _tahun2 = 'Pilih';
+  String? _tahun2 = '';
   String? kepala;
   String? token = SpUtil.getString('token');
 
@@ -336,12 +337,21 @@ class _AbsenHarianSiswaPageState extends State<AbsenHarianSiswaPage> {
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: getInit,
-          child: ListView(
+          child: Column(
             children: [
               AppBarButtom(nama: 'Absen Harian'),
               comboBox(),
-              contentDetail(),
-              // hitung(), // untuk hitung jumlah absensi
+              Expanded(
+                child: ListView(
+                  children: [
+                    _tahun2=='' || _itemmonth=='' ? 
+                    InfoPilih(textInfo: 'Silahkan pilih tahun dan bulan terlebih dahulu untuk melanjutkan') 
+                      :
+                    contentDetail(),
+                    // hitung(), // untuk hitung jumlah absensi
+                  ],
+                ),
+              ),
             ],
           ),
         )
