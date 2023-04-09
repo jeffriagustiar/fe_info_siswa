@@ -1,6 +1,6 @@
 import 'package:fe_info_siswa/models/spp_model.dart';
 import 'package:fe_info_siswa/pages/home/list_siswa_page.dart';
-import 'package:fe_info_siswa/pages/home/profile_page.dart';
+import 'package:fe_info_siswa/pages/home/profile/profile_page.dart';
 import 'package:fe_info_siswa/pages/splash_page.dart';
 import 'package:fe_info_siswa/provider/auth_provider.dart';
 import 'package:fe_info_siswa/provider/siswa2_provider.dart';

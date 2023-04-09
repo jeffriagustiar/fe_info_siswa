@@ -44,7 +44,7 @@ class _ProfilePageState extends State<ProfilePage> {
         elevation: 0,
         flexibleSpace: SafeArea(
           child: Container(
-            padding: EdgeInsets.only(left: defaultMargin, right: defaultMargin, top: 20, bottom: 20),
+            padding: EdgeInsets.only(left: defaultMargin, right: defaultMargin, bottom: 20),
             child: Row(
               children: [
                 Expanded(
@@ -75,7 +75,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 const SizedBox(width: 16,),
                 ClipOval(
-                  child: Image.asset('assets/profile_image.png',width: 64,),
+                  child: siswa.kelamin == 'p' ? Image.asset('assets/ic_profile_cewek.gif',width: 64,) : Image.asset('assets/ic_profile_cowok.gif',width: 64,),
                 ),
               ],
             ),
@@ -418,20 +418,28 @@ class _ProfilePageState extends State<ProfilePage> {
 
     return Scaffold(
       backgroundColor: background4Color,
-      body: ListView(
-        children: [
-          AppBarButtom(nama: ''),
-          header(),
-          personalBio(),
-          personalEduBio(),
-          contactInfo(),
-          healthInfo(),
-          schoolInfo(),
-          fatherInfo(),
-          motherInfo(),
-          contactParentInfo(),
-          otherInfo()
-        ],
+      body: SafeArea(
+        child: Column(
+          children: [
+            AppBarButtom(nama: ''),
+            header(),
+            Expanded(
+              child: ListView(
+                children: [
+                  personalBio(),
+                  personalEduBio(),
+                  contactInfo(),
+                  healthInfo(),
+                  schoolInfo(),
+                  fatherInfo(),
+                  motherInfo(),
+                  contactParentInfo(),
+                  otherInfo()
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -2,11 +2,11 @@ import 'dart:convert';
 
 import 'package:fe_info_siswa/models/absen/absen_pelajaran_hitung_model.dart';
 import 'package:fe_info_siswa/models/absen/detail_absen_pelajaran_model.dart';
-import 'package:fe_info_siswa/models/jenis_nilai_harian_model.dart';
+import 'package:fe_info_siswa/models/nilai/jenis_nilai_harian_model.dart';
 import 'package:fe_info_siswa/models/mapel_model.dart';
-import 'package:fe_info_siswa/models/nilai_harian_model.dart';
+import 'package:fe_info_siswa/models/nilai/nilai_harian_model.dart';
 import 'package:fe_info_siswa/models/absen/presen_siswa_model.dart';
-import 'package:fe_info_siswa/models/rapor_siswa_model.dart';
+import 'package:fe_info_siswa/models/nilai/rapor_siswa_model.dart';
 import 'package:fe_info_siswa/models/semester_model.dart';
 import 'package:fe_info_siswa/models/siswa_model.dart';
 import 'package:fe_info_siswa/models/tahun_model.dart';

@@ -2,17 +2,18 @@ import 'package:fe_info_siswa/pages/home/absen/absen_pelajaran_siswa_page.dart';
 import 'package:fe_info_siswa/pages/home/absen/menu_absen_page.dart';
 import 'package:fe_info_siswa/pages/home/home_page.dart';
 import 'package:fe_info_siswa/pages/home/absen/absensi_harian_siswa_page.dart';
-import 'package:fe_info_siswa/pages/home/nilai/list_nilai_rapor_page.dart';
 import 'package:fe_info_siswa/pages/home/nilai/menu_nilai.dart';
-import 'package:fe_info_siswa/pages/home/nilai/menu_nilai_harian.dart';
-import 'package:fe_info_siswa/pages/home/nilai/menu_nilai_rapor.dart';
-import 'package:fe_info_siswa/pages/home/nilai/nilai_harian_page.dart';
-import 'package:fe_info_siswa/pages/home/nilai/nilai_pancasila_rapor_page.dart';
-import 'package:fe_info_siswa/pages/home/nilai/nilai_umum_page.dart';
-import 'package:fe_info_siswa/pages/home/profile_page.dart';
+import 'package:fe_info_siswa/pages/home/nilai/nilaiHarian/list_nilai_harian_page.dart';
+import 'package:fe_info_siswa/pages/home/nilai/nilaiHarian/menu_nilai_harian.dart';
+import 'package:fe_info_siswa/pages/home/nilai/nilaiHarian/nilai_harian_page.dart';
+import 'package:fe_info_siswa/pages/home/nilai/nilaiRapor/list_nilai_rapor_page.dart';
+import 'package:fe_info_siswa/pages/home/nilai/nilaiRapor/menu_nilai_rapor.dart';
+import 'package:fe_info_siswa/pages/home/nilai/nilaiRapor/nilai_pancasila_rapor_page.dart';
+import 'package:fe_info_siswa/pages/home/nilai/nilaiRapor/nilai_umum_page.dart';
+import 'package:fe_info_siswa/pages/home/profile/profile_page.dart';
 import 'package:fe_info_siswa/pages/sign_in.dart';
 import 'package:fe_info_siswa/pages/splash_page.dart';
-import 'package:fe_info_siswa/pages/spp_page.dart';
+import 'package:fe_info_siswa/pages/home/spp/spp_page.dart';
 import 'package:fe_info_siswa/provider/auth_provider.dart';
 import 'package:fe_info_siswa/provider/siswa2_provider.dart';
 import 'package:fe_info_siswa/provider/siswa_provider.dart';
@@ -57,17 +58,28 @@ class MyApp extends StatelessWidget {
           // '/' :(context) => SplashPage(),
           '/sign-in' :(context) => Sign_In(),
           '/home' :(context) => HomePage(),
+
+          //? Profile
           '/profile' :(context) => ProfilePage(),
+
+          //? Spp
+          '/spp' :(context) => SppPage(),
+
+          //? Nilai 
           '/nilai' :(context) => ListNilaiRaporPage(),
+            //? Nilai Rapor
+            '/menu-nilai' :(context) => MenuNilaiPage(),
+            '/menu-nilai-rapor' :(context) => MenuNilaiRaporPage(),
+            '/nilai-rapor-umum' :(context) => NilaiUmumPage(),
+            '/nilai-rapor-pancasila' :(context) => NilaiPancasilaRaporPage(),
+            //? Nilai Harian
+            '/menu-nilai-harian' :(context) => MenuNilaiHarianPage(),
+            '/nilai-harian' :(context) => ListNilaiHarianPage(),
+            // '/nilai-harian' :(context) => NilaiHarianPage(),
+          
+          //? Absen
           '/absen' :(context) => MenuAbsenPage(),
           '/absen-harian' :(context) => AbsenHarianSiswaPage(),
-          '/spp' :(context) => SppPage(),
-          '/menu-nilai' :(context) => MenuNilaiPage(),
-          '/menu-nilai-rapor' :(context) => MenuNilaiRaporPage(),
-          '/nilai-rapor-umum' :(context) => NilaiUmumPage(),
-          '/nilai-rapor-pancasila' :(context) => NilaiPancasilaRaporPage(),
-          '/menu-nilai-harian' :(context) => MenuNilaiHarianPage(),
-          '/nilai-harian' :(context) => NilaiHarianPage(),
           '/absen-pelajaran' :(context) => AbsenPelajaranSiswaPage(),
           // '/siswa': (context) => SiswaPage(),
         },

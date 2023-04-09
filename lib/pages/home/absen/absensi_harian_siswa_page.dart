@@ -2,6 +2,7 @@ import 'package:fe_info_siswa/provider/siswa_provider.dart';
 import 'package:fe_info_siswa/share/theme.dart';
 import 'package:fe_info_siswa/widgets/appBar_buttom.dart';
 import 'package:fe_info_siswa/widgets/loading.dart';
+import 'package:fe_info_siswa/widgets/no_result_info_gif.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sp_util/sp_util.dart';
@@ -268,17 +269,19 @@ class _AbsenHarianSiswaPageState extends State<AbsenHarianSiswaPage> {
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Loading();
+                } else if(siswaProvider.presen.isEmpty){
+                  return NoResultInfoGif(lebar: double.infinity);
                 } else {
-                    return Column(
-                      children: siswaProvider.presen.map((absen) => dataAbsen(
-                        absen.ts.toString(), 
-                        absen.hadir.toString(), 
-                        absen.ijin.toString(), 
-                        absen.sakit.toString(), 
-                        absen.alpa.toString(), 
-                        absen.keterangan.toString()
-                      )).toList(),
-                    );
+                  return Column(
+                    children: siswaProvider.presen.map((absen) => dataAbsen(
+                      absen.ts.toString(), 
+                      absen.hadir.toString(), 
+                      absen.ijin.toString(), 
+                      absen.sakit.toString(), 
+                      absen.alpa.toString(), 
+                      absen.keterangan.toString()
+                    )).toList(),
+                  );
                 }
               }
             ),

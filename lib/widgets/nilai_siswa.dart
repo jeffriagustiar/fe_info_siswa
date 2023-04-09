@@ -1,4 +1,4 @@
-import 'package:fe_info_siswa/models/rapor_siswa_model.dart';
+import 'package:fe_info_siswa/models/nilai/rapor_siswa_model.dart';
 import 'package:fe_info_siswa/share/theme.dart';
 import 'package:flutter/material.dart';
 
