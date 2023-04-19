@@ -14,10 +14,12 @@ import 'package:fe_info_siswa/models/tahun_model.dart';
 import 'package:fe_info_siswa/provider/auth_provider.dart';
 import 'package:fe_info_siswa/share/theme.dart';
 import 'package:http/http.dart' as http;
+import 'package:sp_util/sp_util.dart';
 
 class SiswaService{
   late AuthProvider authProvider;
   final String baseUrl = url;
+  final String bearrerToken = SpUtil.getString('token').toString();
   // final String baseUrl = 'http://127.0.0.1:8000/api';
   // final String baseUrl = 'http://192.168.46.56:8000/api';
 
@@ -66,7 +68,7 @@ class SiswaService{
     );
 
     // print(response.body);
-    print("bisa siswa");
+    // print("bisa siswa");
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body)['data'];
@@ -353,6 +355,36 @@ class SiswaService{
     }
   }
 
+  //ambil data Mapel Absen Per Mapel
+  Future<List<MapelNilaiHarianModel>> getMapelAbsen(String tahun, String month) async{
+    var url = Uri.parse('$baseUrl/MapelAbsenPerPelajaran?year=$tahun&month=$month');
+
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization' : bearrerToken
+    };
+
+    var response = await http.get(
+      url,
+      headers: headers
+    );
+
+    // print((response.body));
+    print("bisa mapel absen");
+
+    if (response.statusCode == 200) {
+      List  data = jsonDecode(response.body)['data'];
+      List<MapelNilaiHarianModel> mapel = [];
+
+      for (var item in data) {
+        mapel.add(MapelNilaiHarianModel.fromJson(item));
+      }
+      return mapel;
+    } else {
+      throw Exception("Gagal Ambil data matapelajaran");
+    }
+  }
+
   //ambil data Nilai Harian Siswa Berdasarkan mapel
   Future<List<NilaiHarianModel>> getNilaiHarin(String token, String jenis) async{
     var url = Uri.parse('$baseUrl/nilaiHarian?jenis=$jenis');
@@ -369,7 +401,7 @@ class SiswaService{
 
     // print((response.body));
     // ignore: avoid_print
-    print("bisa nilai harian");
+    // print("bisa nilai harian");
 
     if (response.statusCode == 200) {
       List  data = jsonDecode(response.body)['data'];
@@ -400,7 +432,7 @@ class SiswaService{
 
     // print((response.body));
     // ignore: avoid_print
-    print("bisa jenis nilai harian");
+    // print("bisa jenis nilai harian");
 
     if (response.statusCode == 200) {
       List  data = jsonDecode(response.body)['data'];
@@ -431,7 +463,7 @@ class SiswaService{
 
     // print((response.body));
     // ignore: avoid_print
-    print("bisa mapel nilai harian");
+    // print("bisa mapel nilai harian");
 
     if (response.statusCode == 200) {
       List  data = jsonDecode(response.body)['data'];

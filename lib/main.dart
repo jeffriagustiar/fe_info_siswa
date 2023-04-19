@@ -1,4 +1,5 @@
 import 'package:fe_info_siswa/pages/home/absen/absen_pelajaran_siswa_page.dart';
+import 'package:fe_info_siswa/pages/home/absen/list_mapel_absen_pelajaran_page.dart';
 import 'package:fe_info_siswa/pages/home/absen/menu_absen_page.dart';
 import 'package:fe_info_siswa/pages/home/home_page.dart';
 import 'package:fe_info_siswa/pages/home/absen/absensi_harian_siswa_page.dart';
@@ -81,6 +82,7 @@ class MyApp extends StatelessWidget {
           '/absen' :(context) => MenuAbsenPage(),
           '/absen-harian' :(context) => AbsenHarianSiswaPage(),
           '/absen-pelajaran' :(context) => AbsenPelajaranSiswaPage(),
+          '/absen-mapel' :(context) => ListMapelAbsenPelajaranPage(),
           // '/siswa': (context) => SiswaPage(),
         },
       ),

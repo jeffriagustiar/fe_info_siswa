@@ -5,7 +5,7 @@ class MapelNilaiHarianModel{
 
   MapelNilaiHarianModel({
     required this.idpelajaran,
-    required this.kode,
+    this.kode='-',
     required this.nama,
   });
 

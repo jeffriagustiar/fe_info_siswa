@@ -256,6 +256,7 @@ class SiswaProvider with ChangeNotifier{
 
   //ambil data Mapel berdasarkan kelompok
   Future<void> getMapel(String jenis) async{
+    _mapel = [];
     try {
       List<MapelModel> mapel = await SiswaService().getMapel(jenis);
       _mapel = mapel; 
@@ -279,6 +280,7 @@ class SiswaProvider with ChangeNotifier{
 
   //ambil data Jenis nilai harian berdasarkan mapel
   Future<void> getJenisNilaiHarin(String token, String mapel, String tahun, String sem) async{
+    _jenisNilaiHarian = [];
     try {
       List<JenisNilaiHarianModel> jenisNilaiHarian = await SiswaService().getJenisNilaiHarin(token, mapel, tahun, sem);
       _jenisNilaiHarian = jenisNilaiHarian; 
@@ -290,8 +292,21 @@ class SiswaProvider with ChangeNotifier{
 
   //ambil data mapel Nilai Harian Siswa Berdasarkan jenis tahun semester
   Future<void> getMapelNilaiHarin(String token,  String tahun, String sem, String jenis) async{
+    _mapelNilaiHarian = [];
     try {
       List<MapelNilaiHarianModel> mapelNilaiHarian = await SiswaService().getMapelNilaiHarin(token, tahun, sem, jenis);
+      _mapelNilaiHarian = mapelNilaiHarian; 
+    } catch (e) {
+      // ignore: avoid_print
+      print(e); 
+    }
+  }
+
+  //ambil data mapel Absen Pelajaran Siswa Berdasarkan tahun bulan
+  Future<void> getMapelAbsen(String tahun, String bulan) async{
+    _mapelNilaiHarian = [];
+    try {
+      List<MapelNilaiHarianModel> mapelNilaiHarian = await SiswaService().getMapelAbsen(tahun, bulan);
       _mapelNilaiHarian = mapelNilaiHarian; 
     } catch (e) {
       // ignore: avoid_print
