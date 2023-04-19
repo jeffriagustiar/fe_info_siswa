@@ -3,18 +3,20 @@ import 'dart:convert';
 import 'package:fe_info_siswa/models/spp_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:fe_info_siswa/share/theme.dart';
+import 'package:sp_util/sp_util.dart';
 
 class SppService{
   final String baseUrl = url;
+  final String bearrerToken = SpUtil.getString('token').toString();
   // final String baseUrl = 'http://127.0.0.1:8000/api';
   // final String baseUrl = 'http://192.168.46.56:8000/api';
 
-  Future<SppModel> getSpp(String token) async{
+  Future<SppModel> getSpp() async{
     var url = Uri.parse('$baseUrl/dataSpp');
 
     var headers = {
       'Content-Type': 'application/json',
-      'Authorization' : token
+      'Authorization' : bearrerToken
     };
 
     var response = await http.get(
@@ -35,12 +37,12 @@ class SppService{
     }
   }
 
-  Future<List<SppModel>> getSppDetail(String token) async{
+  Future<List<SppModel>> getSppDetail() async{
     var url = Uri.parse('$baseUrl/sppDetail');
 
     var headers = {
       'Content-Type': 'application/json',
-      'Authorization' : token
+      'Authorization' : bearrerToken
     };
 
     var response = await http.get(

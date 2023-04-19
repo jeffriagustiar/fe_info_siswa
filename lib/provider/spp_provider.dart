@@ -21,9 +21,9 @@ class SppProvider with ChangeNotifier{
     notifyListeners();
   }
 
-  Future<void> getSpp(String token) async{
+  Future<void> getSpp() async{
     try {
-      SppModel spp = await SppService().getSpp(token);
+      SppModel spp = await SppService().getSpp();
       _spp = spp;
     } catch (e) {
       print(e); 

@@ -66,9 +66,9 @@ class Siswa2Provider with ChangeNotifier{
     notifyListeners();
   }
 
-  Future<void> getSiswaByNis(String token,int nis) async{
+  Future<void> getSiswaByNis(int nis) async{
     try {
-      SiswaModel siswa = await SiswaService().getSiswaByNis(token, nis);
+      SiswaModel siswa = await SiswaService().getSiswaByNis(nis);
       _siswa2 = siswa; 
     } catch (e) {
       print(e); 

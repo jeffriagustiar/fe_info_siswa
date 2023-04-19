@@ -6,7 +6,6 @@ import 'package:fe_info_siswa/widgets/loading.dart';
 import 'package:fe_info_siswa/widgets/no_result_info_gif.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sp_util/sp_util.dart';
 
 class NilaiUmumPage extends StatefulWidget {
   const NilaiUmumPage({super.key});
@@ -21,7 +20,6 @@ class _NilaiUmumPageState extends State<NilaiUmumPage> {
   String? _tahunAjaran2 = '';
   String? _semester;
   String? _semester2= '';
-  String? token = SpUtil.getString('token');
 
   // ignore: unused_field
   bool _isRefreshing = false;
@@ -37,13 +35,13 @@ class _NilaiUmumPageState extends State<NilaiUmumPage> {
   }
 
   data() async{
-    await Provider.of<SiswaProvider>(context, listen: false).gettahun(token!);
+    await Provider.of<SiswaProvider>(context, listen: false).gettahun();
     // ignore: use_build_context_synchronously
-    await Provider.of<SiswaProvider>(context, listen: false).getsemester(/*token!*/);
+    await Provider.of<SiswaProvider>(context, listen: false).getsemester();
   }
   
   data2(String jenis, String tipe) async{
-    await Provider.of<SiswaProvider>(context, listen: false).getRaporSiswaD(token!, _semester2!, jenis, tipe, _tahunAjaran2!);
+    await Provider.of<SiswaProvider>(context, listen: false).getRaporSiswaD(_semester2!, jenis, tipe, _tahunAjaran2!);
   }
 
   @override

@@ -6,7 +6,6 @@ import 'package:fe_info_siswa/widgets/loading.dart';
 import 'package:fe_info_siswa/widgets/no_result_info_gif.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sp_util/sp_util.dart';
 
 class AbsenHarianSiswaPage extends StatefulWidget {
   const AbsenHarianSiswaPage({super.key});
@@ -22,7 +21,6 @@ class _AbsenHarianSiswaPageState extends State<AbsenHarianSiswaPage> {
   String? _tahun;
   String? _tahun2 = '';
   String? kepala;
-  String? token = SpUtil.getString('token');
 
   // ignore: unused_field
   bool _isRefreshing = false;
@@ -40,7 +38,7 @@ class _AbsenHarianSiswaPageState extends State<AbsenHarianSiswaPage> {
   data() async{
     await Provider.of<SiswaProvider>(context, listen: false).getDataTahun();
     // ignore: use_build_context_synchronously
-    await Provider.of<SiswaProvider>(context, listen: false).getpresenSiswa(token!, _tahun2!, _itemmonth!);
+    await Provider.of<SiswaProvider>(context, listen: false).getpresenSiswa(_tahun2!, _itemmonth!);
   }
 
   @override

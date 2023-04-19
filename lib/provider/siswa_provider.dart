@@ -138,9 +138,9 @@ class SiswaProvider with ChangeNotifier{
 
 
   //ambil data siswa
-  Future<void> getsiswa(String token) async{
+  Future<void> getsiswa() async{
     try {
-      List<SiswaModel> siswa = await SiswaService().getSiswa(token);
+      List<SiswaModel> siswa = await SiswaService().getSiswa();
       _siswa = siswa; 
     } catch (e) {
       // ignore: avoid_print
@@ -149,9 +149,9 @@ class SiswaProvider with ChangeNotifier{
   }
 
   // ambil semua detail spp
-  Future<void> getSppDetail(String token) async{
+  Future<void> getSppDetail() async{
     try {
-      List<SppModel> spp = await SppService().getSppDetail(token);
+      List<SppModel> spp = await SppService().getSppDetail();
       _spp = spp; 
     } catch (e) {
       // ignore: avoid_print
@@ -160,10 +160,10 @@ class SiswaProvider with ChangeNotifier{
   }
 
   //ambil data rapor semester 1
-  Future<void> getRaporSiswa(String token, String semester) async{
+  Future<void> getRaporSiswa(String semester) async{
     // _rapor = [];
     try {
-      List<RaporSiswaModel> rapor = await SiswaService().getRaporSiswa(token, semester);
+      List<RaporSiswaModel> rapor = await SiswaService().getRaporSiswa(semester);
       _rapor = rapor; 
     } catch (e) {
       // ignore: avoid_print
@@ -172,10 +172,10 @@ class SiswaProvider with ChangeNotifier{
   }
 
   //ambil data presensi siswa
-  Future<void> getpresenSiswa(String token, String year, String month) async{
+  Future<void> getpresenSiswa(String year, String month) async{
     // _rapor = [];
     try {
-      List<PresensionSiswaModel> presen = await SiswaService().getpresenSiswa(token, year, month);
+      List<PresensionSiswaModel> presen = await SiswaService().getpresenSiswa(year, month);
       _presen = presen; 
     } catch (e) {
       // ignore: avoid_print
@@ -184,10 +184,10 @@ class SiswaProvider with ChangeNotifier{
   }
 
   //ambil data presensi pelajaran siswa 
-  Future<void> getAbsenPelajaranSiswa(String token, String year) async{
+  Future<void> getAbsenPelajaranSiswa(String year) async{
     // _rapor = [];
     try {
-      List<AbsenPelajaranHitungModel> absenPelajaran = await SiswaService().getAbsenPelajaranSiswa(token, year);
+      List<AbsenPelajaranHitungModel> absenPelajaran = await SiswaService().getAbsenPelajaranSiswa(year);
       _absenPelajaran = absenPelajaran; 
     } catch (e) {
       // ignore: avoid_print
@@ -196,10 +196,10 @@ class SiswaProvider with ChangeNotifier{
   }
 
   //ambil data presensi pelajaran siswa detail
-  Future<void> getAbsenPelajaranSiswaDetail(String token, String year, String month, String status) async{
+  Future<void> getAbsenPelajaranSiswaDetail(String year, String month, String status) async{
     _absenPelajaranDetail = [];
     try {
-      List<DetailAbsenPelajaranModel> absenPelajaranDetail = await SiswaService().getAbsenPelajaranSiswaDetail(token, year, month, status);
+      List<DetailAbsenPelajaranModel> absenPelajaranDetail = await SiswaService().getAbsenPelajaranSiswaDetail(year, month, status);
       _absenPelajaranDetail = absenPelajaranDetail; 
     } catch (e) {
       // ignore: avoid_print
@@ -208,9 +208,9 @@ class SiswaProvider with ChangeNotifier{
   }
 
   //ambil data tahun ajaran
-  Future<void> gettahun(String token) async{
+  Future<void> gettahun() async{
     try {
-      List<TahunModel> tahun = await SiswaService().gettahun(token);
+      List<TahunModel> tahun = await SiswaService().gettahun();
       _tahun = tahun; 
     } catch (e) {
       // ignore: avoid_print
@@ -230,10 +230,10 @@ class SiswaProvider with ChangeNotifier{
   }
 
   //ambil data rapor siswa berdasarkan kelompok,tahun ajaran, dan semester
-  Future<void> getRaporSiswaD(String token, String sem, String jenis, String tipe, String tahun) async{
+  Future<void> getRaporSiswaD(String sem, String jenis, String tipe, String tahun) async{
     _rapor = [];
     try {
-      List<RaporSiswaModel> rapor = await SiswaService().getRaporSiswaD(token, sem, jenis, tipe, tahun);
+      List<RaporSiswaModel> rapor = await SiswaService().getRaporSiswaD(sem, jenis, tipe, tahun);
       _rapor = rapor; 
     } catch (e) {
       // ignore: avoid_print
@@ -243,10 +243,10 @@ class SiswaProvider with ChangeNotifier{
 
   //ambil data rapor siswa berdasarkan kelompok,tahun ajaran, dan semester
   // khusus rapor pancasila
-  Future<void> getRaporSiswaP(String token, String sem, String tahun,String mapel) async{
+  Future<void> getRaporSiswaP(String sem, String tahun,String mapel) async{
     _raporP = [];
     try {
-      List<RaporSiswaModel> raporP = await SiswaService().getRaporSiswaP(token, sem, tahun, mapel);
+      List<RaporSiswaModel> raporP = await SiswaService().getRaporSiswaP(sem, tahun, mapel);
       _raporP = raporP; 
     } catch (e) {
       // ignore: avoid_print
@@ -267,10 +267,10 @@ class SiswaProvider with ChangeNotifier{
   }
 
   //ambil data nilai harian berdasarkan mapel
-  Future<void> getNilaiHarin(String token, String jenis) async{
+  Future<void> getNilaiHarin(String jenis) async{
     _nilaiHarian = [];
     try {
-      List<NilaiHarianModel> nilaiHarian = await SiswaService().getNilaiHarin(token, jenis);
+      List<NilaiHarianModel> nilaiHarian = await SiswaService().getNilaiHarin(jenis);
       _nilaiHarian = nilaiHarian; 
     } catch (e) {
       // ignore: avoid_print
@@ -279,10 +279,10 @@ class SiswaProvider with ChangeNotifier{
   }
 
   //ambil data Jenis nilai harian berdasarkan mapel
-  Future<void> getJenisNilaiHarin(String token, String mapel, String tahun, String sem) async{
+  Future<void> getJenisNilaiHarin(String mapel, String tahun, String sem) async{
     _jenisNilaiHarian = [];
     try {
-      List<JenisNilaiHarianModel> jenisNilaiHarian = await SiswaService().getJenisNilaiHarin(token, mapel, tahun, sem);
+      List<JenisNilaiHarianModel> jenisNilaiHarian = await SiswaService().getJenisNilaiHarin(mapel, tahun, sem);
       _jenisNilaiHarian = jenisNilaiHarian; 
     } catch (e) {
       // ignore: avoid_print
@@ -291,10 +291,10 @@ class SiswaProvider with ChangeNotifier{
   }
 
   //ambil data mapel Nilai Harian Siswa Berdasarkan jenis tahun semester
-  Future<void> getMapelNilaiHarin(String token,  String tahun, String sem, String jenis) async{
+  Future<void> getMapelNilaiHarin(String tahun, String sem, String jenis) async{
     _mapelNilaiHarian = [];
     try {
-      List<MapelNilaiHarianModel> mapelNilaiHarian = await SiswaService().getMapelNilaiHarin(token, tahun, sem, jenis);
+      List<MapelNilaiHarianModel> mapelNilaiHarian = await SiswaService().getMapelNilaiHarin(tahun, sem, jenis);
       _mapelNilaiHarian = mapelNilaiHarian; 
     } catch (e) {
       // ignore: avoid_print

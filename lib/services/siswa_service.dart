@@ -24,12 +24,12 @@ class SiswaService{
   // final String baseUrl = 'http://192.168.46.56:8000/api';
 
   //ambil semua data siswa
-  Future<List<SiswaModel>> getSiswa(String token) async{
+  Future<List<SiswaModel>> getSiswa() async{
     var url = Uri.parse('$baseUrl/dataSiswa');
 
     var headers = {
       'Content-Type': 'application/json',
-      'Authorization' : token
+      'Authorization' : bearrerToken
     };
 
     var response = await http.get(
@@ -54,12 +54,12 @@ class SiswaService{
   }
 
   //ambil data siswa berdasarkan nis
-  Future<SiswaModel> getSiswaByNis(String token,int nis) async{
+  Future<SiswaModel> getSiswaByNis(int nis) async{
     var url = Uri.parse('$baseUrl/dataSiswa/?nis=$nis');
 
     var headers = {
       'Content-Type': 'application/json',
-      'Authorization' : token
+      'Authorization' : bearrerToken
     };
 
     var response = await http.get(
@@ -81,12 +81,12 @@ class SiswaService{
   }
 
   //ambil data rapor siswa dengan sortir semester
-  Future<List<RaporSiswaModel>> getRaporSiswa(String token, String semester) async{
+  Future<List<RaporSiswaModel>> getRaporSiswa(String semester) async{
     var url = Uri.parse('$baseUrl/nilaiRapor/?id=$semester');
 
     var headers = {
       'Content-Type': 'application/json',
-      'Authorization' : token
+      'Authorization' : bearrerToken
     };
 
     var response = await http.get(
@@ -111,12 +111,12 @@ class SiswaService{
   }
 
   //ambil data kehadiran siswa dengan sortir tahun dan bulan
-  Future<List<PresensionSiswaModel>> getpresenSiswa(String token, String year, String month) async{
+  Future<List<PresensionSiswaModel>> getpresenSiswa(String year, String month) async{
     var url = Uri.parse('$baseUrl/absenHarianSiswa?year=$year&month=$month');
 
     var headers = {
       'Content-Type': 'application/json',
-      'Authorization' : token
+      'Authorization' : bearrerToken
     };
 
     var response = await http.get(
@@ -141,12 +141,12 @@ class SiswaService{
   }
 
   //ambil data kehadiran siswa dengan sortir tahun untuk matapelajaran
-  Future<List<AbsenPelajaranHitungModel>> getAbsenPelajaranSiswa(String token, String year) async{
+  Future<List<AbsenPelajaranHitungModel>> getAbsenPelajaranSiswa(String year) async{
     var url = Uri.parse('$baseUrl/absenPelajaran?year=$year');
 
     var headers = {
       'Content-Type': 'application/json',
-      'Authorization' : token
+      'Authorization' : bearrerToken
     };
 
     var response = await http.get(
@@ -171,12 +171,12 @@ class SiswaService{
   }
 
   //ambil data kehadiran siswa dengan sortir tahun untuk matapelajaran detail
-  Future<List<DetailAbsenPelajaranModel>> getAbsenPelajaranSiswaDetail(String token, String year, String month, String status) async{
+  Future<List<DetailAbsenPelajaranModel>> getAbsenPelajaranSiswaDetail(String year, String month, String status) async{
     var url = Uri.parse('$baseUrl/absenPelajaranDetail?year=$year&month=$month&status=$status');
 
     var headers = {
       'Content-Type': 'application/json',
-      'Authorization' : token
+      'Authorization' : bearrerToken
     };
 
     var response = await http.get(
@@ -201,14 +201,12 @@ class SiswaService{
   }
 
   //ambil data tahun ajaran
-  Future<List<TahunModel>> gettahun(
-    String token
-  ) async{
+  Future<List<TahunModel>> gettahun() async{
     var url = Uri.parse('$baseUrl/tahun');
 
     var headers = {
       'Content-Type': 'application/json',
-      'Authorization' : token
+      'Authorization' : bearrerToken
     };
 
     var response = await http.get(
@@ -265,12 +263,12 @@ class SiswaService{
   }
 
   //ambil data rapor siswa berdasarkan kelompok,tahun ajaran, dan semester
-  Future<List<RaporSiswaModel>> getRaporSiswaD(String token, String sem, String jenis, String tipe, String tahun) async{
+  Future<List<RaporSiswaModel>> getRaporSiswaD(String sem, String jenis, String tipe, String tahun) async{
     var url = Uri.parse('$baseUrl/nilaiRaporD?sem=$sem&jenis=$jenis&tipe=$tipe&tahun=$tahun');
 
     var headers = {
       'Content-Type': 'application/json',
-      'Authorization' : token
+      'Authorization' : bearrerToken
     };
 
     var response = await http.get(
@@ -296,12 +294,12 @@ class SiswaService{
   }
   //ambil data rapor siswa berdasarkan kelompok,tahun ajaran, dan semester
   //khusus nilai rapor pancasila
-  Future<List<RaporSiswaModel>> getRaporSiswaP(String token, String sem, String tahun,String mapel) async{
+  Future<List<RaporSiswaModel>> getRaporSiswaP(String sem, String tahun,String mapel) async{
       var url = Uri.parse('$baseUrl/nilaiRaporPancasila?sem=$sem&tahun=$tahun&mapel=$mapel');
 
     var headers = {
       'Content-Type': 'application/json',
-      'Authorization' : token
+      'Authorization' : bearrerToken
     };
 
     var response = await http.get(
@@ -386,12 +384,12 @@ class SiswaService{
   }
 
   //ambil data Nilai Harian Siswa Berdasarkan mapel
-  Future<List<NilaiHarianModel>> getNilaiHarin(String token, String jenis) async{
+  Future<List<NilaiHarianModel>> getNilaiHarin(String jenis) async{
     var url = Uri.parse('$baseUrl/nilaiHarian?jenis=$jenis');
 
     var headers = {
       'Content-Type': 'application/json',
-      'Authorization' : token
+      'Authorization' : bearrerToken
     };
 
     var response = await http.get(
@@ -417,12 +415,12 @@ class SiswaService{
   }
 
   //ambil data Jenis Nilai Harian Siswa Berdasarkan mapel
-  Future<List<JenisNilaiHarianModel>> getJenisNilaiHarin(String token, String mapel, String tahun, String sem) async{
+  Future<List<JenisNilaiHarianModel>> getJenisNilaiHarin(String mapel, String tahun, String sem) async{
     var url = Uri.parse('$baseUrl/nilaiHarianJenis?mapel=$mapel&tahun=$tahun&sem=$sem');
 
     var headers = {
       'Content-Type': 'application/json',
-      'Authorization' : token
+      'Authorization' : bearrerToken
     };
 
     var response = await http.get(
@@ -448,12 +446,12 @@ class SiswaService{
   }
 
   //ambil data mapel Nilai Harian Siswa Berdasarkan jenis tahun semester
-  Future<List<MapelNilaiHarianModel>> getMapelNilaiHarin(String token,  String tahun, String sem, String jenis) async{
+  Future<List<MapelNilaiHarianModel>> getMapelNilaiHarin(String tahun, String sem, String jenis) async{
     var url = Uri.parse('$baseUrl/mapelNilai?tahun=$tahun&sem=$sem&jenis=$jenis');
 
     var headers = {
       'Content-Type': 'application/json',
-      'Authorization' : token
+      'Authorization' : bearrerToken
     };
 
     var response = await http.get(

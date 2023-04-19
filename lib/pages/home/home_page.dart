@@ -42,9 +42,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   data() async{
-    await Provider.of<Siswa2Provider>(context, listen: false).getSiswaByNis(token!, nis!);
+    await Provider.of<Siswa2Provider>(context, listen: false).getSiswaByNis(nis!);
     // ignore: use_build_context_synchronously
-    await Provider.of<SppProvider>(context, listen: false).getSpp(token!);
+    await Provider.of<SppProvider>(context, listen: false).getSpp();
   }
   
   @override

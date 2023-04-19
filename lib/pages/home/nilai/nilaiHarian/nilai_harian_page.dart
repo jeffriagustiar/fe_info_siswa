@@ -19,7 +19,6 @@ class NilaiHarianPage extends StatefulWidget {
 }
 
 class _NilaiHarianPageState extends State<NilaiHarianPage> {
-  String? token = SpUtil.getString('token');
   String? kelas = SpUtil.getInt('idkelas').toString();
 
   // ignore: unused_field
@@ -36,11 +35,11 @@ class _NilaiHarianPageState extends State<NilaiHarianPage> {
   }
 
   data2() async{
-    await Provider.of<SiswaProvider>(context, listen: false).getJenisNilaiHarin(token!, widget.mapelNilai.idpelajaran!, widget.tahunAjaranNilai, widget.semesterNilai);
+    await Provider.of<SiswaProvider>(context, listen: false).getJenisNilaiHarin(widget.mapelNilai.idpelajaran!, widget.tahunAjaranNilai, widget.semesterNilai);
   }
 
   dataNilaiHarian(String jjenis) async{
-    await Provider.of<SiswaProvider>(context, listen: false).getNilaiHarin(token!, jjenis);
+    await Provider.of<SiswaProvider>(context, listen: false).getNilaiHarin(jjenis);
   }
 
   @override

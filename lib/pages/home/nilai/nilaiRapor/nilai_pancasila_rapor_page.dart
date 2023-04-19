@@ -6,7 +6,6 @@ import 'package:fe_info_siswa/widgets/loading.dart';
 import 'package:fe_info_siswa/widgets/no_result_info_gif.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sp_util/sp_util.dart';
 
 class NilaiPancasilaRaporPage extends StatefulWidget {
   const NilaiPancasilaRaporPage({super.key});
@@ -21,7 +20,6 @@ class _NilaiPancasilaRaporPageState extends State<NilaiPancasilaRaporPage> {
   String? _tahunAjaran2 = '';
   String? _semester;
   String? _semester2= '';
-  String? token = SpUtil.getString('token');
 
   // ignore: unused_field
   bool _isRefreshing = false;
@@ -41,13 +39,13 @@ class _NilaiPancasilaRaporPageState extends State<NilaiPancasilaRaporPage> {
   }
 
   data() async{
-    await Provider.of<SiswaProvider>(context, listen: false).gettahun(token!);
+    await Provider.of<SiswaProvider>(context, listen: false).gettahun();
     // ignore: use_build_context_synchronously
-    await Provider.of<SiswaProvider>(context, listen: false).getsemester(/*token!*/);
+    await Provider.of<SiswaProvider>(context, listen: false).getsemester();
   }
   
   data2(String mapel) async{
-    await Provider.of<SiswaProvider>(context, listen: false).getRaporSiswaP(token!, _semester2!, _tahunAjaran2!, '136');
+    await Provider.of<SiswaProvider>(context, listen: false).getRaporSiswaP(_semester2!, _tahunAjaran2!, '136');
   }
 
   @override

@@ -1,5 +1,4 @@
 import 'package:fe_info_siswa/models/siswa_model.dart';
-import 'package:fe_info_siswa/pages/splash_page.dart';
 import 'package:fe_info_siswa/provider/auth_provider.dart';
 import 'package:fe_info_siswa/provider/siswa2_provider.dart';
 import 'package:fe_info_siswa/share/theme.dart';
@@ -18,7 +17,6 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
 
-  String? token = SpUtil.getString('token');
   int? nis = SpUtil.getInt('nis');
 
   @override

@@ -23,7 +23,6 @@ class _ListNilaiHarianPageState extends State<ListNilaiHarianPage> {
   String? _sem2 = '';
   String? _tahunAjaran;
   String? _tahunAjaran2 = '';
-  String? token = SpUtil.getString('token');
   String? kelas = SpUtil.getInt('idkelas').toString();
 
   // ignore: unused_field
@@ -40,13 +39,13 @@ class _ListNilaiHarianPageState extends State<ListNilaiHarianPage> {
   }
 
   dataSemeTahun() async{
-    await Provider.of<SiswaProvider>(context, listen: false).gettahun(token!);
+    await Provider.of<SiswaProvider>(context, listen: false).gettahun();
     // ignore: use_build_context_synchronously
     await Provider.of<SiswaProvider>(context, listen: false).getsemester(/*token!*/);
   }
 
   data2(String jenis) async{
-    await Provider.of<SiswaProvider>(context, listen: false).getMapelNilaiHarin(token!, _tahunAjaran2!, _sem2!, jenis);
+    await Provider.of<SiswaProvider>(context, listen: false).getMapelNilaiHarin(_tahunAjaran2!, _sem2!, jenis);
   }
   
   @override

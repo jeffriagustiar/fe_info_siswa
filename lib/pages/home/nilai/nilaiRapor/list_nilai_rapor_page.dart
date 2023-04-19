@@ -1,9 +1,7 @@
-import 'package:fe_info_siswa/provider/siswa2_provider.dart';
 import 'package:fe_info_siswa/provider/siswa_provider.dart';
 import 'package:fe_info_siswa/share/theme.dart';
 import 'package:fe_info_siswa/widgets/loading.dart';
 import 'package:fe_info_siswa/widgets/nilai_siswa.dart';
-import 'package:fe_info_siswa/widgets/siswa_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sp_util/sp_util.dart';
@@ -17,7 +15,6 @@ class ListNilaiRaporPage extends StatefulWidget {
 
 class _ListNilaiRaporPageState extends State<ListNilaiRaporPage> {
 
-  String? token = SpUtil.getString('token');
   int? angka = SpUtil.getInt('a');
   int? nis = SpUtil.getInt('nis');
 
@@ -36,10 +33,10 @@ class _ListNilaiRaporPageState extends State<ListNilaiRaporPage> {
   }
 
   data() async{
-    await Provider.of<SiswaProvider>(context, listen: false).getRaporSiswa(token!, '21');
+    await Provider.of<SiswaProvider>(context, listen: false).getRaporSiswa('21');
   }
   data2() async{
-    await Provider.of<SiswaProvider>(context, listen: false).getRaporSiswa(token!, '22');
+    await Provider.of<SiswaProvider>(context, listen: false).getRaporSiswa('22');
   }
   
   @override

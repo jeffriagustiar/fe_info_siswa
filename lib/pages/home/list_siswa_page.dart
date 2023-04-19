@@ -1,4 +1,3 @@
-import 'package:fe_info_siswa/provider/siswa2_provider.dart';
 import 'package:fe_info_siswa/provider/siswa_provider.dart';
 import 'package:fe_info_siswa/share/theme.dart';
 import 'package:fe_info_siswa/widgets/loading.dart';
@@ -16,7 +15,6 @@ class ListSiswaPage extends StatefulWidget {
 
 class _ListSiswaPageState extends State<ListSiswaPage> {
 
-  String? token = SpUtil.getString('token');
   int? angka = SpUtil.getInt('a');
   int? nis = SpUtil.getInt('nis');
 
@@ -34,7 +32,7 @@ class _ListSiswaPageState extends State<ListSiswaPage> {
   }
 
   data() async{
-    await Provider.of<SiswaProvider>(context, listen: false).getsiswa(token!);
+    await Provider.of<SiswaProvider>(context, listen: false).getsiswa();
   }
   
   @override

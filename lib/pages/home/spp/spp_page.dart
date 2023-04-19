@@ -4,7 +4,6 @@ import 'package:fe_info_siswa/widgets/loading.dart';
 import 'package:fe_info_siswa/widgets/spp_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:fe_info_siswa/share/theme.dart';
-import 'package:fe_info_siswa/share/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:sp_util/sp_util.dart';
 
@@ -16,8 +15,6 @@ class SppPage extends StatefulWidget {
 }
 
 class _SppPageState extends State<SppPage> {
-
-  String? token = SpUtil.getString('token');
 
   // ignore: unused_field
   bool _isRefreshing = false;
@@ -33,7 +30,7 @@ class _SppPageState extends State<SppPage> {
   }
 
   data() async{
-    await Provider.of<SiswaProvider>(context, listen: false).getSppDetail(token!);
+    await Provider.of<SiswaProvider>(context, listen: false).getSppDetail();
   }
 
   @override

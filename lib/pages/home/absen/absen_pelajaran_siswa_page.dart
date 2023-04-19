@@ -6,7 +6,6 @@ import 'package:fe_info_siswa/widgets/loading.dart';
 import 'package:fe_info_siswa/widgets/no_result_info_gif.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sp_util/sp_util.dart';
 
 class AbsenPelajaranSiswaPage extends StatefulWidget {
   const AbsenPelajaranSiswaPage({super.key});
@@ -19,7 +18,6 @@ class _AbsenPelajaranSiswaPageState extends State<AbsenPelajaranSiswaPage> {
 
   String? _tahun;
   String? _tahun2 = '';
-  String? token = SpUtil.getString('token');
 
   // ignore: unused_field
   bool _isRefreshing = false;
@@ -39,11 +37,11 @@ class _AbsenPelajaranSiswaPageState extends State<AbsenPelajaranSiswaPage> {
   }
 
   dataAbsen() async{
-    await Provider.of<SiswaProvider>(context, listen: false).getAbsenPelajaranSiswa(token!, _tahun2!);
+    await Provider.of<SiswaProvider>(context, listen: false).getAbsenPelajaranSiswa(_tahun2!);
   }
 
   dataAbsenDetail(String bulan, String status) async{
-    await Provider.of<SiswaProvider>(context, listen: false).getAbsenPelajaranSiswaDetail(token!, _tahun2!, bulan, status);
+    await Provider.of<SiswaProvider>(context, listen: false).getAbsenPelajaranSiswaDetail(_tahun2!, bulan, status);
   }
 
   @override
