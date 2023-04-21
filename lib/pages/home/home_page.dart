@@ -65,14 +65,6 @@ class _HomePageState extends State<HomePage> {
       );
       SpUtil.putInt('a', 0);
       SpUtil.putString('token', 'Bearer ');
-      SpUtil.putInt('replid', 0);
-      SpUtil.putInt('nis', 0);
-      SpUtil.putString('nisn', ''); 
-      SpUtil.putString('nik', ''); 
-      SpUtil.putString('nama', ''); 
-      SpUtil.putInt('idkelas', 0);
-      SpUtil.putString('kelas', '');
-      SpUtil.putString('kelamin', '');
       // ignore: use_build_context_synchronously
       Navigator.pushAndRemoveUntil(
         context, 

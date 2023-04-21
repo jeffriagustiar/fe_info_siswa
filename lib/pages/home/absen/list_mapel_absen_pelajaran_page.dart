@@ -1,4 +1,5 @@
 import 'package:fe_info_siswa/models/nilai/mapel_nilai_harian_model.dart';
+import 'package:fe_info_siswa/pages/home/absen/absen_per_pelajaran_siswa_page.dart';
 import 'package:fe_info_siswa/provider/siswa_provider.dart';
 import 'package:fe_info_siswa/share/theme.dart';
 import 'package:fe_info_siswa/widgets/appBar_buttom.dart';
@@ -17,8 +18,6 @@ class ListMapelAbsenPelajaranPage extends StatefulWidget {
 
 class _ListMapelAbsenPelajaranPageState extends State<ListMapelAbsenPelajaranPage> {
 
-  List<String> month = ['1','2','3','4','5','6','7','8','9','10','11','12'];
-  String? _itemmonth='1';
   String? _tahun;
   String? _tahun2 = '';
 
@@ -40,7 +39,7 @@ class _ListMapelAbsenPelajaranPageState extends State<ListMapelAbsenPelajaranPag
   }
 
   dataMapel()async{
-    await Provider.of<SiswaProvider>(context, listen: false).getMapelAbsen(_tahun2!, _itemmonth!);
+    await Provider.of<SiswaProvider>(context, listen: false).getMapelAbsen(_tahun2!);
   }
 
   @override
@@ -51,7 +50,7 @@ class _ListMapelAbsenPelajaranPageState extends State<ListMapelAbsenPelajaranPag
     Widget comboBox(){
       return Container(
         margin: const EdgeInsets.only(top: 20),
-        padding: const EdgeInsets.only(left: 10, right: 10, top: 15, bottom: 15),
+        padding: const EdgeInsets.only(left: 40, right: 40, top: 15, bottom: 15),
         width: double.infinity,
         // height: 100,
         decoration: BoxDecoration(
@@ -100,36 +99,6 @@ class _ListMapelAbsenPelajaranPageState extends State<ListMapelAbsenPelajaranPag
                 )
               ),
 
-            // combobox untuk bulan
-            Text(
-              "Pilih Bulan",
-              style: blackTextStyle,
-            ),
-            ButtonTheme(
-              alignedDropdown: true,
-              child: DropdownButton(
-                style: TextStyle(color: blackColor),
-                borderRadius: BorderRadius.circular(15),
-                focusColor: blackColor,
-                underline: Container(
-                  height: 2,
-                  color: backgroundColor6,
-                ),
-                value: _itemmonth,
-                onChanged: (newValue) {
-                    setState(() {
-                      _itemmonth = newValue;
-                    });
-                  },
-                items: month.map((location) {
-                    return DropdownMenuItem(
-                      // ignore: unnecessary_new, sort_child_properties_last
-                      child: new Text(location,),
-                      value: location,
-                    );
-                  }).toList()
-              )
-            ),
           ],
         ),
       );
@@ -146,13 +115,13 @@ class _ListMapelAbsenPelajaranPageState extends State<ListMapelAbsenPelajaranPag
       ),
       child: TextButton(
         onPressed: () {
-        //   Navigator.push(
-        //   context, 
-        //   MaterialPageRoute(
-        //     builder: (context) => NilaiHarianPage(mapelNilai, abc: jenis, tahunAjaranNilai: _tahunAjaran2!, semesterNilai: _sem2!),
+          Navigator.push(
+          context, 
+          MaterialPageRoute(
+            builder: (context) => AbsenPerPelajaranSiswaPage(mapelAbsen, tahun: _tahun2!),
             
-        //   )
-        // );
+          )
+        );
         },
         style: ButtonStyle(
           overlayColor: MaterialStateColor.resolveWith((states) => Colors.blue.shade200),
@@ -213,10 +182,11 @@ class _ListMapelAbsenPelajaranPageState extends State<ListMapelAbsenPelajaranPag
               Expanded(
                 child: ListView(
                   children: [
-                    _tahun2=='' || _itemmonth=='' ? 
-                    InfoPilih(textInfo: 'Silahkan pilih tahun dan bulan terlebih dahulu untuk melanjutkan') 
+                    _tahun2=='' ? 
+                    InfoPilih(textInfo: 'Silahkan pilih tahun terlebih dahulu untuk melanjutkan') 
                       :
                     panggilContent(),
+                    SizedBox(height: 20,)
                   ],
                 )
               )

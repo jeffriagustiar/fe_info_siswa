@@ -1,4 +1,5 @@
 import 'package:fe_info_siswa/models/absen/absen_pelajaran_hitung_model.dart';
+import 'package:fe_info_siswa/models/absen/absen_per_pelajaran_detail_model.dart';
 import 'package:fe_info_siswa/models/absen/detail_absen_pelajaran_model.dart';
 import 'package:fe_info_siswa/models/nilai/jenis_nilai_harian_model.dart';
 import 'package:fe_info_siswa/models/mapel_model.dart';
@@ -129,6 +130,15 @@ class SiswaProvider with ChangeNotifier{
 
   set mapelNilaiHarian(List<MapelNilaiHarianModel> mapelNilaiHarian){
     _mapelNilaiHarian = mapelNilaiHarian;
+    notifyListeners();
+  }
+
+  List<AbsenPerPelajaranDetailModel> _absenPerMapel = [];
+
+  List<AbsenPerPelajaranDetailModel> get absenPerMapel => _absenPerMapel;
+
+  set absenPerMapel(List<AbsenPerPelajaranDetailModel> absenPerMapel){
+    _absenPerMapel = absenPerMapel;
     notifyListeners();
   }
 
@@ -303,11 +313,22 @@ class SiswaProvider with ChangeNotifier{
   }
 
   //ambil data mapel Absen Pelajaran Siswa Berdasarkan tahun bulan
-  Future<void> getMapelAbsen(String tahun, String bulan) async{
+  Future<void> getMapelAbsen(String tahun) async{
     _mapelNilaiHarian = [];
     try {
-      List<MapelNilaiHarianModel> mapelNilaiHarian = await SiswaService().getMapelAbsen(tahun, bulan);
+      List<MapelNilaiHarianModel> mapelNilaiHarian = await SiswaService().getMapelAbsen(tahun);
       _mapelNilaiHarian = mapelNilaiHarian; 
+    } catch (e) {
+      // ignore: avoid_print
+      print(e); 
+    }
+  }
+
+  //ambil data Detail Absen Per Pelajaran Siswa Berdasarkan tahun bulan dan mapel
+  Future<void> getDetailAbsenPerMapel(String tahun, String month, String mapel) async{
+    try {
+      List<AbsenPerPelajaranDetailModel> absenPerMapel = await SiswaService().getDetailAbsenPerMapel(tahun, month, mapel);
+      _absenPerMapel = absenPerMapel; 
     } catch (e) {
       // ignore: avoid_print
       print(e); 

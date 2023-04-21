@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:fe_info_siswa/models/absen/absen_pelajaran_hitung_model.dart';
+import 'package:fe_info_siswa/models/absen/absen_per_pelajaran_detail_model.dart';
 import 'package:fe_info_siswa/models/absen/detail_absen_pelajaran_model.dart';
 import 'package:fe_info_siswa/models/nilai/jenis_nilai_harian_model.dart';
 import 'package:fe_info_siswa/models/mapel_model.dart';
@@ -354,8 +355,8 @@ class SiswaService{
   }
 
   //ambil data Mapel Absen Per Mapel
-  Future<List<MapelNilaiHarianModel>> getMapelAbsen(String tahun, String month) async{
-    var url = Uri.parse('$baseUrl/MapelAbsenPerPelajaran?year=$tahun&month=$month');
+  Future<List<MapelNilaiHarianModel>> getMapelAbsen(String tahun) async{
+    var url = Uri.parse('$baseUrl/MapelAbsenPerPelajaran?year=$tahun');
 
     var headers = {
       'Content-Type': 'application/json',
@@ -380,6 +381,36 @@ class SiswaService{
       return mapel;
     } else {
       throw Exception("Gagal Ambil data matapelajaran");
+    }
+  }
+
+  //ambil data Detail Absen Per Mapel
+  Future<List<AbsenPerPelajaranDetailModel>> getDetailAbsenPerMapel(String tahun, String month, String mapel) async{
+    var url = Uri.parse('$baseUrl/MapelAbsenPerPelajaranDetail?year=$tahun&month=$month&mapel=$mapel');
+
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization' : bearrerToken
+    };
+
+    var response = await http.get(
+      url,
+      headers: headers
+    );
+
+    // print((response.body));
+    print("bisa detail absen per mapel");
+
+    if (response.statusCode == 200) {
+      List  data = jsonDecode(response.body)['data'];
+      List<AbsenPerPelajaranDetailModel> mapel = [];
+
+      for (var item in data) {
+        mapel.add(AbsenPerPelajaranDetailModel.fromJson(item));
+      }
+      return mapel;
+    } else {
+      throw Exception("Gagal Ambil data detail absen per mapel");
     }
   }
 
