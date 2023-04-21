@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 
 class SppProvider with ChangeNotifier{
   late SppModel _spp = SppModel(
-    besar: '0', 
-    dibayar: '0', 
-    sisa: 0, 
-    persen: '0.0',
-    persen2: 0,
-    tanggal: '',
-    jumlah: '0',
-    keterangan: ''
+    // besar: '0', 
+    // dibayar: '0', 
+    // sisa: 0, 
+    // persen: '0.0',
+    // persen2: 0,
+    // tanggal: '',
+    // jumlah: '0',
+    // keterangan: ''
   );
 
   SppModel get spp => _spp;
@@ -22,6 +22,7 @@ class SppProvider with ChangeNotifier{
   }
 
   Future<void> getSpp() async{
+    // _spp=[];
     try {
       SppModel spp = await SppService().getSpp();
       _spp = spp;

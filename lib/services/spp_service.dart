@@ -33,7 +33,7 @@ class SppService{
 
       return siswa;
     } else {
-      throw Exception("Gagal Ambil data");
+      throw Exception("Gagal Ambil data spp");
     }
   }
 

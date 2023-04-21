@@ -13,16 +13,16 @@ class SppModel{
 
   SppModel({
     //akomulasi dan sisa SPP siswa
-    required this.besar,
-    required this.dibayar,
-    required this.sisa,
-    required this.persen,
-    required this.persen2,
+    this.besar='0',
+    this.dibayar='0',
+    this.sisa=0,
+    this.persen='0',
+    this.persen2=0,
 
     // data pembayaran semua SPP siswa
-    required this.tanggal,
-    required this.jumlah,
-    required this.keterangan,
+    this.tanggal='0',
+    this.jumlah='0',
+    this.keterangan='0',
   });
 
   factory SppModel.fromJson(Map<String , dynamic> json){

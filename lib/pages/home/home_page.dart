@@ -4,6 +4,7 @@ import 'package:fe_info_siswa/pages/home/profile/profile_page.dart';
 import 'package:fe_info_siswa/pages/splash_page.dart';
 import 'package:fe_info_siswa/provider/auth_provider.dart';
 import 'package:fe_info_siswa/provider/siswa2_provider.dart';
+import 'package:fe_info_siswa/provider/siswa_provider.dart';
 import 'package:fe_info_siswa/provider/spp_provider.dart';
 import 'package:fe_info_siswa/share/theme.dart';
 import 'package:fe_info_siswa/widgets/fitur_buttom.dart';
@@ -45,6 +46,10 @@ class _HomePageState extends State<HomePage> {
     await Provider.of<Siswa2Provider>(context, listen: false).getSiswaByNis(nis!);
     // ignore: use_build_context_synchronously
     await Provider.of<SppProvider>(context, listen: false).getSpp();
+    // ignore: use_build_context_synchronously
+    await Provider.of<SiswaProvider>(context, listen: false).getsemester();
+    // ignore: use_build_context_synchronously
+    await Provider.of<SiswaProvider>(context, listen: false).gettahun();
   }
   
   @override

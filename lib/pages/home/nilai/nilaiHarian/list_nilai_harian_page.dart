@@ -1,4 +1,6 @@
 import 'package:fe_info_siswa/models/nilai/mapel_nilai_harian_model.dart';
+import 'package:fe_info_siswa/models/semester_model.dart';
+import 'package:fe_info_siswa/models/tahun_model.dart';
 import 'package:fe_info_siswa/pages/home/nilai/nilaiHarian/nilai_harian_page.dart';
 import 'package:fe_info_siswa/provider/siswa_provider.dart';
 import 'package:fe_info_siswa/share/theme.dart';
@@ -38,11 +40,11 @@ class _ListNilaiHarianPageState extends State<ListNilaiHarianPage> {
     });
   }
 
-  dataSemeTahun() async{
-    await Provider.of<SiswaProvider>(context, listen: false).gettahun();
-    // ignore: use_build_context_synchronously
-    await Provider.of<SiswaProvider>(context, listen: false).getsemester(/*token!*/);
-  }
+  // dataSemeTahun() async{
+  //   // await Provider.of<SiswaProvider>(context, listen: false).gettahun();
+  //   // ignore: use_build_context_synchronously
+  //   // await Provider.of<SiswaProvider>(context, listen: false).getsemester(/*token!*/);
+  // }
 
   data2(String jenis) async{
     await Provider.of<SiswaProvider>(context, listen: false).getMapelNilaiHarin(_tahunAjaran2!, _sem2!, jenis);
@@ -55,6 +57,8 @@ class _ListNilaiHarianPageState extends State<ListNilaiHarianPage> {
     String jenis = arg['jenis'];
 
     SiswaProvider siswaProvider = Provider.of<SiswaProvider>(context);
+    List<SemesterModel> semester = siswaProvider.semester;
+    List<TahunModel> tahun = siswaProvider.tahun;
 
     Widget comboBox(){
       return Container(
@@ -78,10 +82,14 @@ class _ListNilaiHarianPageState extends State<ListNilaiHarianPage> {
                 ),
                 ButtonTheme(
                   alignedDropdown: true,
-                  child: FutureBuilder(
-                    future: dataSemeTahun(),
-                    builder: (context, snapshot) {
-                      return DropdownButton(
+                  child: 
+                  
+                  // FutureBuilder(
+                  //   future: dataSemeTahun(),
+                  //   builder: (context, snapshot) {
+                  //     return 
+                      
+                      DropdownButton(
                         style: TextStyle(
                           color: blackColor
                         ),
@@ -98,16 +106,19 @@ class _ListNilaiHarianPageState extends State<ListNilaiHarianPage> {
                             _tahunAjaran2 = newValue;
                           });
                         },
-                        items: siswaProvider.tahun.map((location) {
+                        items: tahun.map((location) {
                           return DropdownMenuItem(
                             // ignore: unnecessary_new, sort_child_properties_last
                             child: new Text(location.tahun.toString(),),
                             value: location.tahun.toString(),
                           );
                         }).toList()
-                    );
-                  }
-                )
+                    )
+                    
+                //     ;
+                //   }
+                // )
+
               ),
               Text(
                 "Semester",
@@ -116,10 +127,14 @@ class _ListNilaiHarianPageState extends State<ListNilaiHarianPage> {
               const SizedBox(width: 10,),
               ButtonTheme(
                 alignedDropdown: true,
-                child: FutureBuilder(
-                  future: dataSemeTahun(),
-                  builder: (context, snapshot) {
-                    return DropdownButton(
+                child: 
+
+                // FutureBuilder(
+                //   future: dataSemeTahun(),
+                //   builder: (context, snapshot) {
+                //     return 
+                    
+                    DropdownButton(
                       style: TextStyle(color: blackColor),
                       borderRadius: BorderRadius.circular(15),
                       focusColor: blackColor,
@@ -134,16 +149,18 @@ class _ListNilaiHarianPageState extends State<ListNilaiHarianPage> {
                           _sem2 = newValue;
                         });
                       },
-                      items: siswaProvider.semester.map((location) {
+                      items: semester.map((location) {
                         return DropdownMenuItem(
                           // ignore: unnecessary_new, sort_child_properties_last
                           child: new Text(location.semester.toString(),),
                           value: location.replid.toString(),
                         );
                       }).toList()
-                    );
-                  }
-                )
+                    )
+                    
+                //   }
+                // )
+
               ),
             ],
           ),

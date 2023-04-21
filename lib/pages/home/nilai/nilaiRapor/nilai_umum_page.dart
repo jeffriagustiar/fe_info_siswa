@@ -1,3 +1,5 @@
+import 'package:fe_info_siswa/models/semester_model.dart';
+import 'package:fe_info_siswa/models/tahun_model.dart';
 import 'package:fe_info_siswa/provider/siswa_provider.dart';
 import 'package:fe_info_siswa/share/theme.dart';
 import 'package:fe_info_siswa/widgets/appBar_buttom.dart';
@@ -28,17 +30,17 @@ class _NilaiUmumPageState extends State<NilaiUmumPage> {
     setState(() {
       _isRefreshing = true;
     });
-    data();
+    // data();
     setState(() {
       _isRefreshing = false;
     });
   }
 
-  data() async{
-    await Provider.of<SiswaProvider>(context, listen: false).gettahun();
-    // ignore: use_build_context_synchronously
-    await Provider.of<SiswaProvider>(context, listen: false).getsemester();
-  }
+  // data() async{
+  //   await Provider.of<SiswaProvider>(context, listen: false).gettahun();
+  //   // ignore: use_build_context_synchronously
+  //   await Provider.of<SiswaProvider>(context, listen: false).getsemester();
+  // }
   
   data2(String jenis, String tipe) async{
     await Provider.of<SiswaProvider>(context, listen: false).getRaporSiswaD(_semester2!, jenis, tipe, _tahunAjaran2!);
@@ -53,6 +55,9 @@ class _NilaiUmumPageState extends State<NilaiUmumPage> {
     int pancasila = arg['pancasila'];
 
     SiswaProvider siswaProvider = Provider.of<SiswaProvider>(context);
+
+    List<SemesterModel> semester = siswaProvider.semester;
+    List<TahunModel> tahun = siswaProvider.tahun;
 
     Widget comboBox(){
       return Container(
@@ -73,10 +78,14 @@ class _NilaiUmumPageState extends State<NilaiUmumPage> {
             ),
             ButtonTheme(
                 alignedDropdown: true,
-                child: FutureBuilder(
-                  future: data(),
-                  builder: (context, snapshot) {
-                    return DropdownButton(
+                child: 
+                
+                // FutureBuilder(
+                //   future: data(),
+                //   builder: (context, snapshot) {
+                //     return 
+                    
+                    DropdownButton(
                       style: TextStyle(
                         color: blackColor
                       ),
@@ -93,16 +102,19 @@ class _NilaiUmumPageState extends State<NilaiUmumPage> {
                             _tahunAjaran2 = newValue;
                           });
                         },
-                      items: siswaProvider.tahun.map((location) {
+                      items: tahun.map((location) {
                           return DropdownMenuItem(
                             // ignore: unnecessary_new, sort_child_properties_last
                             child: new Text(location.tahun.toString(),),
                             value: location.tahun.toString(),
                           );
                         }).toList()
-                    );
-                  }
-                )
+                    )
+                    
+                //     ;
+                //   }
+                // )
+
               ),
             Text(
               "Semester",
@@ -111,10 +123,14 @@ class _NilaiUmumPageState extends State<NilaiUmumPage> {
             
             ButtonTheme(
                 alignedDropdown: true,
-                child: FutureBuilder(
-                  future: data(),
-                  builder: (context, snapshot) {
-                    return DropdownButton(
+                child: 
+                
+                // FutureBuilder(
+                //   future: data(),
+                //   builder: (context, snapshot) {
+                //     return 
+                    
+                    DropdownButton(
                       style: TextStyle(
                         color: blackColor
                       ),
@@ -131,16 +147,19 @@ class _NilaiUmumPageState extends State<NilaiUmumPage> {
                             _semester2 = newValue;
                           });
                         },
-                      items: siswaProvider.semester.map((location) {
+                      items: semester.map((location) {
                           return DropdownMenuItem(
                             // ignore: sort_child_properties_last, unnecessary_new
                             child: new Text(location.semester.toString(),),
                             value: location.replid.toString(),
                           );
                         }).toList()
-                    );
-                  }
-                )
+                    )
+                    
+                //     ;
+                //   }
+                // )
+
               ),
           ],
         ),

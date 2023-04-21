@@ -216,7 +216,7 @@ class SiswaService{
     );
 
     // print((response.body));
-    // print("bisa tahun");
+    print("bisa tahun");
 
     if (response.statusCode == 200) {
       List  data = jsonDecode(response.body)['data'];
@@ -239,7 +239,7 @@ class SiswaService{
 
     var headers = {
       'Content-Type': 'application/json',
-      // 'Authorization' : token
+      'Authorization' : bearrerToken
     };
 
     var response = await http.get(
@@ -248,7 +248,7 @@ class SiswaService{
     );
 
     // print((response.body));
-    // print("bisa semester");
+    print("bisa semester");
 
     if (response.statusCode == 200) {
       List  data = jsonDecode(response.body)['data'];
@@ -259,7 +259,7 @@ class SiswaService{
       }
       return semester;
     } else {
-      throw Exception("Gagal Ambil data semester");
+      throw Exception("Gagal Ambil data semester, Status code: ${response.statusCode}",);
     }
   }
 
@@ -331,6 +331,7 @@ class SiswaService{
 
     var headers = {
       'Content-Type': 'application/json',
+      'Authorization' : bearrerToken
     };
 
     var response = await http.get(

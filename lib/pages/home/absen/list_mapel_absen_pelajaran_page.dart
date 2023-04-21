@@ -186,7 +186,7 @@ class _ListMapelAbsenPelajaranPageState extends State<ListMapelAbsenPelajaranPag
                     InfoPilih(textInfo: 'Silahkan pilih tahun terlebih dahulu untuk melanjutkan') 
                       :
                     panggilContent(),
-                    SizedBox(height: 20,)
+                    const SizedBox(height: 20,)
                   ],
                 )
               )

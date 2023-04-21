@@ -171,7 +171,7 @@ class SiswaProvider with ChangeNotifier{
 
   //ambil data rapor semester 1
   Future<void> getRaporSiswa(String semester) async{
-    // _rapor = [];
+    _rapor = [];
     try {
       List<RaporSiswaModel> rapor = await SiswaService().getRaporSiswa(semester);
       _rapor = rapor; 
@@ -183,7 +183,7 @@ class SiswaProvider with ChangeNotifier{
 
   //ambil data presensi siswa
   Future<void> getpresenSiswa(String year, String month) async{
-    // _rapor = [];
+    _presen = [];
     try {
       List<PresensionSiswaModel> presen = await SiswaService().getpresenSiswa(year, month);
       _presen = presen; 
@@ -195,7 +195,7 @@ class SiswaProvider with ChangeNotifier{
 
   //ambil data presensi pelajaran siswa 
   Future<void> getAbsenPelajaranSiswa(String year) async{
-    // _rapor = [];
+    _absenPelajaran = [];
     try {
       List<AbsenPelajaranHitungModel> absenPelajaran = await SiswaService().getAbsenPelajaranSiswa(year);
       _absenPelajaran = absenPelajaran; 
@@ -219,6 +219,7 @@ class SiswaProvider with ChangeNotifier{
 
   //ambil data tahun ajaran
   Future<void> gettahun() async{
+    _tahun=[];
     try {
       List<TahunModel> tahun = await SiswaService().gettahun();
       _tahun = tahun; 
@@ -230,6 +231,7 @@ class SiswaProvider with ChangeNotifier{
 
   //ambil data semester
   Future<void> getsemester(/*String token*/) async{
+    _semester=[];
     try {
       List<SemesterModel> semester = await SiswaService().getsemester(/*token*/);
       _semester = semester; 
@@ -326,6 +328,7 @@ class SiswaProvider with ChangeNotifier{
 
   //ambil data Detail Absen Per Pelajaran Siswa Berdasarkan tahun bulan dan mapel
   Future<void> getDetailAbsenPerMapel(String tahun, String month, String mapel) async{
+    _absenPerMapel=[];
     try {
       List<AbsenPerPelajaranDetailModel> absenPerMapel = await SiswaService().getDetailAbsenPerMapel(tahun, month, mapel);
       _absenPerMapel = absenPerMapel; 
@@ -337,6 +340,7 @@ class SiswaProvider with ChangeNotifier{
 
   // ambil data tahun, 5 tahun kebelakang
   Future<void> getDataTahun() async{
+    _tahun=[];
     try {
       List<TahunModel> tahun = await SiswaService().getDataTahun();
       _tahun = tahun; 
