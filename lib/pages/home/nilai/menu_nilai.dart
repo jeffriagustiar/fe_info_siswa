@@ -294,41 +294,41 @@ class MenuNilaiPage extends StatelessWidget {
 
     Widget info(){
       return Container(
-              width: double.infinity,
-              margin: const EdgeInsets.only(top: 120,left: 20,right: 20),
-              padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 30),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(18),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 2,
-                    blurRadius: 10,
-                    offset: const Offset(0, 1),
-                  ),
-                ]
-              ),
+        width: double.infinity,
+        margin: const EdgeInsets.only(top: 120,left: 20,right: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 30),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(18),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 2,
+              blurRadius: 10,
+              offset: const Offset(0, 1),
+            ),
+          ]
+        ),
               
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 6,),
-                  Text(
-                    "Nilai dibagi menjadi dua yaitu Nilai Rapor dan Nilai Harian.",
-                    style: blackTextStyle.copyWith(
-                      height: 2,
-                      fontSize: 14,
-                      fontWeight: regular
-                    ),
-                    textAlign: TextAlign.justify,
-                  ),
-                  const SizedBox(height: 6,),
-                  infoText("Nilai Rapor merupakan hasil nilai akhir yang dicapai oleh siswa"),
-                  infoText("Nilai Harian merupakan nilai yang diambil oleh guru perhari pengambilan"),
-                ],
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 6,),
+            Text(
+              "Nilai dibagi menjadi dua yaitu Nilai Rapor dan Nilai Harian.",
+              style: blackTextStyle.copyWith(
+                height: 2,
+                fontSize: 14,
+                fontWeight: regular
               ),
-            );
+              textAlign: TextAlign.justify,
+            ),
+            const SizedBox(height: 6,),
+            infoText("Nilai Rapor merupakan hasil nilai akhir yang dicapai oleh siswa"),
+            infoText("Nilai Harian merupakan nilai yang diambil oleh guru perhari pengambilan"),
+          ],
+        ),
+      );
     }
     
     return Scaffold(
