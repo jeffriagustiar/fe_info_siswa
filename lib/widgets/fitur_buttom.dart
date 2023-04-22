@@ -27,7 +27,7 @@ class FiturButtom extends StatelessWidget {
             ),
             Text(
               nama,
-              style: secondTextStyle.copyWith(
+              style: blackTextStyle.copyWith(
                 fontSize: 12,
                 fontWeight: regular
               ),

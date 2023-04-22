@@ -15,18 +15,18 @@ class AppBarButtom extends StatelessWidget {
       padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
       // color: backgroundColor,
       decoration: BoxDecoration(
-        color: backgroundColor,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 2,
-            blurRadius: 10,
-            offset: const Offset(0, 1),
-          ),
-        ]
+        color: transparantColor,
+        // boxShadow: [
+        //   BoxShadow(
+        //     color: Colors.grey.withOpacity(0.5),
+        //     spreadRadius: 2,
+        //     blurRadius: 10,
+        //     offset: const Offset(0, 1),
+        //   ),
+        // ]
       ),
       child: Material(
-        color: backgroundColor,
+        color: transparantColor,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
