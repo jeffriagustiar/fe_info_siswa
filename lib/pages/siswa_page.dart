@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 class SiswaPage extends StatefulWidget {
   final SiswaModel siswa;
 
-  const SiswaPage(this.siswa);
+  // ignore: use_key_in_widget_constructors, prefer_const_constructors_in_immutables
+  SiswaPage(this.siswa);
 
   @override
   State<SiswaPage> createState() => _SiswaPageState();
@@ -41,10 +42,10 @@ class _SiswaPageState extends State<SiswaPage> {
       return Container(
         width: currentIndex == index ? 16 : 4,
         height: 4,
-        margin: EdgeInsets.symmetric(horizontal: 2),
+        margin: const EdgeInsets.symmetric(horizontal: 2),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: currentIndex == index ? primaryColor : Color(0xffC4C4C4)
+          color: currentIndex == index ? primaryColor : const Color(0xffC4C4C4)
         ),
       );
     }
@@ -53,7 +54,7 @@ class _SiswaPageState extends State<SiswaPage> {
       return Container(
         width: 54,
         height: 54,
-        margin: EdgeInsets.only(right: 16),
+        margin: const EdgeInsets.only(right: 16),
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage(imageUrl)
@@ -79,7 +80,7 @@ class _SiswaPageState extends State<SiswaPage> {
                   onTap: () {
                     Navigator.pop(context);
                   },
-                  child: Icon(Icons.chevron_left)
+                  child: const Icon(Icons.chevron_left)
                 ),
                 Icon(Icons.shopping_bag,color: backgroundColor1,)
               ],
@@ -105,7 +106,7 @@ class _SiswaPageState extends State<SiswaPage> {
             )
           ),
 
-          SizedBox(height: 20,),
+          const SizedBox(height: 20,),
 
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -124,10 +125,10 @@ class _SiswaPageState extends State<SiswaPage> {
       int index = -1;
 
       return Container(
-        margin: EdgeInsets.only(top: 17),
+        margin: const EdgeInsets.only(top: 17),
         width: double.infinity,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.vertical(
+          borderRadius: const BorderRadius.vertical(
             top: Radius.circular(24)
           ),
           color: backgroundColor1
@@ -171,7 +172,7 @@ class _SiswaPageState extends State<SiswaPage> {
             //? Note. Price Content
             Container(
               width: double.infinity,
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               margin: EdgeInsets.only(top: 20,left: defaultMargin,right: defaultMargin),
               decoration: BoxDecoration(
                 color: backgroundColor2,
@@ -208,7 +209,7 @@ class _SiswaPageState extends State<SiswaPage> {
                       fontWeight: medium
                     ),
                   ),
-                  SizedBox(height: 12,),
+                  const SizedBox(height: 12,),
                   Text(
                     widget.siswa.alamatsiswa!,
                     style: subTextStyle.copyWith(
@@ -236,7 +237,7 @@ class _SiswaPageState extends State<SiswaPage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 12,),
+                  const SizedBox(height: 12,),
 
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
@@ -268,7 +269,7 @@ class _SiswaPageState extends State<SiswaPage> {
                   Container(
                     height: 54,
                     width: 54,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage(
                           'assets/Button_Chat.png'
@@ -277,7 +278,7 @@ class _SiswaPageState extends State<SiswaPage> {
                     ),
                   ),
 
-                  SizedBox(width: 16,),
+                  const SizedBox(width: 16,),
 
                   // Expanded(
 

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 class SiswaTile extends StatelessWidget {
   final SiswaModel siswa;
 
+  // ignore: prefer_const_constructors_in_immutables, use_key_in_widget_constructors
   SiswaTile(this.siswa);
 
   @override
@@ -36,7 +37,7 @@ class SiswaTile extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            SizedBox(width: 12,),
+            const SizedBox(width: 12,),
     
             Expanded(
               child: Column(
@@ -48,7 +49,7 @@ class SiswaTile extends StatelessWidget {
                       fontSize: 12
                     ),
                   ),
-                  SizedBox(height: 6,),
+                  const SizedBox(height: 6,),
                   Text(
                     siswa.nama!,
                     style: primaryTextStyle.copyWith(
@@ -56,7 +57,7 @@ class SiswaTile extends StatelessWidget {
                       fontWeight: semibold
                     ),
                   ),
-                  SizedBox(height: 6,),
+                  const SizedBox(height: 6,),
                   Text(
                     'abc',
                     style: priceTextStyle.copyWith(

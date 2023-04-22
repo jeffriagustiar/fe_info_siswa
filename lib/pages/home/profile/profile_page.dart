@@ -23,6 +23,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
 
     Siswa2Provider siswaProvider = Provider.of<Siswa2Provider>(context);
+    // ignore: unused_local_variable
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
     SiswaModel siswa = siswaProvider.siswa2;
     String gendre;
@@ -63,6 +64,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       ),
                       Text(
+                        // ignore: prefer_interpolation_to_compose_strings
                         'Kelas : '+siswa.kelas!.kelas.toString(),
                         style: subTextStyle.copyWith(
                           fontSize: 16
@@ -189,7 +191,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   fontWeight: semibold
                 ),
               ),
+              // ignore: prefer_interpolation_to_compose_strings
               menuItem('Berat', siswa.berat.toString()+' Kg'),
+              // ignore: prefer_interpolation_to_compose_strings
               menuItem('Tinggi', siswa.tinggi.toString()+' Cm'),
               menuItem('Golongan Darah', siswa.darah.toString()),
               const SizedBox(height: 20,)

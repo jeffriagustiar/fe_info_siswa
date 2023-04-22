@@ -70,7 +70,7 @@ class _ListNilaiRaporPageState extends State<ListNilaiRaporPage> {
           future: data(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Loading();
+              return const Loading();
             } else {
               return Column(
             children: siswaProvider.rapor.map((rapor) => NilaiSiswa(rapor)).toList(),
@@ -86,7 +86,7 @@ class _ListNilaiRaporPageState extends State<ListNilaiRaporPage> {
           future: data2(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Loading();
+              return const Loading();
             } else {
               return Column(
             children: siswaProvider.rapor.map((rapor) => NilaiSiswa(rapor)).toList(),
@@ -120,7 +120,7 @@ class _ListNilaiRaporPageState extends State<ListNilaiRaporPage> {
     }
 
     return DefaultTabController(
-      animationDuration: Duration(seconds: 1),
+      animationDuration: const Duration(seconds: 1),
       length: 2,
       child: Scaffold(
         backgroundColor: backgroundColor2,

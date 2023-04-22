@@ -39,7 +39,7 @@ class SiswaService{
     );
 
     // print((response.body));
-    print("bisa");
+    // print("bisa");
 
     if (response.statusCode == 200) {
       List  data = jsonDecode(response.body)['data'];
@@ -96,7 +96,7 @@ class SiswaService{
     );
 
     // print((response.body));
-    print("bisa rapor");
+    // print("bisa rapor");
 
     if (response.statusCode == 200) {
       List  data = jsonDecode(response.body)['data'];
@@ -126,7 +126,7 @@ class SiswaService{
     );
 
     // print((response.body));
-    print("bisa pesensi");
+    // print("bisa pesensi");
 
     if (response.statusCode == 200) {
       List  data = jsonDecode(response.body)['data'];
@@ -160,6 +160,7 @@ class SiswaService{
 
     if (response.statusCode == 200) {
       List  data = jsonDecode(response.body)['data'];
+      // ignore: non_constant_identifier_names
       List<AbsenPelajaranHitungModel> AbsenPelajaranSiswa = [];
 
       for (var item in data) {
@@ -186,10 +187,11 @@ class SiswaService{
     );
 
     // print((response.body));
-    print("bisa absen pelajaran siswa detail");
+    // print("bisa absen pelajaran siswa detail");
 
     if (response.statusCode == 200) {
       List  data = jsonDecode(response.body)['data'];
+      // ignore: non_constant_identifier_names
       List<DetailAbsenPelajaranModel> AbsenPelajaranSiswaDetail = [];
 
       for (var item in data) {
@@ -216,7 +218,7 @@ class SiswaService{
     );
 
     // print((response.body));
-    print("bisa tahun");
+    // print("bisa tahun");
 
     if (response.statusCode == 200) {
       List  data = jsonDecode(response.body)['data'];
@@ -248,7 +250,7 @@ class SiswaService{
     );
 
     // print((response.body));
-    print("bisa semester");
+    // print("bisa semester");
 
     if (response.statusCode == 200) {
       List  data = jsonDecode(response.body)['data'];
@@ -278,7 +280,7 @@ class SiswaService{
     );
 
     // print((response.body));
-    print("bisa rapor detail");
+    // print("bisa rapor detail");
 
     if (response.statusCode == 200) {
       List  data = jsonDecode(response.body)['data'];
@@ -309,7 +311,7 @@ class SiswaService{
     );
 
     // print((response.body));
-    print("bisa rapor detail pancasila");
+    // print("bisa rapor detail pancasila");
 
     if (response.statusCode == 200) {
       List  data = jsonDecode(response.body)['data'];
@@ -370,7 +372,7 @@ class SiswaService{
     );
 
     // print((response.body));
-    print("bisa mapel absen");
+    // print("bisa mapel absen");
 
     if (response.statusCode == 200) {
       List  data = jsonDecode(response.body)['data'];
@@ -400,7 +402,7 @@ class SiswaService{
     );
 
     // print((response.body));
-    print("bisa detail absen per mapel");
+    // print("bisa detail absen per mapel");
 
     if (response.statusCode == 200) {
       List  data = jsonDecode(response.body)['data'];
@@ -466,6 +468,7 @@ class SiswaService{
 
     if (response.statusCode == 200) {
       List  data = jsonDecode(response.body)['data'];
+      // ignore: non_constant_identifier_names
       List<JenisNilaiHarianModel> JenisNilaiHarian = [];
 
       for (var item in data) {
@@ -497,6 +500,7 @@ class SiswaService{
 
     if (response.statusCode == 200) {
       List  data = jsonDecode(response.body)['data'];
+      // ignore: non_constant_identifier_names
       List<MapelNilaiHarianModel> MapelNilaiHarian = [];
 
       for (var item in data) {

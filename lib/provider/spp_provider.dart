@@ -27,6 +27,7 @@ class SppProvider with ChangeNotifier{
       SppModel spp = await SppService().getSpp();
       _spp = spp;
     } catch (e) {
+      // ignore: avoid_print
       print(e); 
     }
   }

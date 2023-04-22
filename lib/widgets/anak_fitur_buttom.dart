@@ -6,6 +6,7 @@ class AnakFiturButtom extends StatelessWidget {
   final String desc;
   final Function() onPressed;
 
+  // ignore: prefer_const_constructors_in_immutables, use_key_in_widget_constructors
   AnakFiturButtom({required this.nama, required this.desc, required this.onPressed});
 
   @override

@@ -56,7 +56,6 @@ class _NilaiPancasilaRaporPageState extends State<NilaiPancasilaRaporPage> {
     String nama = arg['nama'];
     String jenis = arg['jenis'];
     String tipe = arg['tipe'];
-    int pancasila = arg['pancasila'];
 
     SiswaProvider siswaProvider = Provider.of<SiswaProvider>(context);
     List<SemesterModel> semester = siswaProvider.semester;
@@ -204,6 +203,7 @@ class _NilaiPancasilaRaporPageState extends State<NilaiPancasilaRaporPage> {
             builder: (BuildContext context){
               return AlertDialog(
                 title: Text('Detail Penilaian Pancasila',style: blackTextStyle.copyWith(fontSize: 18,fontWeight: bold),),
+                // ignore: sized_box_for_whitespace
                 content: Container(
                 height: 300,
                 child: FutureBuilder(
@@ -220,6 +220,7 @@ class _NilaiPancasilaRaporPageState extends State<NilaiPancasilaRaporPage> {
                           Column(
                             children: siswaProvider.raporP.map((rapor) => cell2(
                                 rapor.dasarpenilaian.toString(), 
+                                // ignore: prefer_interpolation_to_compose_strings
                                 rapor.nilaihuruf.toString()+' '+rapor.nilaiangka.toString(), 
                               )).toList(),
                           )
@@ -315,78 +316,78 @@ class _NilaiPancasilaRaporPageState extends State<NilaiPancasilaRaporPage> {
     );
   }
 
-  Widget keterangan(){
-    return Container(
-      margin: const EdgeInsets.only(top: 20,left: 10, right: 10),
-      padding: const EdgeInsetsDirectional.all(15),
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: background4Color,
-        borderRadius: BorderRadius.circular(15)
-      ),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
+  // Widget keterangan(){
+  //   return Container(
+  //     margin: const EdgeInsets.only(top: 20,left: 10, right: 10),
+  //     padding: const EdgeInsetsDirectional.all(15),
+  //     width: double.infinity,
+  //     decoration: BoxDecoration(
+  //       color: background4Color,
+  //       borderRadius: BorderRadius.circular(15)
+  //     ),
+  //     child: Column(
+  //       children: [
+  //         Row(
+  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //           children: [
 
-              // ignore: sized_box_for_whitespace
-              Container(width: 200, child: Text("Keterangan Pelajaran Pancasila",style: blackTextStyle.copyWith(fontSize: 12, fontWeight: bold),)),
+  //             // ignore: sized_box_for_whitespace
+  //             Container(width: 200, child: Text("Keterangan Pelajaran Pancasila",style: blackTextStyle.copyWith(fontSize: 12, fontWeight: bold),)),
 
-            ],
-          ),
-          Container(
-            margin: const EdgeInsets.only(bottom: 5),
-            width: double.infinity,
-            height: 1,
-            color: blackColor,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              cell(150, "D1 : Beriaman, bertaqwa kepada Tuhan YME dan berakhlak mulia"),
-              cell(150, "SB : Sangat Berkembang"),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              cell(150, "D2 : Bernalar kritis"),
-              cell(150, "BSH : Berkembang Sesuai Harapan"),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              cell(150, "D3 : Mandiri"),
-              cell(150, "MB : Mulai Berkembang"),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              cell(150, "D4 : Kebhinekaan Global"),
-              cell(150, "BB : Belum Berkembang"),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              cell(150, "D5 : Kreatif"),
-              cell(150, ""),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              cell(150, "D6 : Bergotongroyong"),
-              cell(150, ""),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
+  //           ],
+  //         ),
+  //         Container(
+  //           margin: const EdgeInsets.only(bottom: 5),
+  //           width: double.infinity,
+  //           height: 1,
+  //           color: blackColor,
+  //         ),
+  //         Row(
+  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //           children: [
+  //             cell(150, "D1 : Beriaman, bertaqwa kepada Tuhan YME dan berakhlak mulia"),
+  //             cell(150, "SB : Sangat Berkembang"),
+  //           ],
+  //         ),
+  //         Row(
+  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //           children: [
+  //             cell(150, "D2 : Bernalar kritis"),
+  //             cell(150, "BSH : Berkembang Sesuai Harapan"),
+  //           ],
+  //         ),
+  //         Row(
+  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //           children: [
+  //             cell(150, "D3 : Mandiri"),
+  //             cell(150, "MB : Mulai Berkembang"),
+  //           ],
+  //         ),
+  //         Row(
+  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //           children: [
+  //             cell(150, "D4 : Kebhinekaan Global"),
+  //             cell(150, "BB : Belum Berkembang"),
+  //           ],
+  //         ),
+  //         Row(
+  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //           children: [
+  //             cell(150, "D5 : Kreatif"),
+  //             cell(150, ""),
+  //           ],
+  //         ),
+  //         Row(
+  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //           children: [
+  //             cell(150, "D6 : Bergotongroyong"),
+  //             cell(150, ""),
+  //           ],
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
     return Scaffold(
       backgroundColor: backgroundColor,

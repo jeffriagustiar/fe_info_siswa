@@ -43,6 +43,7 @@ class UserModel{
   late String? emailayah;
   late String? alamatsurat;
   late String? hobi;
+  // ignore: non_constant_identifier_names
   late String? api_token;
   late String? pinsiswa;
   late String? pinortu;
@@ -95,6 +96,7 @@ class UserModel{
     required this.emailayah, 
     required this.alamatsurat, 
     required this.hobi, 
+    // ignore: non_constant_identifier_names
     required this.api_token, 
     required this.pinsiswa, 
     required this.pinortu, 

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 class NoResultInfoGif extends StatelessWidget {
   final double lebar;
+  // ignore: prefer_const_constructors_in_immutables, use_key_in_widget_constructors
   NoResultInfoGif({required this.lebar});
 
   @override

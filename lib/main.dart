@@ -53,31 +53,31 @@ class MyApp extends StatelessWidget {
           // '/' :(context) => MainPage(),
           // '/' :(context) => SplashPage(),
           // '/' :(context) => (SpUtil.getInt('a') == 1 ? HomePage() : SplashPage()),
-          '/' :(context) => SplashPage(),
+          '/' :(context) => const SplashPage(),
           '/sign-in' :(context) => Sign_In(),
-          '/home' :(context) => HomePage(),
+          '/home' :(context) => const HomePage(),
 
           //? Profile
-          '/profile' :(context) => ProfilePage(),
+          '/profile' :(context) => const ProfilePage(),
 
           //? Spp
-          '/spp' :(context) => SppPage(),
+          '/spp' :(context) => const SppPage(),
 
           //? Nilai 
-          '/nilai' :(context) => ListNilaiRaporPage(),
+          '/nilai' :(context) => const ListNilaiRaporPage(),
             //? Nilai Rapor
-            '/menu-nilai' :(context) => MenuNilaiPage(),
-            '/nilai-rapor-umum' :(context) => NilaiUmumPage(),
-            '/nilai-rapor-pancasila' :(context) => NilaiPancasilaRaporPage(),
+            '/menu-nilai' :(context) => const MenuNilaiPage(),
+            '/nilai-rapor-umum' :(context) => const NilaiUmumPage(),
+            '/nilai-rapor-pancasila' :(context) => const NilaiPancasilaRaporPage(),
             //? Nilai Harian
-            '/nilai-harian' :(context) => ListNilaiHarianPage(),
+            '/nilai-harian' :(context) => const ListNilaiHarianPage(),
             // '/nilai-harian' :(context) => NilaiHarianPage(),
           
           //? Absen
-          '/absen' :(context) => MenuAbsenPage(),
-          '/absen-harian' :(context) => AbsenHarianSiswaPage(),
-          '/absen-pelajaran' :(context) => AbsenPelajaranSiswaPage(),
-          '/absen-mapel' :(context) => ListMapelAbsenPelajaranPage(),
+          '/absen' :(context) => const MenuAbsenPage(),
+          '/absen-harian' :(context) => const AbsenHarianSiswaPage(),
+          '/absen-pelajaran' :(context) => const AbsenPelajaranSiswaPage(),
+          '/absen-mapel' :(context) => const ListMapelAbsenPelajaranPage(),
           // '/siswa': (context) => SiswaPage(),
         },
       ),

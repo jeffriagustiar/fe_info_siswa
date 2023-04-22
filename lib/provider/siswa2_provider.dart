@@ -71,6 +71,7 @@ class Siswa2Provider with ChangeNotifier{
       SiswaModel siswa = await SiswaService().getSiswaByNis(nis);
       _siswa2 = siswa; 
     } catch (e) {
+      // ignore: avoid_print
       print(e); 
     }
   }

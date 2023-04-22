@@ -1,7 +1,6 @@
 import 'package:fe_info_siswa/models/user_model.dart';
 import 'package:fe_info_siswa/services/auth_service.dart';
 import 'package:flutter/material.dart';
-import 'package:sp_util/sp_util.dart';
 
 class AuthProvider with ChangeNotifier{
   late UserModel _user;
@@ -27,6 +26,7 @@ class AuthProvider with ChangeNotifier{
       _user = user;
       return true;
     } catch (e) {
+      // ignore: avoid_print
       print(e); 
       return false;
     }

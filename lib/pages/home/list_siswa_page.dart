@@ -45,7 +45,7 @@ class _ListSiswaPageState extends State<ListSiswaPage> {
 
 
 
-    Widget Title(){
+    Widget title(){
       return Container(
         margin: EdgeInsets.only(
           top: defaultMargin,
@@ -64,14 +64,14 @@ class _ListSiswaPageState extends State<ListSiswaPage> {
 
     Widget listSiswa(){
       return Container(
-        margin: EdgeInsets.only(
+        margin: const EdgeInsets.only(
           top: 14,
         ),
         child: FutureBuilder(
           future: data(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Loading();
+              return const Loading();
             } else {
               return Column(
             children: siswaProvider.siswa.map((siswa) => SiswaTile(siswa)).toList(),
@@ -87,7 +87,7 @@ class _ListSiswaPageState extends State<ListSiswaPage> {
       onRefresh: getInit,
       child: ListView(
         children: [
-          Title(),
+          title(),
           listSiswa()
           
         ],

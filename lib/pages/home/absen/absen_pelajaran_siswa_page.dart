@@ -175,6 +175,7 @@ class _AbsenPelajaranSiswaPageState extends State<AbsenPelajaranSiswaPage> {
             builder: (BuildContext context){
               return AlertDialog(
                 title: Text('Rekap Data $text Siswa, Bulan $bulan',style: blackTextStyle.copyWith(fontWeight: bold, fontSize: 16),),
+                // ignore: sized_box_for_whitespace
                 content: Container(
                   width: double.infinity,
                   height: 350,

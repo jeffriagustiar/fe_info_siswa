@@ -3,6 +3,7 @@ import 'package:fe_info_siswa/share/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+// ignore: must_be_immutable
 class SppTile extends StatelessWidget {
   SppModel spp;
   SppTile(this.spp, {super.key});
@@ -45,7 +46,7 @@ class SppTile extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 5,),
+              const SizedBox(height: 5,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -65,7 +66,7 @@ class SppTile extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 2,),
+              const SizedBox(height: 2,),
               Text(
                 "Description :",
                 style: secondTextStyle.copyWith(

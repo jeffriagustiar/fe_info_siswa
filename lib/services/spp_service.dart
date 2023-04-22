@@ -25,7 +25,7 @@ class SppService{
     );
 
     // print(response.body);
-    print("bisa");
+    // print("bisa");
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body)['data'];
@@ -51,7 +51,7 @@ class SppService{
     );
 
     // print(response.body);
-    print("bisa spp");
+    // print("bisa spp");
 
     if (response.statusCode == 200) {
 

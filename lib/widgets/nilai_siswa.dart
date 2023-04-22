@@ -4,13 +4,14 @@ import 'package:flutter/material.dart';
 
 class NilaiSiswa extends StatelessWidget {
   final RaporSiswaModel rapor;
+  // ignore: prefer_const_constructors_in_immutables, use_key_in_widget_constructors
   NilaiSiswa(this.rapor);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(left: 10, right: 10, top: 20),
-      padding: EdgeInsets.all(15),
+      margin: const EdgeInsets.only(left: 10, right: 10, top: 20),
+      padding: const EdgeInsets.all(15),
       width: double.infinity,
       decoration: BoxDecoration(
         color: backgroundColor3,
@@ -26,9 +27,9 @@ class NilaiSiswa extends StatelessWidget {
               fontWeight: semibold
             ),
           ),
-          SizedBox(height: 10,),
+          const SizedBox(height: 10,),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 70),
+            padding: const EdgeInsets.symmetric(horizontal: 70),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -49,7 +50,7 @@ class NilaiSiswa extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 5,),
+          const SizedBox(height: 5,),
           Text(
             "Scoring Type : ${rapor.dasarpenilaian}",
             style: primaryTextStyle.copyWith(
@@ -65,7 +66,7 @@ class NilaiSiswa extends StatelessWidget {
             ),
             textAlign: TextAlign.justify,
           ),
-          SizedBox(height: 5,),
+          const SizedBox(height: 5,),
         ],
       ),
     );

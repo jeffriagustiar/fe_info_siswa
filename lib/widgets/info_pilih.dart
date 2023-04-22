@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 class InfoPilih extends StatelessWidget {
   final String textInfo;
+  // ignore: prefer_const_constructors_in_immutables, use_key_in_widget_constructors
   InfoPilih({required this.textInfo});
 
   @override

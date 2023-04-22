@@ -1,5 +1,4 @@
 import 'package:fe_info_siswa/models/spp_model.dart';
-import 'package:fe_info_siswa/pages/home/list_siswa_page.dart';
 import 'package:fe_info_siswa/pages/home/profile/profile_page.dart';
 import 'package:fe_info_siswa/pages/splash_page.dart';
 import 'package:fe_info_siswa/provider/auth_provider.dart';
@@ -182,24 +181,6 @@ class _HomePageState extends State<HomePage> {
               }
             ),
           ],
-        ),
-      );
-    }
-
-    
-    Widget titileMenu(){
-      return Container(
-        margin: EdgeInsets.only(
-          top: defaultMargin,
-          right: defaultMargin,
-          left: defaultMargin,
-        ),
-        child: Text(
-          'Fitur',
-          style: blackTextStyle.copyWith(
-            fontSize: 18,
-            fontWeight: semibold
-          ),
         ),
       );
     }

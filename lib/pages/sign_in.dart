@@ -46,7 +46,7 @@ class _Sign_InState extends State<Sign_In> {
           Navigator.pushAndRemoveUntil(
             context, 
             MaterialPageRoute(
-              builder: (context) => HomePage(),
+              builder: (context) => const HomePage(),
             ), 
             ModalRoute.withName('/home')
           );
@@ -69,30 +69,6 @@ class _Sign_InState extends State<Sign_In> {
         });
     }
 
-    Widget header() {
-      return Container(
-        margin: const EdgeInsets.only(top: 30),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Login',
-              style: blackTextStyle.copyWith(
-                fontWeight: semibold,
-                fontSize: 24,
-              ),
-            ),
-            const SizedBox(
-              height: 2,
-            ),
-            Text(
-              'Login untuk menlanjutkan',
-              style: subTextStyle.copyWith(fontWeight: regular, fontSize: 14),
-            )
-          ],
-        ),
-      );
-    }
 
     Widget emailInput() {
       return Container(
@@ -215,10 +191,10 @@ class _Sign_InState extends State<Sign_In> {
     Widget logo(){
       return Center(
         child: Container(
-          margin: EdgeInsets.only(top: 40),
+          margin: const EdgeInsets.only(top: 40),
           width: 100,
           height: 100,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(image: AssetImage('assets/logo.png'))
           ),
         ),
@@ -230,7 +206,7 @@ class _Sign_InState extends State<Sign_In> {
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Container(
-          margin: EdgeInsets.symmetric(
+          margin: const EdgeInsets.symmetric(
             horizontal: 20,
           ),
           child: Column(

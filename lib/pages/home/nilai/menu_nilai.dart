@@ -1,9 +1,7 @@
 import 'package:fe_info_siswa/share/theme.dart';
-import 'package:fe_info_siswa/widgets/anak_fitur_buttom.dart';
 import 'package:fe_info_siswa/widgets/appBar_buttom.dart';
 import 'package:fe_info_siswa/widgets/fitur_buttom.dart';
 import 'package:flutter/material.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class MenuNilaiPage extends StatelessWidget {
   const MenuNilaiPage({super.key});
@@ -15,7 +13,7 @@ class MenuNilaiPage extends StatelessWidget {
       return Container(
         width: double.infinity,
         height: 250,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(30),bottomRight: Radius.circular(30)),
           image: DecorationImage(
             fit: BoxFit.cover,
@@ -27,7 +25,7 @@ class MenuNilaiPage extends StatelessWidget {
 
     Widget contentRapor(){
       return Container(
-        padding: EdgeInsets.only(top: 390,left: 20,right: 20),
+        padding: const EdgeInsets.only(top: 390,left: 20,right: 20),
         child: Column(
           children: [
             Container(
@@ -82,7 +80,7 @@ class MenuNilaiPage extends StatelessWidget {
                               }
                             );
                           },
-                          img: 'assets/ic_uang.png',
+                          img: 'assets/ic_nilai.png',
                         ),
                         FiturButtom(
                           nama: 'Kejuruan', 
@@ -98,7 +96,7 @@ class MenuNilaiPage extends StatelessWidget {
                               }
                             );
                           },
-                          img: 'assets/ic_uang.png',
+                          img: 'assets/ic_nilai.png',
                         ),
                         FiturButtom(
                           nama: 'Pancasila', 
@@ -114,7 +112,7 @@ class MenuNilaiPage extends StatelessWidget {
                               }
                             );
                           },
-                          img: 'assets/ic_uang.png',
+                          img: 'assets/ic_nilai.png',
                         ),
                         FiturButtom(
                           nama: 'Ex School', 
@@ -130,7 +128,7 @@ class MenuNilaiPage extends StatelessWidget {
                               }
                             );
                           },
-                          img: 'assets/ic_uang.png',
+                          img: 'assets/ic_nilai.png',
                         ),
                       ],
                       
@@ -147,7 +145,7 @@ class MenuNilaiPage extends StatelessWidget {
 
     Widget contentHarian(){
       return Container(
-        padding: EdgeInsets.only(top: 590,left: 20,right: 20,bottom: 30),
+        padding: const EdgeInsets.only(top: 590,left: 20,right: 20,bottom: 30),
         child: Column(
           children: [
             Container(
@@ -202,7 +200,7 @@ class MenuNilaiPage extends StatelessWidget {
                               }
                             );
                           },
-                          img: 'assets/ic_uang.png',
+                          img: 'assets/ic_nilai.png',
                         ),
                         FiturButtom(
                           nama: 'Kejuruan', 
@@ -218,7 +216,7 @@ class MenuNilaiPage extends StatelessWidget {
                               }
                             );
                           },
-                          img: 'assets/ic_uang.png',
+                          img: 'assets/ic_nilai.png',
                         ),
                         FiturButtom(
                           nama: 'Pancasila', 
@@ -234,7 +232,7 @@ class MenuNilaiPage extends StatelessWidget {
                               }
                             );
                           },
-                          img: 'assets/ic_uang.png',
+                          img: 'assets/ic_nilai.png',
                         ),
                         FiturButtom(
                           nama: 'Ex School', 
@@ -250,7 +248,7 @@ class MenuNilaiPage extends StatelessWidget {
                               }
                             );
                           },
-                          img: 'assets/ic_uang.png',
+                          img: 'assets/ic_nilai.png',
                         ),
                       ],
                       
@@ -266,41 +264,39 @@ class MenuNilaiPage extends StatelessWidget {
     }
 
     Widget infoText(String text){
-      return Container(
-        child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "-)",
-                        style: blackTextStyle.copyWith(
-                          height: 2,
-                          fontSize: 14,
-                          fontWeight: regular
-                        ),
-                        textAlign: TextAlign.justify,
-                      ),
-                      const SizedBox(width: 5,),
-                      Expanded(
-                        child: Text(
-                          text,
-                          style: blackTextStyle.copyWith(
-                            height: 2,
-                            fontSize: 14,
-                            fontWeight: regular
-                          ),
-                          textAlign: TextAlign.justify,
-                        ),
-                      ),
-                    ],
-                  )
+      return Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "-)",
+            style: blackTextStyle.copyWith(
+              height: 2,
+              fontSize: 14,
+              fontWeight: regular
+            ),
+            textAlign: TextAlign.justify,
+          ),
+          const SizedBox(width: 5,),
+          Expanded(
+            child: Text(
+              text,
+              style: blackTextStyle.copyWith(
+                height: 2,
+                fontSize: 14,
+                fontWeight: regular
+              ),
+              textAlign: TextAlign.justify,
+            ),
+          ),
+        ],
       );
     }
 
     Widget info(){
       return Container(
               width: double.infinity,
-              margin: EdgeInsets.only(top: 120,left: 20,right: 20),
-              padding: EdgeInsets.symmetric(horizontal: 20,vertical: 30),
+              margin: const EdgeInsets.only(top: 120,left: 20,right: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 30),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(18),

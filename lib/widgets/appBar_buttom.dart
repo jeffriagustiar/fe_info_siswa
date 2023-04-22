@@ -1,9 +1,12 @@
+// ignore_for_file: file_names
+
 import 'package:fe_info_siswa/share/theme.dart';
 import 'package:flutter/material.dart';
 
 class AppBarButtom extends StatelessWidget {
   final String nama;
 
+  // ignore: prefer_const_constructors_in_immutables, use_key_in_widget_constructors
   AppBarButtom({required this.nama});
 
   @override

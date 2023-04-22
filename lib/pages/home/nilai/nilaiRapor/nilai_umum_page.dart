@@ -52,7 +52,6 @@ class _NilaiUmumPageState extends State<NilaiUmumPage> {
     String nama = arg['nama'];
     String jenis = arg['jenis'];
     String tipe = arg['tipe'];
-    int pancasila = arg['pancasila'];
 
     SiswaProvider siswaProvider = Provider.of<SiswaProvider>(context);
 
@@ -191,6 +190,7 @@ class _NilaiUmumPageState extends State<NilaiUmumPage> {
   }
 
   Widget icon(double lebar, String komen, String komen2){
+    // ignore: sized_box_for_whitespace
     return Container(
       // padding: const EdgeInsets.only(top: 15),
       width: 40, 
@@ -202,6 +202,7 @@ class _NilaiUmumPageState extends State<NilaiUmumPage> {
             builder: (BuildContext context){
               return AlertDialog(
                 title: Text('Komentar terkait pencapaian',style: blackTextStyle.copyWith(fontWeight: bold),),
+          // ignore: sized_box_for_whitespace
           content: Container(
             height: 300,
             child: Column(

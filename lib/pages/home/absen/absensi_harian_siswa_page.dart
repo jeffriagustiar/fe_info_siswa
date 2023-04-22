@@ -188,15 +188,6 @@ class _AbsenHarianSiswaPageState extends State<AbsenHarianSiswaPage> {
       );
     }
 
-    Widget icon(double lebar){
-      return Container(
-        padding: const EdgeInsets.only(top: 15),
-        height: 1, 
-        child: const Icon(
-          Icons.search
-        ),
-      );
-    }
 
     Widget dataAbsen(String tanggal,String hadir, String izin, String sakit, String alpa, String ket){
       return Row(
@@ -210,7 +201,6 @@ class _AbsenHarianSiswaPageState extends State<AbsenHarianSiswaPage> {
         cell(40, izin),
         cell(40, sakit),
         cell(40, alpa),
-        // icon(40,),
 
       ],
     );
@@ -300,7 +290,7 @@ class _AbsenHarianSiswaPageState extends State<AbsenHarianSiswaPage> {
           borderRadius: BorderRadius.circular(15)
         ),
         child: GridView(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 5
         ),
         shrinkWrap: true,
@@ -308,22 +298,22 @@ class _AbsenHarianSiswaPageState extends State<AbsenHarianSiswaPage> {
             Container(
               height: 50,
               width: 50,
-              child: Text("data")
+              child: const Text("data")
             ),
             Container(
               height: 50,
               width: 50,
-              child: Text("data")
+              child: const Text("data")
             ),
             Container(
               height: 50,
               width: 50,
-              child: Text("data")
+              child: const Text("data")
             ),
             Container(
               height: 50,
               width: 50,
-              child: Text("data")
+              child: const Text("data")
             ),
           ],
         ),

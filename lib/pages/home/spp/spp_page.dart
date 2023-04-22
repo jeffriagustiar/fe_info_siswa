@@ -5,7 +5,6 @@ import 'package:fe_info_siswa/widgets/spp_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:fe_info_siswa/share/theme.dart';
 import 'package:provider/provider.dart';
-import 'package:sp_util/sp_util.dart';
 
 class SppPage extends StatefulWidget {
   const SppPage({super.key});
@@ -44,9 +43,10 @@ class _SppPageState extends State<SppPage> {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
               return Column(
+                // ignore: prefer_const_literals_to_create_immutables
                 children: [
-                  SizedBox(height: 10,),
-                  Loading(),
+                  const SizedBox(height: 10,),
+                  const Loading(),
                 ],
               );
             } else {

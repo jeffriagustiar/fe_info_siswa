@@ -34,8 +34,10 @@ class AuthService{
       var data = jsonDecode(response.body);
       UserModel user = UserModel.fromJson(data['user']);
       KelasModel kelas = KelasModel.fromJson(data['user']['kelas']);
+      // ignore: prefer_interpolation_to_compose_strings
       user.api_token = 'Bearer ' + data['access_token'];
       SpUtil.putInt('a', 1);
+      // ignore: prefer_interpolation_to_compose_strings
       SpUtil.putString('token', 'Bearer ' + data['access_token']);
       SpUtil.putInt('replid', user.replid!);
       SpUtil.putInt('nis', user.nis!);

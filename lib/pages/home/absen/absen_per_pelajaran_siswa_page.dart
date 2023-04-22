@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 class AbsenPerPelajaranSiswaPage extends StatefulWidget {
   final MapelNilaiHarianModel mapelAbsen;
   final String tahun;
+  // ignore: prefer_const_constructors_in_immutables, use_key_in_widget_constructors
   AbsenPerPelajaranSiswaPage(this.mapelAbsen,{required this.tahun});
 
   @override

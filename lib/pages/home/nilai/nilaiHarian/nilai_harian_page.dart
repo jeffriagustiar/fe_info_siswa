@@ -12,6 +12,7 @@ class NilaiHarianPage extends StatefulWidget {
   final String abc;
   final String tahunAjaranNilai;
   final String semesterNilai;
+  // ignore: use_key_in_widget_constructors, prefer_const_constructors_in_immutables
   NilaiHarianPage(this.mapelNilai,{required this.abc, required this.tahunAjaranNilai, required this.semesterNilai });
 
   @override
@@ -86,6 +87,7 @@ class _NilaiHarianPageState extends State<NilaiHarianPage> {
     String keterangan,
     String tujuan,
   ){
+    // ignore: sized_box_for_whitespace
     return Container(
       // padding: const EdgeInsets.only(top: 15),
       width: lebar, 
@@ -97,6 +99,7 @@ class _NilaiHarianPageState extends State<NilaiHarianPage> {
             builder: (BuildContext context){
               return AlertDialog(
                 title: Text('Detail Nilai',style: blackTextStyle.copyWith(fontWeight: bold),),
+                // ignore: sized_box_for_whitespace
                 content: Container(
                   width: double.infinity,
                   height: 350,
@@ -164,7 +167,7 @@ class _NilaiHarianPageState extends State<NilaiHarianPage> {
     );
   }
 
-  Widget ContainerJenis(String kategori, String jjenis){
+  Widget containerJenis(String kategori, String jjenis){
     return Container(
           margin: const EdgeInsets.only(top: 15,left: 10, right: 10),
           padding: const EdgeInsetsDirectional.all(15),
@@ -234,80 +237,80 @@ class _NilaiHarianPageState extends State<NilaiHarianPage> {
         );
   }
 
-  Widget ContainerJenisv2(String kategori, String jjenis){
-    return Container(
-      margin: const EdgeInsets.only(top: 15,left: 5, right: 5),
-      padding: const EdgeInsetsDirectional.all(5),
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: background4Color,
-        borderRadius: BorderRadius.circular(15)
-      ),
-      child: ExpansionTile(
-        title: Text('Kategori : $kategori', style: blackTextStyle.copyWith(fontSize: 13, fontWeight: bold)),
-        children: [
-          Container(
-            child: Column(
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(bottom: 10),
-                  width: double.infinity,
-                  height: 1,
-                  color: blackColor,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
+  // Widget containerJenisv2(String kategori, String jjenis){
+  //   return Container(
+  //     margin: const EdgeInsets.only(top: 15,left: 5, right: 5),
+  //     padding: const EdgeInsetsDirectional.all(5),
+  //     width: double.infinity,
+  //     decoration: BoxDecoration(
+  //       color: background4Color,
+  //       borderRadius: BorderRadius.circular(15)
+  //     ),
+  //     child: ExpansionTile(
+  //       title: Text('Kategori : $kategori', style: blackTextStyle.copyWith(fontSize: 13, fontWeight: bold)),
+  //       children: [
+  //         Container(
+  //           child: Column(
+  //             children: [
+  //               Container(
+  //                 margin: const EdgeInsets.only(bottom: 10),
+  //                 width: double.infinity,
+  //                 height: 1,
+  //                 color: blackColor,
+  //               ),
+  //               Row(
+  //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //                 children: [
 
-                    // ignore: sized_box_for_whitespace
-                    Container(width: 110, child: Text("Tanggal",style: blackTextStyle.copyWith(fontSize: 12, fontWeight: bold),)),
-                    const SizedBox(width: 5,),
-                    // ignore: sized_box_for_whitespace
-                    Container(width: 40, child: Text("Nilai",style: blackTextStyle.copyWith(fontSize: 12, fontWeight: bold),textAlign: TextAlign.center,)),
-                    const SizedBox(width: 5,),
-                    // ignore: sized_box_for_whitespace
-                    Container(width: 110, child: Text("Keterangan",style: blackTextStyle.copyWith(fontSize: 12, fontWeight: bold),)),
-                    // ignore: sized_box_for_whitespace
-                    Container(width: 40, child: Text("Detail",style: blackTextStyle.copyWith(fontSize: 12, fontWeight: bold),textAlign: TextAlign.center,)),
+  //                   // ignore: sized_box_for_whitespace
+  //                   Container(width: 110, child: Text("Tanggal",style: blackTextStyle.copyWith(fontSize: 12, fontWeight: bold),)),
+  //                   const SizedBox(width: 5,),
+  //                   // ignore: sized_box_for_whitespace
+  //                   Container(width: 40, child: Text("Nilai",style: blackTextStyle.copyWith(fontSize: 12, fontWeight: bold),textAlign: TextAlign.center,)),
+  //                   const SizedBox(width: 5,),
+  //                   // ignore: sized_box_for_whitespace
+  //                   Container(width: 110, child: Text("Keterangan",style: blackTextStyle.copyWith(fontSize: 12, fontWeight: bold),)),
+  //                   // ignore: sized_box_for_whitespace
+  //                   Container(width: 40, child: Text("Detail",style: blackTextStyle.copyWith(fontSize: 12, fontWeight: bold),textAlign: TextAlign.center,)),
 
-                  ],
-                ),
-                Container(
-                  margin: const EdgeInsets.symmetric(vertical: 10),
-                  width: double.infinity,
-                  height: 1,
-                  color: blackColor,
-                ),
-                FutureBuilder(
-                  future: dataNilaiHarian(jjenis),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Loading();
-                    } else {
-                      return Column(
-                        children: siswaProvider.nilaiHarian.map((nilai) => dataNilai(
-                          nilai.tanggal.toString(), 
-                          nilai.nilaiujian.toString(), 
-                          nilai.keterangan.toString(), 
-                          nilai.nama.toString(),
-                          nilai.jenisujian.toString(), 
-                          nilai.kode.toString(), 
-                          nilai.tanggal.toString(), 
-                          nilai.ts.toString(), 
-                          nilai.keterangan2.toString(), 
-                        )).toList(),
-                      );
-                    }
-                  }
-                )
-              ],
-            )
-          )
+  //                 ],
+  //               ),
+  //               Container(
+  //                 margin: const EdgeInsets.symmetric(vertical: 10),
+  //                 width: double.infinity,
+  //                 height: 1,
+  //                 color: blackColor,
+  //               ),
+  //               FutureBuilder(
+  //                 future: dataNilaiHarian(jjenis),
+  //                 builder: (context, snapshot) {
+  //                   if (snapshot.connectionState == ConnectionState.waiting) {
+  //                     return const Loading();
+  //                   } else {
+  //                     return Column(
+  //                       children: siswaProvider.nilaiHarian.map((nilai) => dataNilai(
+  //                         nilai.tanggal.toString(), 
+  //                         nilai.nilaiujian.toString(), 
+  //                         nilai.keterangan.toString(), 
+  //                         nilai.nama.toString(),
+  //                         nilai.jenisujian.toString(), 
+  //                         nilai.kode.toString(), 
+  //                         nilai.tanggal.toString(), 
+  //                         nilai.ts.toString(), 
+  //                         nilai.keterangan2.toString(), 
+  //                       )).toList(),
+  //                     );
+  //                   }
+  //                 }
+  //               )
+  //             ],
+  //           )
+  //         )
     
-        ],
-      ),
-    );
-  }
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Widget content(){
     return FutureBuilder(
@@ -318,7 +321,7 @@ class _NilaiHarianPageState extends State<NilaiHarianPage> {
           return Loading();
         } else {
           return Column(
-            children: siswaProvider.jenisNilaiHarian.map((jenis) => ContainerJenis(
+            children: siswaProvider.jenisNilaiHarian.map((jenis) => containerJenis(
               jenis.jenisujian.toString(),
               jenis.replid.toString()
             )).toList(),

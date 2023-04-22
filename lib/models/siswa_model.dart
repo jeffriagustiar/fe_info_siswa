@@ -45,6 +45,7 @@ class SiswaModel{
   late String? emailayah;
   late String? alamatsurat;
   late String? hobi;
+  // ignore: non_constant_identifier_names
   late String? api_token;
   late String? pinsiswa;
   late String? pinortu;
@@ -97,6 +98,7 @@ class SiswaModel{
     this.emailayah, 
     this.alamatsurat, 
     this.hobi, 
+    // ignore: non_constant_identifier_names
     this.api_token, 
     this.pinsiswa, 
     this.pinortu, 
