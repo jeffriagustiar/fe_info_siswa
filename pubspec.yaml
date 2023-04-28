@@ -42,6 +42,8 @@ dependencies:
   sp_util: ^2.0.3
   percent_indicator: ^4.2.3
   intl: ^0.18.0
+  google_maps_flutter: ^2.2.5
+  location: ^4.4.0
 
 dev_dependencies:
   flutter_test:

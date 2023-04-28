@@ -236,13 +236,17 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 FiturButtom(
+                  nama: 'Ambil Absen', 
+                  onPressed: (){
+                    Navigator.pushNamed(context, '/ambil-absen');
+                  }, 
+                  img: 'assets/ic_fingerprint.png',
+                ),
+                FiturButtom(
                   nama: 'Logout', 
                   onPressed: handleLogOut, 
                   img: 'assets/ic_logout.png',
                 ),
-                // FiturButtom(nama: 'coba', onPressed: () {
-                //   Navigator.push(context, MaterialPageRoute(builder: (context) => ListSiswaPage(),));
-                // },),
               ],
             ),
 
