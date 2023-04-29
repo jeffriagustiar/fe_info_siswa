@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:fe_info_siswa/models/absen/absen_pelajaran_hitung_model.dart';
 import 'package:fe_info_siswa/models/absen/absen_per_pelajaran_detail_model.dart';
 import 'package:fe_info_siswa/models/absen/detail_absen_pelajaran_model.dart';
+import 'package:fe_info_siswa/models/ambilAbsen/ambil_koordidat_sekolah_model.dart';
 import 'package:fe_info_siswa/models/nilai/jenis_nilai_harian_model.dart';
 import 'package:fe_info_siswa/models/mapel_model.dart';
 import 'package:fe_info_siswa/models/nilai/mapel_nilai_harian_model.dart';
@@ -78,6 +79,36 @@ class SiswaService{
       return siswa;
     } else {
       throw Exception("Gagal Ambil data siswa nis");
+    }
+  }
+
+  //ambil data koordinat sekolah
+  Future<AmbilKoordinatSekolahModel> getKoordinatSekolah() async{
+    var url = Uri.parse('$baseUrl/koordinatLokasiSekolahSatu');
+
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization' : bearrerToken
+    };
+
+    var response = await http.get(
+      url,
+      headers: headers
+    );
+
+    print(response.body);
+    // print("bisa siswa");
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body)['data'];
+      final siswa = AmbilKoordinatSekolahModel.fromJson(data);
+
+      SpUtil.putDouble('latitude', siswa.latitude!);
+      SpUtil.putDouble('longitude', siswa.longitude!);
+
+      return siswa;
+    } else {
+      throw Exception("Gagal Ambil Koordinat Sekolah");
     }
   }
 

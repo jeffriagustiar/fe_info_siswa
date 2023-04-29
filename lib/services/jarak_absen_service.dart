@@ -3,6 +3,7 @@ import 'dart:async';
 import 'dart:math';
 import 'package:fe_info_siswa/models/ambilAbsen/ambil_absen_model.dart';
 import 'package:location/location.dart';
+import 'package:sp_util/sp_util.dart';
 
 double distance(double lat1, double lon1, double lat2, double lon2) {
   const p = 0.017453292519943295;
@@ -23,20 +24,23 @@ String distanceFromCurrentLocation(double currentLat, double currentLon, double 
 class LocationService{
   Location location = Location();
 
+  // ignore: prefer_final_fields
   StreamController<AmbilAbsenModel> _locationStreamController = StreamController<AmbilAbsenModel>();
 
   Stream<AmbilAbsenModel> get locationStream => _locationStreamController.stream;
 
-  LocationService(double lati, double long){
+  LocationService(){
     location.requestPermission().then((permissionStatus) {
       if (permissionStatus == PermissionStatus.granted) {
+        // ignore: non_constant_identifier_names, avoid_types_as_parameter_names
         location.onLocationChanged.listen((LocationData) {
+          // ignore: unnecessary_null_comparison
           if(LocationData != null){
             // Contoh penggunaan untuk menghitung jarak antara lokasi saat ini dengan lokasi statis (0,0)
             double currentLat = LocationData.latitude!;
             double currentLon = LocationData.longitude!;
-            double staticLat = -0.1354442;
-            double staticLon = 100.533668;
+            double staticLat = SpUtil.getDouble('latitude') ?? 0;
+            double staticLon = SpUtil.getDouble('longitude') ?? 0;
 
             String distance = distanceFromCurrentLocation(currentLat, currentLon, staticLat, staticLon);
             print('Jarak dari lokasi saat ini ke lokasi statis: $distance m');

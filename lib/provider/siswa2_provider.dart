@@ -1,3 +1,4 @@
+import 'package:fe_info_siswa/models/ambilAbsen/ambil_koordidat_sekolah_model.dart';
 import 'package:fe_info_siswa/models/kelas_model.dart';
 import 'package:fe_info_siswa/models/siswa_model.dart';
 import 'package:fe_info_siswa/services/siswa_service.dart';
@@ -75,4 +76,35 @@ class Siswa2Provider with ChangeNotifier{
       print(e); 
     }
   }
+
+
+  late AmbilKoordinatSekolahModel _lokasi = AmbilKoordinatSekolahModel(
+    departemen: '',
+    jarak: 0,
+    jenis: '',
+    latitude: 0,
+    longitude: 0,
+    nama: '',
+    replid: 0
+  );
+
+  AmbilKoordinatSekolahModel get lokasi => _lokasi;
+
+  set lokasi (AmbilKoordinatSekolahModel lokasi){
+    _lokasi = lokasi;
+    notifyListeners();
+  }
+
+  Future<void> getKoordinatSekolah() async{
+    try {
+      AmbilKoordinatSekolahModel lokasi = await SiswaService().getKoordinatSekolah();
+      _lokasi = lokasi; 
+    } catch (e) {
+      // ignore: avoid_print
+      print(e); 
+    }
+  }
+
+
+
 }
