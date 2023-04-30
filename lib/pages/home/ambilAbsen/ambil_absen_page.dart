@@ -6,7 +6,9 @@ import 'package:fe_info_siswa/widgets/appBar_buttom.dart';
 import 'package:fe_info_siswa/widgets/text_buttom.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:sp_util/sp_util.dart';
 
 class AmbilAbsenPage extends StatefulWidget {
   const AmbilAbsenPage({super.key});
@@ -16,6 +18,7 @@ class AmbilAbsenPage extends StatefulWidget {
 }
 
 class _AmbilAbsenPageState extends State<AmbilAbsenPage> {
+  String? cek = SpUtil.getString('cek');
   LocationService locationService = LocationService();
   double latitude =0;
   double longitude =0;
@@ -47,6 +50,16 @@ class _AmbilAbsenPageState extends State<AmbilAbsenPage> {
 
     // const LatLng lokasi = LatLng(-0.0974147,100.4588992);
     LatLng  lokasi = LatLng(koordinat.latitude!,koordinat.longitude!);
+    final DateTime now = DateTime.now();
+    String status ;
+
+    if (now.hour > 5 && now.hour < 12 && now.minute > 0) {
+      status = 'Masuk';
+    } else if(now.hour > 12 && now.hour < 20 && now.minute > 0){
+      status = 'Pulang';
+    }else{
+      status = 'Belum waktunya';
+    }
 
     return Scaffold(
       backgroundColor: background4Color,
@@ -54,7 +67,7 @@ class _AmbilAbsenPageState extends State<AmbilAbsenPage> {
         child: Column(
           children: [
             AppBarButtom(nama: 'Ambil Absen'),
-
+            
             Expanded(
               child: GoogleMap(
                 initialCameraPosition: CameraPosition(
@@ -84,7 +97,7 @@ class _AmbilAbsenPageState extends State<AmbilAbsenPage> {
               color: Colors.white,
               padding: const EdgeInsets.all(16.0),
               width: double.infinity,
-              height: 138,
+              height: 161,
               child: Column(
                 children: [
 
@@ -95,6 +108,12 @@ class _AmbilAbsenPageState extends State<AmbilAbsenPage> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          Center(
+                            child: Text(
+                              status+'->'+now.hour.toString()+'->'+now.minute.toString(), 
+                              style: blackTextStyle.copyWith(fontWeight: light,fontSize: 15),
+                            )
+                          ),
                           Text('Koordinat: $latitude, $longitude', style: blackTextStyle.copyWith(fontWeight: light,fontSize: 15),),
                           Text('Jarak : $jarak m', style: blackTextStyle.copyWith(fontWeight: light,fontSize: 15),),
                           // Text(koordinat.latitude.toString(), style: blackTextStyle.copyWith(fontWeight: light,fontSize: 15),),
@@ -103,11 +122,16 @@ class _AmbilAbsenPageState extends State<AmbilAbsenPage> {
                     ],
                   ),
 
-                  jarak  > int.parse(koordinat.jarak.toString())  ? 
-                    TextButtomSendiri(nama: 'Jauh dari lokasi absen',lebar: double.infinity,)
+                  cek != 'ada' ?
+                    jarak  > int.parse(koordinat.jarak.toString())  ? 
+                      TextButtomSendiri(nama: 'Jauh dari lokasi absen',lebar: double.infinity,)
+                    : 
+                      status == 'Masuk' ?
+                        TextButtomSendiri(nama: 'Absen Masuk',lebar: double.infinity,)
+                      :
+                        TextButtomSendiri(nama: 'Absen Pulang',lebar: double.infinity,)
                   : 
-                    TextButtomSendiri(nama: 'Absen',lebar: double.infinity,)
-
+                    TextButtomSendiri(nama: 'Absen sudah diambil',lebar: double.infinity,)
                 ],
               ),
             ),

@@ -106,5 +106,14 @@ class Siswa2Provider with ChangeNotifier{
   }
 
 
+  Future<void> cekAbsenSiswa() async{
+    try {
+      await SiswaService().cekAbsenSiswa(); 
+    } catch (e) {
+      print(e); 
+    }
+  }
+
+
 
 }

@@ -573,4 +573,33 @@ class SiswaService{
     }
   }
 
+  //cek absen siswa sudah ambil atau belum
+  Future cekAbsenSiswa() async{
+    var url = Uri.parse('$baseUrl/cekSudahAbsenSiswa');
+
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization' : bearrerToken
+    };
+
+    var response = await http.get(
+      url,
+      headers: headers
+    );
+
+    print((response.body));
+    // ignore: avoid_print
+    // print("bisa tahun mundur");
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic>  data = jsonDecode(response.body);
+      // print(data['cek']);
+      SpUtil.putString('cek', data['cek']);
+      
+      // return data;
+    } else {
+      throw Exception("Gagal Ambil data tahun");
+    }
+  }
+
 }
