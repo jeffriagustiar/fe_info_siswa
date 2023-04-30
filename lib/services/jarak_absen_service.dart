@@ -43,7 +43,7 @@ class LocationService{
             double staticLon = SpUtil.getDouble('longitude') ?? 0;
 
             String distance = distanceFromCurrentLocation(currentLat, currentLon, staticLat, staticLon);
-            print('Jarak dari lokasi saat ini ke lokasi statis: $distance m');
+            // print('Jarak dari lokasi saat ini ke lokasi statis: $distance m');
             _locationStreamController.add(
               AmbilAbsenModel(
                 lati: LocationData.latitude!, 

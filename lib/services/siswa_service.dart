@@ -602,4 +602,29 @@ class SiswaService{
     }
   }
 
+  //Ambil Absen Siswa
+  Future ambilAbsenSiswa() async {
+    var url = Uri.parse('$baseUrl/ambilAbsenSiswa');
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization' : bearrerToken
+    };
+
+    var response = await http.post(
+        url,
+        headers: headers,
+    );
+
+    print((response.body));
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      SpUtil.putString('cek', 'ada');
+
+      return data;
+    } else {
+      throw Exception('Gagal Ambil Absen');
+    }
+  }
+
 }

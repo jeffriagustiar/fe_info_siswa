@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 class TextButtomSendiri extends StatelessWidget {
   final String nama;
   final double lebar;
-  TextButtomSendiri({super.key, required this.nama, required this.lebar});
+  final Function() onPressed;
+  TextButtomSendiri({super.key, required this.nama, required this.lebar, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class TextButtomSendiri extends StatelessWidget {
                 backgroundColor: Colors.blue.shade200,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12))),
-            onPressed: (){},
+            onPressed: onPressed,
             child: Text(
               nama,
               style:

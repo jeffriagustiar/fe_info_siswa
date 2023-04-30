@@ -350,4 +350,15 @@ class SiswaProvider with ChangeNotifier{
     }
   }
 
+  //ambil Absen Siswa
+  Future<bool> ambilAbsenSiswa() async {
+    try {
+      await SiswaService().ambilAbsenSiswa();
+      return true;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
 }

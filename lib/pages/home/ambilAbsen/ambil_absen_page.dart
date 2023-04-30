@@ -1,8 +1,10 @@
 import 'package:fe_info_siswa/models/ambilAbsen/ambil_koordidat_sekolah_model.dart';
 import 'package:fe_info_siswa/provider/siswa2_provider.dart';
+import 'package:fe_info_siswa/provider/siswa_provider.dart';
 import 'package:fe_info_siswa/services/jarak_absen_service.dart';
 import 'package:fe_info_siswa/share/theme.dart';
 import 'package:fe_info_siswa/widgets/appBar_buttom.dart';
+import 'package:fe_info_siswa/widgets/loading.dart';
 import 'package:fe_info_siswa/widgets/text_buttom.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -23,6 +25,7 @@ class _AmbilAbsenPageState extends State<AmbilAbsenPage> {
   double latitude =0;
   double longitude =0;
   double jarak=0;
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -42,10 +45,13 @@ class _AmbilAbsenPageState extends State<AmbilAbsenPage> {
     super.dispose();
   }
 
+  
+
   @override
   Widget build(BuildContext context) {
 
     Siswa2Provider siswaProvider = Provider.of<Siswa2Provider>(context);
+    SiswaProvider siswaProvider2 = Provider.of<SiswaProvider>(context);
     AmbilKoordinatSekolahModel koordinat = siswaProvider.lokasi;
 
     // const LatLng lokasi = LatLng(-0.0974147,100.4588992);
@@ -53,7 +59,7 @@ class _AmbilAbsenPageState extends State<AmbilAbsenPage> {
     final DateTime now = DateTime.now();
     String status ;
 
-    if (now.hour > 5 && now.hour < 12 && now.minute > 0) {
+    if (now.hour > 5 && now.hour < 10 && now.minute > 0) {
       status = 'Masuk';
     } else if(now.hour > 12 && now.hour < 20 && now.minute > 0){
       status = 'Pulang';
@@ -61,12 +67,38 @@ class _AmbilAbsenPageState extends State<AmbilAbsenPage> {
       status = 'Belum waktunya';
     }
 
+
+    absen() async {
+      setState(() {
+        isLoading = true;
+      });
+      
+      if (await siswaProvider2.ambilAbsenSiswa()) {
+        Navigator.pushNamed(context, '/home');
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: alertColor,
+            content: Text(
+              'Gagal Register!',
+              textAlign: TextAlign.center,
+            )));
+      }
+
+      setState(() {
+        isLoading = false;
+      });
+    }
+
+
+
     return Scaffold(
       backgroundColor: background4Color,
       body: SafeArea(
         child: Column(
           children: [
             AppBarButtom(nama: 'Ambil Absen'),
+
+            isLoading ? Loading() : SizedBox(),
             
             Expanded(
               child: GoogleMap(
@@ -110,7 +142,7 @@ class _AmbilAbsenPageState extends State<AmbilAbsenPage> {
                         children: [
                           Center(
                             child: Text(
-                              status+'->'+now.hour.toString()+'->'+now.minute.toString(), 
+                              status, 
                               style: blackTextStyle.copyWith(fontWeight: light,fontSize: 15),
                             )
                           ),
@@ -121,17 +153,18 @@ class _AmbilAbsenPageState extends State<AmbilAbsenPage> {
                       )
                     ],
                   ),
-
-                  cek != 'ada' ?
-                    jarak  > int.parse(koordinat.jarak.toString())  ? 
-                      TextButtomSendiri(nama: 'Jauh dari lokasi absen',lebar: double.infinity,)
-                    : 
-                      status == 'Masuk' ?
-                        TextButtomSendiri(nama: 'Absen Masuk',lebar: double.infinity,)
-                      :
-                        TextButtomSendiri(nama: 'Absen Pulang',lebar: double.infinity,)
+                  
+                  jarak  > int.parse(koordinat.jarak.toString())  ? 
+                    TextButtomSendiri(nama: 'Jauh dari lokasi absen',onPressed: (){},lebar: double.infinity,)
                   : 
-                    TextButtomSendiri(nama: 'Absen sudah diambil',lebar: double.infinity,)
+                    status == 'Masuk' ?
+                      cek != 'ada' ?
+                        TextButtomSendiri(nama: 'Absen Masuk',onPressed: absen,lebar: double.infinity,)
+                      :
+                        TextButtomSendiri(nama: 'Absen Sudah Diambil',onPressed: (){},lebar: double.infinity,)
+                    :
+                      TextButtomSendiri(nama: 'Absen Pulang',onPressed: absen,lebar: double.infinity,)
+
                 ],
               ),
             ),
