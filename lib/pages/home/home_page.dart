@@ -53,12 +53,19 @@ class _HomePageState extends State<HomePage> {
     await Provider.of<SiswaProvider>(context, listen: false).getsemester();
     // ignore: use_build_context_synchronously
     await Provider.of<SiswaProvider>(context, listen: false).gettahun();
+    // ignore: use_build_context_synchronously
+    await Provider.of<SiswaProvider>(context, listen: false).getDataTahun();
+  }
+
+  dataAbsenCepat() async{
+    await Provider.of<SiswaProvider>(context, listen: false).getAbsenTercepat();
   }
   
   @override
   Widget build(BuildContext context) {
 
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    SiswaProvider siswaProvider = Provider.of<SiswaProvider>(context);
     // UserModel user = authProvider.user;
 
     // SiswaProvider siswaProvider = Provider.of<SiswaProvider>(context);
@@ -257,7 +264,83 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       );
-    }    
+    }  
+
+    Widget tailHadir(
+      String nama, 
+      String kelas, 
+      String jam, 
+      String kelamin
+    )
+    {
+      return Container(
+        margin: const EdgeInsets.only(left: 5),
+        decoration: BoxDecoration(
+          color: background4Color,
+          borderRadius: BorderRadius.circular(15)
+        ),
+        child: Column(
+          children: [
+      
+            Container(
+              width: 100,
+              height: 100,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: AssetImage(
+                    kelamin == 'p' ? 'assets/ic_profile_cewek.gif' : 'assets/ic_profile_cowok.gif'
+                  )
+                )
+              ),
+            ),
+      
+            Container(
+              margin: const EdgeInsets.only(left: 5, top: 10),
+              width: 100,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(nama, style: blackTextStyle.copyWith(fontWeight: medium),),
+                  Text("Kelas : $kelas", style: blackTextStyle.copyWith(fontWeight: medium),),
+                  Text("Jam : $jam", style: blackTextStyle.copyWith(fontWeight: medium),),
+                ],
+              )
+            )
+          ],
+        ),
+      );
+    }
+    
+
+    Widget infoHadir()
+    {
+      return Container(
+        margin: const EdgeInsets.only(left: 10, bottom: 30),
+        height: 200,
+        child: FutureBuilder(
+          future: dataAbsenCepat(),
+          builder: (context, snapshot) {
+            if (siswaProvider.absenTercepat.isEmpty) {
+              return Text("Belum ada yang ambil absen",style: blackTextStyle.copyWith(fontWeight: semibold),);
+            } else {
+            return ListView(
+              scrollDirection: Axis.horizontal,
+              children: siswaProvider.absenTercepat.map(
+                (tercepat) => tailHadir(
+                  tercepat.siswa!.panggilan.toString(), 
+                  tercepat.kelas!.kelas.toString(), 
+                  tercepat.masuk.toString(), 
+                  tercepat.siswa!.kelamin.toString()
+                )
+              ).toList(),
+            );
+            }
+          }
+        ),
+      );
+    }  
 
     return Scaffold(
       backgroundColor: backgroundColor,
@@ -267,8 +350,12 @@ class _HomePageState extends State<HomePage> {
           children: [
             header(),
             infoSpp(),
-            // titileMenu(),
-            fitur()
+            fitur(),
+            Container(
+              margin: const EdgeInsets.only(left: 15,bottom: 15,top: 5),
+              child: Text("Siswa absen tercepat hari ini", style: blackTextStyle.copyWith(fontWeight: semibold),)
+            ),
+            infoHadir()
           ],
         ),
       ),

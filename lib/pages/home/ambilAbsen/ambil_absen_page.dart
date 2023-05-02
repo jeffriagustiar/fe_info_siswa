@@ -59,9 +59,9 @@ class _AmbilAbsenPageState extends State<AmbilAbsenPage> {
     final DateTime now = DateTime.now();
     String status ;
 
-    if (now.hour > 5 && now.hour < 10 && now.minute > 0) {
+    if (now.hour >= 5 && now.hour < 10 && now.minute > 0) {
       status = 'Masuk';
-    } else if(now.hour > 12 && now.hour < 20 && now.minute > 0){
+    } else if(now.hour >= 12 && now.hour < 20 && now.minute > 0){
       status = 'Pulang';
     }else{
       status = 'Belum waktunya';
@@ -163,7 +163,10 @@ class _AmbilAbsenPageState extends State<AmbilAbsenPage> {
                       :
                         TextButtomSendiri(nama: 'Absen Sudah Diambil',onPressed: (){},lebar: double.infinity,)
                     :
-                      TextButtomSendiri(nama: 'Absen Pulang',onPressed: absen,lebar: double.infinity,)
+                      status == 'Pulang' ? 
+                        TextButtomSendiri(nama: 'Absen Pulang',onPressed: absen,lebar: double.infinity,)
+                      :
+                        TextButtomSendiri(nama: status,onPressed: (){},lebar: double.infinity,)
 
                 ],
               ),

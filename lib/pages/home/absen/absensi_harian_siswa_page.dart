@@ -36,8 +36,6 @@ class _AbsenHarianSiswaPageState extends State<AbsenHarianSiswaPage> {
   }
 
   data() async{
-    await Provider.of<SiswaProvider>(context, listen: false).getDataTahun();
-    // ignore: use_build_context_synchronously
     await Provider.of<SiswaProvider>(context, listen: false).getpresenSiswa(_tahun2!, _itemmonth!);
   }
 

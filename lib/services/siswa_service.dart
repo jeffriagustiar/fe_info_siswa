@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:fe_info_siswa/models/absen/absen_pelajaran_hitung_model.dart';
 import 'package:fe_info_siswa/models/absen/absen_per_pelajaran_detail_model.dart';
 import 'package:fe_info_siswa/models/absen/detail_absen_pelajaran_model.dart';
+import 'package:fe_info_siswa/models/ambilAbsen/absen_tercepat_harian_model.dart';
 import 'package:fe_info_siswa/models/ambilAbsen/ambil_koordidat_sekolah_model.dart';
 import 'package:fe_info_siswa/models/nilai/jenis_nilai_harian_model.dart';
 import 'package:fe_info_siswa/models/mapel_model.dart';
@@ -55,6 +56,38 @@ class SiswaService{
     }
   }
 
+  //ambil data siswa absen tercepat
+  Future<List<AbsenTercepatHarianModel>> getAbsenTercepat() async{
+    var url = Uri.parse('$baseUrl/siswaTercepatAmbilAbsen');
+
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization' : bearrerToken
+    };
+
+    var response = await http.get(
+      url,
+      headers: headers
+    );
+
+    // print((response.body));
+    // print("bisa");
+
+    if (response.statusCode == 200) {
+      List  data = jsonDecode(response.body)['data'];
+      List<AbsenTercepatHarianModel> siswa = [];
+
+      for (var item in data) {
+        siswa.add(AbsenTercepatHarianModel.fromJson(item));
+        // print(data[item]['siswa']['kelas']['kelas']);
+        // print(item);
+      }
+      return siswa;
+    } else {
+      throw Exception("Gagal Ambil data absen tercepat");
+    }
+  }
+
   //ambil data siswa berdasarkan nis
   Future<SiswaModel> getSiswaByNis(int nis) async{
     var url = Uri.parse('$baseUrl/dataSiswa/?nis=$nis');
@@ -96,7 +129,7 @@ class SiswaService{
       headers: headers
     );
 
-    print(response.body);
+    // print(response.body);
     // print("bisa siswa");
 
     if (response.statusCode == 200) {
@@ -587,7 +620,7 @@ class SiswaService{
       headers: headers
     );
 
-    print((response.body));
+    // print((response.body));
     // ignore: avoid_print
     // print("bisa tahun mundur");
 
@@ -615,7 +648,7 @@ class SiswaService{
         headers: headers,
     );
 
-    print((response.body));
+    // print((response.body));
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);

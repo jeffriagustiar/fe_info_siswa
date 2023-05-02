@@ -1,6 +1,7 @@
 import 'package:fe_info_siswa/models/absen/absen_pelajaran_hitung_model.dart';
 import 'package:fe_info_siswa/models/absen/absen_per_pelajaran_detail_model.dart';
 import 'package:fe_info_siswa/models/absen/detail_absen_pelajaran_model.dart';
+import 'package:fe_info_siswa/models/ambilAbsen/absen_tercepat_harian_model.dart';
 import 'package:fe_info_siswa/models/nilai/jenis_nilai_harian_model.dart';
 import 'package:fe_info_siswa/models/mapel_model.dart';
 import 'package:fe_info_siswa/models/nilai/mapel_nilai_harian_model.dart';
@@ -22,6 +23,15 @@ class SiswaProvider with ChangeNotifier{
 
   set siswa(List<SiswaModel> siswa){
     _siswa = siswa;
+    notifyListeners();
+  }
+  
+  List<AbsenTercepatHarianModel> _absenTercepat = [];
+
+  List<AbsenTercepatHarianModel> get absenTercepat => _absenTercepat;
+
+  set absenTercepat(List<AbsenTercepatHarianModel> absenTercepat){
+    _absenTercepat = absenTercepat;
     notifyListeners();
   }
 
@@ -152,6 +162,16 @@ class SiswaProvider with ChangeNotifier{
     try {
       List<SiswaModel> siswa = await SiswaService().getSiswa();
       _siswa = siswa; 
+    } catch (e) {
+      // ignore: avoid_print
+      print(e); 
+    }
+  }
+  //ambil data siswa absen tercepat
+  Future<void> getAbsenTercepat() async{
+    try {
+      List<AbsenTercepatHarianModel> absenTercepat = await SiswaService().getAbsenTercepat();
+      _absenTercepat = absenTercepat; 
     } catch (e) {
       // ignore: avoid_print
       print(e); 
