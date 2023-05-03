@@ -55,6 +55,7 @@ class _HomePageState extends State<HomePage> {
     await Provider.of<SiswaProvider>(context, listen: false).gettahun();
     // ignore: use_build_context_synchronously
     await Provider.of<SiswaProvider>(context, listen: false).getDataTahun();
+    dataAbsenCepat();
   }
 
   dataAbsenCepat() async{
@@ -283,8 +284,9 @@ class _HomePageState extends State<HomePage> {
           children: [
       
             Container(
-              width: 100,
+              width: 110,
               height: 100,
+              margin: EdgeInsets.only(top: 5),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
                 image: DecorationImage(
@@ -298,7 +300,7 @@ class _HomePageState extends State<HomePage> {
       
             Container(
               margin: const EdgeInsets.only(left: 5, top: 10),
-              width: 100,
+              width: 110,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
