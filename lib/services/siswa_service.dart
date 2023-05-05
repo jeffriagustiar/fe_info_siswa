@@ -70,7 +70,7 @@ class SiswaService{
       headers: headers
     );
 
-    // print((response.body));
+    print((response.body));
     // print("bisa");
 
     if (response.statusCode == 200) {
@@ -589,7 +589,7 @@ class SiswaService{
       headers: headers
     );
 
-    // print((response.body));
+    print((response.body));
     // ignore: avoid_print
     // print("bisa tahun mundur");
 
@@ -602,7 +602,7 @@ class SiswaService{
       }
       return tahun;
     } else {
-      throw Exception("Gagal Ambil data tahun");
+      throw Exception("Gagal Ambil data tahun absen");
     }
   }
 

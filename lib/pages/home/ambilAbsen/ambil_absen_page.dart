@@ -8,7 +8,6 @@ import 'package:fe_info_siswa/widgets/loading.dart';
 import 'package:fe_info_siswa/widgets/text_buttom.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sp_util/sp_util.dart';
 
@@ -74,11 +73,13 @@ class _AmbilAbsenPageState extends State<AmbilAbsenPage> {
       });
       
       if (await siswaProvider2.ambilAbsenSiswa()) {
+        // ignore: use_build_context_synchronously
         Navigator.pushNamed(context, '/home');
       } else {
+        // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             backgroundColor: alertColor,
-            content: Text(
+            content: const Text(
               'Gagal Register!',
               textAlign: TextAlign.center,
             )));
@@ -98,7 +99,7 @@ class _AmbilAbsenPageState extends State<AmbilAbsenPage> {
           children: [
             AppBarButtom(nama: 'Ambil Absen'),
 
-            isLoading ? Loading() : SizedBox(),
+            isLoading ? const Loading() : const SizedBox(),
             
             Expanded(
               child: GoogleMap(
@@ -108,16 +109,19 @@ class _AmbilAbsenPageState extends State<AmbilAbsenPage> {
                 ),
                 markers: {
                   Marker(
+                    // ignore: prefer_interpolation_to_compose_strings
                     markerId: MarkerId('Lokasi Sekolah : '+koordinat.nama.toString()),
                     position: lokasi,
                     infoWindow: InfoWindow(
+                      // ignore: prefer_interpolation_to_compose_strings
                       title: 'Lokasi Sekolah : '+koordinat.nama.toString(),
                     ),
                   ),
                   Marker(
+                    // ignore: prefer_const_constructors
                     markerId: MarkerId('Lokasi Kamu'),
                     position: LatLng(latitude, longitude),
-                    infoWindow: InfoWindow(
+                    infoWindow: const InfoWindow(
                       title: 'Lokasi Kamu',
                     ),
                   ),

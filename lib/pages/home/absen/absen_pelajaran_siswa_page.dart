@@ -98,7 +98,7 @@ class _AbsenPelajaranSiswaPageState extends State<AbsenPelajaranSiswaPage> {
                             _tahun2 = newValue;
                           });
                         },
-                      items: siswaProvider.tahun.map((location) {
+                      items: siswaProvider.tahunAbsen.map((location) {
                           return DropdownMenuItem(
                             // ignore: unnecessary_new, sort_child_properties_last
                             child: new Text(location.tahun.toString(),),

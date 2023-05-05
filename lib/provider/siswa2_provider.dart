@@ -110,7 +110,7 @@ class Siswa2Provider with ChangeNotifier{
     try {
       await SiswaService().cekAbsenSiswa(); 
     } catch (e) {
-      print(e); 
+      // print(e); 
     }
   }
 

@@ -126,7 +126,7 @@ class _AbsenHarianSiswaPageState extends State<AbsenHarianSiswaPage> {
                             _tahun2 = newValue;
                           });
                         },
-                      items: siswaProvider.tahun.map((location) {
+                      items: siswaProvider.tahunAbsen.map((location) {
                           return DropdownMenuItem(
                             // ignore: unnecessary_new, sort_child_properties_last
                             child: new Text(location.tahun.toString(),),
@@ -278,45 +278,45 @@ class _AbsenHarianSiswaPageState extends State<AbsenHarianSiswaPage> {
       );
     }
 
-    Widget hitung(){
-      return Container(
-        margin: const EdgeInsets.only(top: 20,left: 10, right: 10),
-        padding: const EdgeInsetsDirectional.all(15),
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: background4Color,
-          borderRadius: BorderRadius.circular(15)
-        ),
-        child: GridView(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 5
-        ),
-        shrinkWrap: true,
-          children: [
-            Container(
-              height: 50,
-              width: 50,
-              child: const Text("data")
-            ),
-            Container(
-              height: 50,
-              width: 50,
-              child: const Text("data")
-            ),
-            Container(
-              height: 50,
-              width: 50,
-              child: const Text("data")
-            ),
-            Container(
-              height: 50,
-              width: 50,
-              child: const Text("data")
-            ),
-          ],
-        ),
-      );
-    }
+    // Widget hitung(){
+    //   return Container(
+    //     margin: const EdgeInsets.only(top: 20,left: 10, right: 10),
+    //     padding: const EdgeInsetsDirectional.all(15),
+    //     width: double.infinity,
+    //     decoration: BoxDecoration(
+    //       color: background4Color,
+    //       borderRadius: BorderRadius.circular(15)
+    //     ),
+    //     child: GridView(
+    //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+    //       crossAxisCount: 5
+    //     ),
+    //     shrinkWrap: true,
+    //       children: [
+    //         Container(
+    //           height: 50,
+    //           width: 50,
+    //           child: const Text("data")
+    //         ),
+    //         Container(
+    //           height: 50,
+    //           width: 50,
+    //           child: const Text("data")
+    //         ),
+    //         Container(
+    //           height: 50,
+    //           width: 50,
+    //           child: const Text("data")
+    //         ),
+    //         Container(
+    //           height: 50,
+    //           width: 50,
+    //           child: const Text("data")
+    //         ),
+    //       ],
+    //     ),
+    //   );
+    // }
 
     return Scaffold(
       backgroundColor: backgroundColor,

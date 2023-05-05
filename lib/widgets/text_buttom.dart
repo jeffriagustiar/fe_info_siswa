@@ -5,6 +5,7 @@ class TextButtomSendiri extends StatelessWidget {
   final String nama;
   final double lebar;
   final Function() onPressed;
+  // ignore: prefer_const_constructors_in_immutables
   TextButtomSendiri({super.key, required this.nama, required this.lebar, required this.onPressed});
 
   @override

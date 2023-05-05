@@ -98,6 +98,15 @@ class SiswaProvider with ChangeNotifier{
     notifyListeners();
   }
 
+  List<TahunModel> _tahunAbsen = [];
+
+  List<TahunModel> get tahunAbsen => _tahunAbsen;
+
+  set tahunAbsen(List<TahunModel> tahunAbsen){
+    _tahunAbsen = tahunAbsen;
+    notifyListeners();
+  }
+
   List<SemesterModel> _semester = [];
 
   List<SemesterModel> get semester => _semester;
@@ -360,10 +369,10 @@ class SiswaProvider with ChangeNotifier{
 
   // ambil data tahun, 5 tahun kebelakang
   Future<void> getDataTahun() async{
-    _tahun=[];
+    _tahunAbsen=[];
     try {
-      List<TahunModel> tahun = await SiswaService().getDataTahun();
-      _tahun = tahun; 
+      List<TahunModel> tahunAbsen = await SiswaService().getDataTahun();
+      _tahunAbsen = tahunAbsen; 
     } catch (e) {
       // ignore: avoid_print
       print(e); 
@@ -376,7 +385,7 @@ class SiswaProvider with ChangeNotifier{
       await SiswaService().ambilAbsenSiswa();
       return true;
     } catch (e) {
-      print(e);
+      // print(e);
       return false;
     }
   }
