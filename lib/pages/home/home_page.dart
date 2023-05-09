@@ -30,6 +30,16 @@ class _HomePageState extends State<HomePage> {
 
   // ignore: unused_field
   bool _isRefreshing = false;
+  
+
+  @override
+  void initState() {
+    super.initState();
+    dataAbsen();
+    dataDll();
+    dataSiswa();
+    print("bisa");
+  }
 
   Future<void> getInit() async{
     setState(() {
@@ -41,25 +51,49 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  data() async{
-    await Provider.of<Siswa2Provider>(context, listen: false).getSiswaByNis(nis!);
-    // ignore: use_build_context_synchronously
+
+  dataAbsen() async{
     await Provider.of<Siswa2Provider>(context, listen: false).getKoordinatSekolah();
     // ignore: use_build_context_synchronously
     await Provider.of<Siswa2Provider>(context, listen: false).cekAbsenSiswa();
-    // ignore: use_build_context_synchronously
-    await Provider.of<SppProvider>(context, listen: false).getSpp();
-    // ignore: use_build_context_synchronously
+    print("bisa absen");
+  }
+
+  dataDll() async{
     await Provider.of<SiswaProvider>(context, listen: false).getsemester();
     // ignore: use_build_context_synchronously
     await Provider.of<SiswaProvider>(context, listen: false).gettahun();
     // ignore: use_build_context_synchronously
     await Provider.of<SiswaProvider>(context, listen: false).getDataTahun();
+    print("bisa Dll");
+  }
+
+  dataSiswa() async{
+    await Provider.of<Siswa2Provider>(context, listen: false).getSiswaByNis(nis!);
+    // ignore: use_build_context_synchronously
+    print("bisa siswa");
+  }
+
+  data() async{
+    // await Provider.of<Siswa2Provider>(context, listen: false).getSiswaByNis(nis!);
+    // // ignore: use_build_context_synchronously
+    // await Provider.of<Siswa2Provider>(context, listen: false).getKoordinatSekolah();
+    // // ignore: use_build_context_synchronously
+    // await Provider.of<Siswa2Provider>(context, listen: false).cekAbsenSiswa();
+    // // ignore: use_build_context_synchronously
+    await Provider.of<SppProvider>(context, listen: false).getSpp();
+    // // ignore: use_build_context_synchronously
+    // await Provider.of<SiswaProvider>(context, listen: false).getsemester();
+    // // ignore: use_build_context_synchronously
+    // await Provider.of<SiswaProvider>(context, listen: false).gettahun();
+    // // ignore: use_build_context_synchronously
+    // await Provider.of<SiswaProvider>(context, listen: false).getDataTahun();
     // dataAbsenCepat();
+    print("bisa SPP");
   }
 
   dataAbsenCepat() async{
-    await Provider.of<SiswaProvider>(context, listen: false).getAbsenTercepat();
+    // await Provider.of<SiswaProvider>(context, listen: false).getAbsenTercepat();
   }
   
   @override
@@ -353,11 +387,11 @@ class _HomePageState extends State<HomePage> {
             header(),
             infoSpp(),
             fitur(),
-            Container(
-              margin: const EdgeInsets.only(left: 15,bottom: 15,top: 5),
-              child: Text("Siswa absen tercepat hari ini", style: blackTextStyle.copyWith(fontWeight: semibold),)
-            ),
-            infoHadir()
+            // Container(
+            //   margin: const EdgeInsets.only(left: 15,bottom: 15,top: 5),
+            //   child: Text("Siswa absen tercepat hari ini", style: blackTextStyle.copyWith(fontWeight: semibold),)
+            // ),
+            // infoHadir()
           ],
         ),
       ),

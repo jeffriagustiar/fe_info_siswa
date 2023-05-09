@@ -47,7 +47,7 @@ class _NilaiPancasilaRaporPageState extends State<NilaiPancasilaRaporPage> {
   // }
   
   data2(String mapel) async{
-    await Provider.of<SiswaProvider>(context, listen: false).getRaporSiswaP(_semester2!, _tahunAjaran2!, '136');
+    await Provider.of<SiswaProvider>(context, listen: false).getRaporSiswaP(_semester2!, _tahunAjaran2!, mapel);
   }
 
   @override
@@ -207,7 +207,7 @@ class _NilaiPancasilaRaporPageState extends State<NilaiPancasilaRaporPage> {
                 content: Container(
                 height: 300,
                 child: FutureBuilder(
-                  future: data2(mapel),
+                  future: data2(idmapel),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Loading();

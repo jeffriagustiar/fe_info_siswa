@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 // String url = 'http://127.0.0.1:8000/api';
-String url = 'http://192.168.148.56:8000/api';
+String url = 'http://192.168.117.56:8000/api';
 
 Color blackColor = const Color(0xff404040);
 Color greyColor = const Color(0xffC7C9D9);

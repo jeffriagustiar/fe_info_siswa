@@ -31,7 +31,7 @@ class SppModel{
       //akomulasi dan sisa SPP siswa
       besar: json['besar'], 
       dibayar: json['dibayar'], 
-      sisa: json['sisa'], 
+      sisa:  json['sisa'], 
       persen: json['persen'],
       persen2: json['persen2'],
 
