@@ -1,9 +1,12 @@
+import 'package:fe_info_siswa/models/catatan/detail_model.dart';
+
 class KategoriModel{
   late int? replid;
   late String? namaKategori;
   late String? kategori;
   late String? ket;
   late String? ts;
+  late List<DetailModel> detail;
 
   KategoriModel({
     this.replid,
@@ -11,6 +14,7 @@ class KategoriModel{
     this.kategori,
     this.ket,
     this.ts,
+    required this.detail,
   });
 
   factory KategoriModel.fromJson(Map<String, dynamic> json){
@@ -20,6 +24,9 @@ class KategoriModel{
       kategori: json['kategori'],
       ket: json['ket'],
       ts: json['ts'],
+      detail: json['detail']
+        .map<DetailModel>((gallery) => DetailModel.fromJson(gallery))
+        .toList()
     );
   }
 
@@ -30,6 +37,7 @@ class KategoriModel{
       'kategori': kategori,
       'ket': ket,
       'ts': ts,
+      'detail': detail.map((detail2) => detail2.toJson()).toList(),
     };
   }
 }

@@ -676,9 +676,9 @@ class SiswaService{
     );
 
     // ignore: avoid_print
-    // print((response.body));
+    print((response.body));
     // ignore: avoid_print
-    // print("bisa mapel nilai harian");
+    print("bisa mapel nilai harian");
 
     if (response.statusCode == 200) {
       List  data = jsonDecode(response.body)['data'];

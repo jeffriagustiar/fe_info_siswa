@@ -1,3 +1,4 @@
+import 'package:fe_info_siswa/models/catatan/kategori_model.dart';
 import 'package:fe_info_siswa/provider/siswa_provider.dart';
 import 'package:fe_info_siswa/share/theme.dart';
 import 'package:fe_info_siswa/widgets/appBar_buttom.dart';
@@ -50,30 +51,31 @@ class _InfoPageState extends State<InfoPage> {
 
     SiswaProvider siswaProvider = Provider.of<SiswaProvider>(context);
 
-    Widget infoPoint()
+    Widget infoPoint(String nmCtt, String poin2)
     {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            "Merokok disekolah",
+            nmCtt,
             style: blackTextStyle.copyWith(
               fontSize: 15,
               fontWeight: regular
             ),
           ),
           Text(
-            "10",
+            poin2.toString(),
             style: blackTextStyle.copyWith(
               fontSize: 15,
-              fontWeight: regular
+              fontWeight: regular,
+              color:  int.parse(poin2) < 0 ? Colors.red : Colors.green
             ),
           )
         ],
       );
     }
 
-    Widget catatan(String nama, String desc)
+    Widget catatan(String nama, String desc, KategoriModel km)
     {
       return Column(
         crossAxisAlignment:CrossAxisAlignment.start,
@@ -99,8 +101,13 @@ class _InfoPageState extends State<InfoPage> {
             color: blackColor,
           ),
           const SizedBox(height: 5,),
-          infoPoint(),
-          infoPoint(),
+          Column(
+            children: km.detail.map((kmCtt) => 
+              infoPoint(
+                kmCtt.namaCtt.toString(),
+                kmCtt.point.toString() 
+              )).toList(),
+          ),
           const SizedBox(height: 20,),
         ],
       );
@@ -156,7 +163,8 @@ class _InfoPageState extends State<InfoPage> {
                           return Column(
                             children: siswaProvider.infoCatatan.map((info) => catatan(
                               info.namaKategori.toString(),
-                              info.ket.toString()
+                              info.ket.toString(),
+                              info
                             )).toList()
                           );
                         }
