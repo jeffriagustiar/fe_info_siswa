@@ -33,6 +33,7 @@ class FiturButtom extends StatelessWidget {
                 fontSize: 12,
                 fontWeight: regular
               ),
+              textAlign: TextAlign.center,
             )
           ],
         ),

@@ -233,7 +233,6 @@ class _HomePageState extends State<HomePage> {
 
     Widget fitur(){
       return Container(
-        padding: const EdgeInsets.all(25),
         margin: const EdgeInsets.all(15),
         decoration: BoxDecoration(
           color: background4Color,
@@ -242,8 +241,14 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: [
 
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            GridView(
+              padding: const EdgeInsets.only(top: 10,bottom: 10 ),
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 4,
+                childAspectRatio: 0.7,
+              ),
+              shrinkWrap: true,
               children: [
                 FiturButtom(
                   nama: 'Profile', 
@@ -273,14 +278,6 @@ class _HomePageState extends State<HomePage> {
                   },
                   img: 'assets/ic_absen.gif',
                 ),
-              ],
-            ),
-
-            const SizedBox(height: 10,),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
                 FiturButtom(
                   nama: 'Ambil Absen', 
                   onPressed: (){
@@ -289,12 +286,19 @@ class _HomePageState extends State<HomePage> {
                   img: 'assets/ic_fingerprint.png',
                 ),
                 FiturButtom(
+                  nama: 'Catatan & Aturan', 
+                  onPressed: (){
+                    Navigator.pushNamed(context, 'menu-ctt-aturan');
+                  }, 
+                  img: 'assets/ic_ctt.png',
+                ),
+                FiturButtom(
                   nama: 'Logout', 
                   onPressed: handleLogOut, 
                   img: 'assets/ic_logout.png',
                 ),
               ],
-            ),
+            )
 
           ],
         ),

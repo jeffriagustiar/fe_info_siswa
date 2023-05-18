@@ -2,6 +2,7 @@ import 'package:fe_info_siswa/models/absen/absen_pelajaran_hitung_model.dart';
 import 'package:fe_info_siswa/models/absen/absen_per_pelajaran_detail_model.dart';
 import 'package:fe_info_siswa/models/absen/detail_absen_pelajaran_model.dart';
 import 'package:fe_info_siswa/models/ambilAbsen/absen_tercepat_harian_model.dart';
+import 'package:fe_info_siswa/models/catatan/kategori_model.dart';
 import 'package:fe_info_siswa/models/nilai/jenis_nilai_harian_model.dart';
 import 'package:fe_info_siswa/models/mapel_model.dart';
 import 'package:fe_info_siswa/models/nilai/mapel_nilai_harian_model.dart';
@@ -158,6 +159,16 @@ class SiswaProvider with ChangeNotifier{
 
   set absenPerMapel(List<AbsenPerPelajaranDetailModel> absenPerMapel){
     _absenPerMapel = absenPerMapel;
+    notifyListeners();
+  }
+
+
+  List<KategoriModel> _infoCatatan = [];
+
+  List<KategoriModel> get infoCatatan => _infoCatatan;
+
+  set infoCatatan(List<KategoriModel> infoCatatan){
+    _infoCatatan = infoCatatan;
     notifyListeners();
   }
 
@@ -387,6 +398,18 @@ class SiswaProvider with ChangeNotifier{
     } catch (e) {
       // print(e);
       return false;
+    }
+  }
+
+  //Ambil Data Info Tatatertib atau Catatan
+  Future<void> getInfoCatatan(String jenis) async{
+    _infoCatatan = [];
+    try {
+      List<KategoriModel> infoCatatan = await SiswaService().getInfoCatatan(jenis);
+      _infoCatatan = infoCatatan; 
+    } catch (e) {
+      // ignore: avoid_print
+      print(e); 
     }
   }
 

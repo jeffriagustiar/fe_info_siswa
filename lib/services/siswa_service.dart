@@ -5,6 +5,7 @@ import 'package:fe_info_siswa/models/absen/absen_per_pelajaran_detail_model.dart
 import 'package:fe_info_siswa/models/absen/detail_absen_pelajaran_model.dart';
 import 'package:fe_info_siswa/models/ambilAbsen/absen_tercepat_harian_model.dart';
 import 'package:fe_info_siswa/models/ambilAbsen/ambil_koordidat_sekolah_model.dart';
+import 'package:fe_info_siswa/models/catatan/kategori_model.dart';
 import 'package:fe_info_siswa/models/nilai/jenis_nilai_harian_model.dart';
 import 'package:fe_info_siswa/models/mapel_model.dart';
 import 'package:fe_info_siswa/models/nilai/mapel_nilai_harian_model.dart';
@@ -657,6 +658,39 @@ class SiswaService{
       return data;
     } else {
       throw Exception('Gagal Ambil Absen');
+    }
+  }
+
+  //Ambil Data Info Tatatertib atau Catatan
+  Future<List<KategoriModel>> getInfoCatatan(String jenis) async{
+    var url = Uri.parse('$baseUrl/catatan?jenis=$jenis');
+
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization' : bearrerToken
+    };
+
+    var response = await http.get(
+      url,
+      headers: headers
+    );
+
+    // ignore: avoid_print
+    // print((response.body));
+    // ignore: avoid_print
+    // print("bisa mapel nilai harian");
+
+    if (response.statusCode == 200) {
+      List  data = jsonDecode(response.body)['data'];
+      // ignore: non_constant_identifier_names
+      List<KategoriModel> infoCatatan = [];
+
+      for (var item in data) {
+        infoCatatan.add(KategoriModel.fromJson(item));
+      }
+      return infoCatatan;
+    } else {
+      throw Exception("Gagal Ambil data info Catatan");
     }
   }
 
