@@ -102,7 +102,7 @@ class _InfoPageState extends State<InfoPage> {
           ),
           const SizedBox(height: 5,),
           Column(
-            children: km.detail.map((kmCtt) => 
+            children: km.detail!.map((kmCtt) => 
               infoPoint(
                 kmCtt.namaCtt.toString(),
                 kmCtt.point.toString() 

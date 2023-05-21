@@ -120,7 +120,9 @@ class MenuCttAturan extends StatelessWidget {
             ),
             FiturButtom(
               nama: "Catatan", 
-              onPressed: (){}, 
+              onPressed: (){
+                Navigator.pushNamed(context, 'catatan-siswa');
+              }, 
               img: 'assets/ic_catatan.png'
             )
           ],

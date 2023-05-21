@@ -6,7 +6,7 @@ class KategoriModel{
   late String? kategori;
   late String? ket;
   late String? ts;
-  late List<DetailModel> detail;
+  late List<DetailModel>? detail;
 
   KategoriModel({
     this.replid,
@@ -14,7 +14,7 @@ class KategoriModel{
     this.kategori,
     this.ket,
     this.ts,
-    required this.detail,
+    this.detail,
   });
 
   factory KategoriModel.fromJson(Map<String, dynamic> json){
@@ -37,7 +37,7 @@ class KategoriModel{
       'kategori': kategori,
       'ket': ket,
       'ts': ts,
-      'detail': detail.map((detail2) => detail2.toJson()).toList(),
+      'detail': detail?.map((detail2) => detail2.toJson()).toList(),
     };
   }
 }

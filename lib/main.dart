@@ -1,3 +1,4 @@
+import 'package:fe_info_siswa/pages/home/CttDanAturan/catatan_siswa_page.dart';
 import 'package:fe_info_siswa/pages/home/CttDanAturan/info_page.dart';
 import 'package:fe_info_siswa/pages/home/CttDanAturan/menu_ctt_aturan.dart';
 import 'package:fe_info_siswa/pages/home/absen/absen_pelajaran_siswa_page.dart';
@@ -85,6 +86,7 @@ class MyApp extends StatelessWidget {
           //? Catatan dan Aturan
           'menu-ctt-aturan' :(context) => const MenuCttAturan(),
           'tatatertib-sekolah' :(context) => const InfoPage(),
+          'catatan-siswa' :(context) => const CatatanSiswaPage(),
 
           //? Ambil Absen
           '/ambil-absen' :(context) => const AmbilAbsenPage()
