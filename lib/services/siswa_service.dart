@@ -5,7 +5,9 @@ import 'package:fe_info_siswa/models/absen/absen_per_pelajaran_detail_model.dart
 import 'package:fe_info_siswa/models/absen/detail_absen_pelajaran_model.dart';
 import 'package:fe_info_siswa/models/ambilAbsen/absen_tercepat_harian_model.dart';
 import 'package:fe_info_siswa/models/ambilAbsen/ambil_koordidat_sekolah_model.dart';
+import 'package:fe_info_siswa/models/catatan/catatan_siswa_model.dart';
 import 'package:fe_info_siswa/models/catatan/kategori_model.dart';
+import 'package:fe_info_siswa/models/catatan/point_siswa_model.dart';
 import 'package:fe_info_siswa/models/nilai/jenis_nilai_harian_model.dart';
 import 'package:fe_info_siswa/models/mapel_model.dart';
 import 'package:fe_info_siswa/models/nilai/mapel_nilai_harian_model.dart';
@@ -691,6 +693,67 @@ class SiswaService{
       return infoCatatan;
     } else {
       throw Exception("Gagal Ambil data info Catatan");
+    }
+  }
+
+  //Ambil Catatan Siswa
+  Future<List<CatatanSiswaModel>> getCatatanSiswa(String jenis) async{
+    var url = Uri.parse('$baseUrl/catatanSiswa?jenis=$jenis');
+
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization' : bearrerToken
+    };
+
+    var response = await http.get(
+      url,
+      headers: headers
+    );
+
+    // ignore: avoid_print
+    print((response.body));
+    // ignore: avoid_print
+    // print("bisa mapel nilai harian");
+
+    if (response.statusCode == 200) {
+      List  data = jsonDecode(response.body)['data'];
+      // ignore: non_constant_identifier_names
+      List<CatatanSiswaModel> catatanSiswa = [];
+
+      for (var item in data) {
+        catatanSiswa.add(CatatanSiswaModel.fromJson(item));
+      }
+      return catatanSiswa;
+    } else {
+      throw Exception("Gagal Ambil data Catatan Siswa");
+    }
+  }
+
+  //Ambil Data Point Siswa
+  Future<PointSiswaModel> getPointSiswa() async{
+    var url = Uri.parse('$baseUrl/totalPointSiswa');
+
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization' : bearrerToken
+    };
+
+    var response = await http.get(
+      url,
+      headers: headers
+    );
+
+    // ignore: avoid_print
+    print(response.body);
+    // print("bisa");
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body)['data'];
+      final pointSiswa = PointSiswaModel.fromJson(data);
+
+      return pointSiswa;
+    } else {
+      throw Exception("Gagal Ambil data spp");
     }
   }
 

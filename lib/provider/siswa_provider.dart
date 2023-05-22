@@ -2,7 +2,9 @@ import 'package:fe_info_siswa/models/absen/absen_pelajaran_hitung_model.dart';
 import 'package:fe_info_siswa/models/absen/absen_per_pelajaran_detail_model.dart';
 import 'package:fe_info_siswa/models/absen/detail_absen_pelajaran_model.dart';
 import 'package:fe_info_siswa/models/ambilAbsen/absen_tercepat_harian_model.dart';
+import 'package:fe_info_siswa/models/catatan/catatan_siswa_model.dart';
 import 'package:fe_info_siswa/models/catatan/kategori_model.dart';
+import 'package:fe_info_siswa/models/catatan/point_siswa_model.dart';
 import 'package:fe_info_siswa/models/nilai/jenis_nilai_harian_model.dart';
 import 'package:fe_info_siswa/models/mapel_model.dart';
 import 'package:fe_info_siswa/models/nilai/mapel_nilai_harian_model.dart';
@@ -162,7 +164,6 @@ class SiswaProvider with ChangeNotifier{
     notifyListeners();
   }
 
-
   List<KategoriModel> _infoCatatan = [];
 
   List<KategoriModel> get infoCatatan => _infoCatatan;
@@ -171,6 +172,26 @@ class SiswaProvider with ChangeNotifier{
     _infoCatatan = infoCatatan;
     notifyListeners();
   }
+
+  List<CatatanSiswaModel> _catatanSiswa = [];
+
+  List<CatatanSiswaModel> get catatanSiswa => _catatanSiswa;
+
+  set catatanSiswa(List<CatatanSiswaModel> catatanSiswa){
+    _catatanSiswa = catatanSiswa;
+    notifyListeners();
+  }
+
+  late PointSiswaModel _pointSiswa = PointSiswaModel();
+
+  PointSiswaModel get pointSiswa => _pointSiswa;
+
+  set pointSiswa(PointSiswaModel pointSiswa){
+    _pointSiswa = pointSiswa;
+    notifyListeners();
+  }
+
+  
 
 
 
@@ -407,6 +428,32 @@ class SiswaProvider with ChangeNotifier{
     try {
       List<KategoriModel> infoCatatan = await SiswaService().getInfoCatatan(jenis);
       _infoCatatan = infoCatatan; 
+    } catch (e) {
+      // ignore: avoid_print
+      print(e); 
+    }
+  }
+
+  //Ambil Catatan Siswa
+  int total = 0;
+  Future<void> getCatatanSiswa(String jenis) async{
+    _catatanSiswa = [];
+    try {
+      List<CatatanSiswaModel> catatanSiswa = await SiswaService().getCatatanSiswa(jenis);
+      _catatanSiswa = catatanSiswa; 
+      
+    } catch (e) {
+      // ignore: avoid_print
+      print(e); 
+    }
+  }
+
+  //Ambil Data Point Siswa
+  Future<void> getPointSiswa() async{
+    // _spp=[];
+    try {
+      PointSiswaModel pointSiswa = await SiswaService().getPointSiswa();
+      _pointSiswa = pointSiswa;
     } catch (e) {
       // ignore: avoid_print
       print(e); 

@@ -1,15 +1,46 @@
+import 'package:fe_info_siswa/models/catatan/point_siswa_model.dart';
+import 'package:fe_info_siswa/provider/siswa_provider.dart';
 import 'package:fe_info_siswa/share/theme.dart';
 import 'package:fe_info_siswa/widgets/appBar_buttom.dart';
 import 'package:fe_info_siswa/widgets/fitur_buttom.dart';
+import 'package:fe_info_siswa/widgets/loading.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class MenuCttAturan extends StatelessWidget {
+class MenuCttAturan extends StatefulWidget {
   const MenuCttAturan({super.key});
+
+  @override
+  State<MenuCttAturan> createState() => _MenuCttAturanState();
+}
+
+class _MenuCttAturanState extends State<MenuCttAturan> {
+
+  // ignore: unused_field
+  bool _isRefreshing = false;
+
+  Future<void> getInit() async{
+    setState(() {
+      _isRefreshing = true;
+    });
+    data();
+    setState(() {
+      _isRefreshing = false;
+    });
+  }
+
+  data() async{
+    await Provider.of<SiswaProvider>(context, listen: false).getPointSiswa();
+  }
 
   @override
   Widget build(BuildContext context) {
 
-    Widget tailInfo(String nama, double poin, Color warna)
+    
+    SiswaProvider siswaProvider = Provider.of<SiswaProvider>(context);
+    PointSiswaModel pointSiswa = siswaProvider.pointSiswa;
+
+    Widget tailInfo(String nama, String poin, Color warna)
     {
       return Container(
         padding: const EdgeInsets.all(5),
@@ -40,18 +71,9 @@ class MenuCttAturan extends StatelessWidget {
       );
     }
 
-    Widget infoPoint(){
-      return Container(
-        margin: EdgeInsets.all(defaultMargin),
-        padding: const EdgeInsets.all(20),
-        width: double.infinity,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          gradient: const LinearGradient(colors: [
-            Color(0xff6E5DE7),Color(0xff7A67FF)
-          ])
-        ),
-        child: Column(
+    Widget gabung(String total, String pr, String hu, String pe)
+    {
+      return Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -64,7 +86,7 @@ class MenuCttAturan extends StatelessWidget {
             ),
             const SizedBox(height: 10,),
             Text(
-              "50",
+              total,
               style: whiteTextStyle.copyWith(
                 fontWeight: bold,
                 fontSize: 25
@@ -74,12 +96,42 @@ class MenuCttAturan extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                tailInfo("Prestasi", 50, const Color.fromARGB(255, 7, 189, 61)),
-                tailInfo("Hukuman", 50, const Color.fromARGB(255, 7, 189, 61)),
-                tailInfo("Pelanggaran", -50, const Color.fromARGB(255, 149, 6, 13)),
+                tailInfo("Prestasi", pr, const Color.fromARGB(255, 7, 189, 61)),
+                tailInfo("Hukuman", hu, const Color.fromARGB(255, 7, 189, 61)),
+                tailInfo("Pelanggaran", pe, const Color.fromARGB(255, 149, 6, 13)),
               ],
             )
           ],
+        );
+    }
+
+    Widget infoPoint(){
+      return Container(
+        margin: EdgeInsets.all(defaultMargin),
+        padding: const EdgeInsets.all(20),
+        width: double.infinity,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          gradient: const LinearGradient(colors: [
+            Color(0xff6E5DE7),Color(0xff7A67FF)
+          ])
+        ),
+        child: FutureBuilder(
+          future: data(),
+          builder: (context,snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Loading();
+            }else if(snapshot.hasError){
+              return Text('Error: ${snapshot.error}');
+            }else {
+              return gabung(
+                pointSiswa.total.toString(),
+                pointSiswa.prestasi.toString(),
+                pointSiswa.hukuman.toString(),
+                pointSiswa.pelanggaran.toString(),
+              );
+            }
+          }
         ),
       );
     }
@@ -133,12 +185,15 @@ class MenuCttAturan extends StatelessWidget {
     return Scaffold(
       backgroundColor: background4Color,
       body: SafeArea(
-        child: Column(
-          children: [
-            AppBarButtom(nama: 'Catatan & Aturan'),
-            infoPoint(),
-            menu()
-          ],
+        child: RefreshIndicator(
+          onRefresh: getInit,
+          child: ListView(
+            children: [
+              AppBarButtom(nama: 'Catatan & Aturan'),
+              infoPoint(),
+              menu()
+            ],
+          ),
         )
       ),
     );

@@ -1,14 +1,67 @@
+import 'package:fe_info_siswa/provider/siswa_provider.dart';
 import 'package:fe_info_siswa/share/theme.dart';
 import 'package:fe_info_siswa/widgets/appBar_buttom.dart';
+import 'package:fe_info_siswa/widgets/loading.dart';
+import 'package:fe_info_siswa/widgets/no_result_info_gif.dart';
+import 'package:fe_info_siswa/widgets/text_buttom.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class CatatanSiswaPage extends StatelessWidget {
+class CatatanSiswaPage extends StatefulWidget {
   const CatatanSiswaPage({super.key});
+
+  @override
+  State<CatatanSiswaPage> createState() => _CatatanSiswaPageState();
+}
+
+class _CatatanSiswaPageState extends State<CatatanSiswaPage> {
+  String kate='pelanggaran';
+  int total=0;
+
+  String getTitleByIndex(int index) {
+    switch (index) {
+      case 0:
+        return "prestasi";
+      case 1:
+        return "hukuman";
+      case 2:
+        return "pelanggaran";
+      default:
+        return "";
+    }
+  }
+
+  // ignore: unused_field
+  bool _isRefreshing = false;
+
+  Future<void> getInit() async{
+    setState(() {
+      _isRefreshing = true;
+    });
+    data();
+    setState(() {
+      _isRefreshing = false;
+    });
+  }
+
+  data() async{
+    await Provider.of<SiswaProvider>(context, listen: false).getCatatanSiswa(kate);
+  }
+
+  
 
   @override
   Widget build(BuildContext context) {
 
-    Widget catatan(String kategori, String nama, int poin)
+    SiswaProvider siswaProvider = Provider.of<SiswaProvider>(context);
+
+    // Future<int> getData() async {
+    // // Ambil data secara asinkron
+    //   int data = await siswaProvider.totalPoint();
+    //   return data;
+    // }
+
+    Widget catatan(String kategori, String nama, String poin)
     {
       return Container(
         padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
@@ -45,7 +98,7 @@ class CatatanSiswaPage extends StatelessWidget {
               style: blackTextStyle.copyWith(
                 fontSize: 18,
                 fontWeight: semibold,
-                color: poin < 0 ? Colors.red : Colors.green
+                color: int.parse(poin)  < 0 ? Colors.red : Colors.green
               ),
             )
           ],
@@ -56,20 +109,67 @@ class CatatanSiswaPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: background4Color,
       body: SafeArea(
-        child: Column(
-          children: [
-            AppBarButtom(nama: "Catatan Siswa"),
-
-            Expanded(
-              child: ListView(
-                children: [
-                  catatan("ABC","AB2",10),
-                  catatan("CBA","2CBA",-10),
-                ],
-              )
-            ),
-
-          ],
+        child: RefreshIndicator(
+          onRefresh: getInit,
+          child: Column(
+            children: [
+              AppBarButtom(nama: "Catatan Siswa"),
+        
+              Container(
+                height: 80,
+                child: Expanded(
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 3, // Jumlah item dalam List View
+                      itemBuilder: (BuildContext context, int index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextButtomSendiri(
+                            nama: getTitleByIndex(index), // Mengganti "Prestasi", "Hukuman", dan "Pelanggaran" dengan judul sesuai dengan indeks
+                            lebar: 150, // Lebar setiap item
+                            onPressed: () {
+                              setState(() {
+                                kate=getTitleByIndex(index);
+                              });
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+              ),
+        
+              const SizedBox(height: 10,),
+        
+              Expanded(
+                child: FutureBuilder(
+                  future: data(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Loading();
+                    } else if(siswaProvider.catatanSiswa.isEmpty){
+                      return NoResultInfoGif(lebar: double.infinity);
+                    } else {
+                      return ListView(
+                        children: siswaProvider.catatanSiswa.map((ctt) {
+                          total += int.parse(ctt.point.toString());
+                          return catatan(
+                            ctt.namaKategori.toString(), 
+                            ctt.namaCtt.toString(), 
+                            ctt.point.toString()
+                          );
+                        }
+                          
+                        ).toList()
+                      );
+                    }
+                    
+                  }
+                )
+              ),
+        
+            ],
+          ),
         )
       ),
     );
